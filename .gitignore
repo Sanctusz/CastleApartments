@@ -94,4 +94,3 @@ local_settings.py
 db.sqlite3
 *.xml
 .idea/workspace.xml
-.idea/workspace.xml
