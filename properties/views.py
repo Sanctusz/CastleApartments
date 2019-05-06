@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from properties.models import Properties
 
-
 # Create your views here.
 def index(request):
     context = {

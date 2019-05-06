@@ -2,6 +2,7 @@
 
 # Virtual Environment
 venv/
+.idea/
 
 ### OSX ###
 .DS_Store
@@ -91,3 +92,4 @@ local_settings.py
 
 .env
 db.sqlite3
+*.xml

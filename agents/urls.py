@@ -2,5 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name="properties-index")
+    path('', views.index, name="agents-index"),
+
+
 ]

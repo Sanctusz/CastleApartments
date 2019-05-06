@@ -1,30 +1,35 @@
 from django.db import models
 
-# Create your models here.
+import agents
+from agents.models import Agents
 
-class PropertyAddress(models.Model):
-    streetName= models.CharField(max_length=255)
-    houseNr = models.IntegerField(default=None)
-    zipCode = models.IntegerField(default=None)
+
+class PropertiesDetails(models.Model):
+    garden = models.BooleanField(blank=True)
+    garage = models.BooleanField(blank=True)
+    pets = models.BooleanField(blank=True)
+    accessibility = models.BooleanField(blank=True)
+class PropertiesAdress(models.Model):
+    streetName = models.CharField(max_length=999)
+    houseNumber = models.FloatField()
+    zipCode = models.FloatField()
     city = models.CharField(max_length=255)
     country = models.CharField(max_length=255)
 
-class PropertiesImage(models.Model):
-    name = models.CharField(max_length=255)
-    link = models.CharField(max_length=255)
-
-class PropertyDetails(models.Model):
-    garden = models.BooleanField(default=None)
-    garage = models.BooleanField(default=None)
-    petAllowed = models.BooleanField(default=None)
-    Accessibility = models.BooleanField(default=None)
 
 class Properties(models.Model):
-    type = models.CharField(max_length=255, default=None)
-    size = models.IntegerField(default=None)
-    room = models.IntegerField(default=None)
-    price = models.FloatField(default=None)
-    year_built = models.IntegerField(blank=True,default=None)
-    description = models.CharField(max_length=999, blank=True, null=True, default=None)
-    details = models.ForeignKey(PropertyDetails, on_delete=models.CASCADE, default=None)
-    address = models.ForeignKey(PropertyAddress, on_delete=models.CASCADE, default=None)
+    type = models.CharField(max_length=255)
+    size = models.FloatField()
+    room = models.FloatField()
+    price = models.FloatField()
+    year_build = models.FloatField()
+    details = models.ForeignKey(PropertiesDetails, on_delete=models.CASCADE)
+    description = models.CharField(max_length=999, blank=True)
+    status = models.CharField(max_length=255)
+    agent = models.ForeignKey(Agents, on_delete=models.CASCADE)
+
+
+class PropertiesImages(models.Model):
+    image = models.CharField(max_length=999)
+    imgeDisc = models.CharField(max_length=255)
+    property = models.ForeignKey(Properties, on_delete=models.CASCADE)
