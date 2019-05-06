@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{%  block content %}
+
+<h3 class="no">The catalogue</h3>
+
+{%  for property in properties %}
+    {{ property.address.streetName }}
+    {{ property.address.houseNr }}
+    {{ property.price }}
+
+{%  endfor %}
+
+{% endblock %}
