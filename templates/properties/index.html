@@ -5,13 +5,7 @@
 <h3>The catalogue</h3>
 
 {%  for property in properties %}
-    <div>
-    <img src="{{ property.propertiesimages_set.first.link }}" width="200px">
-    {{ property.type }}
-    {{ property.address.houseNumber }}
-    {{ property.address.houseNumber }}
-    {{ property.price }}
-    </div>
+    {% include 'properties/single_property.html' with properties=properties %}
 {%  endfor %}
 
 {% endblock %}

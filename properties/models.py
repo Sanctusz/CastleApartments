@@ -14,6 +14,8 @@ class PropertiesAddress(models.Model):
     zipCode = models.IntegerField()
     city = models.CharField(max_length=255)
     country = models.CharField(max_length=255)
+    def __str__(self):
+        return '{} {}'.format(self.streetName, self.houseNumber)
 
 class Properties(models.Model):
     type = models.CharField(max_length=255)
