@@ -1,17 +1,28 @@
 {% extends 'base.html' %}
 
 {%  block content %}
-
-<h3>The catalogue</h3>
-
-{%  for property in properties %}
     <div>
-    <img src="{{ property.propertiesimages_set.first.link }}" width="200px">
-    {{ property.type }}
-    {{ property.address.houseNumber }}
-    {{ property.address.houseNumber }}
-    {{ property.price }}
+    <form name="search-form" method="GET" action="{% url 'properties-search' %}">
+        <div class="form-group">
+          <input name="q" value="{{ request.GET.q }}" type="text" class="form-control" placeholder="Search"/>
+          <button class="btn btn-success" type="submit">
+              Search
+          </button>
+        </div>
+    </form>
     </div>
-{%  endfor %}
+    <h3>The catalogue</h3>
+    {% if properties %}
+    {%  for property in properties %}
+        <div>
+        <img src="{{ property.propertiesimages_set.first.link }}" width="200px">
+        {{ property.type }}
+        {{ property.address.houseNumber }}
+        {{ property.address.houseNumber }}
+        {{ property.price }}
+        <p>{{ property.description }}</p>
+        </div>
+    {%  endfor %}
+    {% endif %}
 
 {% endblock %}
