@@ -1,6 +1,5 @@
 from django.db import models
 
-import agents
 from agents.models import Agents
 
 
@@ -9,7 +8,8 @@ class PropertiesDetails(models.Model):
     garage = models.BooleanField(blank=True)
     pets = models.BooleanField(blank=True)
     accessibility = models.BooleanField(blank=True)
-class PropertiesAdress(models.Model):
+
+class PropertiesAddress(models.Model):
     streetName = models.CharField(max_length=999)
     houseNumber = models.FloatField()
     zipCode = models.FloatField()
@@ -22,7 +22,7 @@ class Properties(models.Model):
     size = models.FloatField()
     room = models.FloatField()
     price = models.FloatField()
-    year_build = models.FloatField()
+    yearBuild = models.FloatField()
     details = models.ForeignKey(PropertiesDetails, on_delete=models.CASCADE)
     description = models.CharField(max_length=999, blank=True)
     status = models.CharField(max_length=255)
@@ -31,6 +31,6 @@ class Properties(models.Model):
 
 class PropertiesImages(models.Model):
     image = models.CharField(max_length=999)
-    imgeDisc = models.CharField(max_length=255)
+    imgeDisc = models.CharField(max_length=255, blank=True)
     property = models.ForeignKey(Properties, on_delete=models.CASCADE)
 

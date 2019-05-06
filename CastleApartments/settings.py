@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'clients.apps.ClientsConfig',
     'agents.apps.AgentsConfig',
-    'properties.apps.PropertiesConfig'
+    'properties.apps.PropertiesConfig',
+    'purchases.apps.PurchasesConfig'
 ]
 
 MIDDLEWARE = [
