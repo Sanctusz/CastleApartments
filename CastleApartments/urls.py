@@ -1,4 +1,4 @@
-"""CastleApartments URL Configuration
+"""castle_apartments URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -13,9 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
 
+from django.contrib import admin
+from django.urls import path, include
 urlpatterns = [
+    path('', include('properties.urls')),
+    path('properties/', include('properties.urls')),
+    path('clients', include('clients.urls')),
+    path('agents', include('agents.urls')),
     path('admin/', admin.site.urls)
 ]
