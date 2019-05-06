@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cc732dd3-5c93-4e85-a662-4ce7b053ba4c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/properties/single_property.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/properties/single_property.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/properties/single_property.html" afterDir="false" />
     </list>
