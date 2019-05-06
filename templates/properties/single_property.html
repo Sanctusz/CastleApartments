@@ -10,11 +10,8 @@
     </a>
 </div>{% endcomment %}
 
-
-
 <div class="card" style="width: 18rem;">
-
-    <a href="#">
+    <a href="/properties/{{ property.id }}">
          <img class="card-img-top" src="{{ property.propertiesimages_set.first.link }}" width="200px" alt="Card image cap">
         <div class="card-body">
         <h5 class="card-title">{{ property.address }}</h5>
