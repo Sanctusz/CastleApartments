@@ -1,4 +1,14 @@
 {% extends 'base.html' %}
-{% block content %}
-    <h3>Hello from the index function within properties app</h3>
+
+{%  block content %}
+
+<h3 class="no">The catalogue</h3>
+
+{%  for property in properties %}
+    {{ property.address.streetName }}
+    {{ property.address.houseNumber }}
+    {{ property.price }}
+
+{%  endfor %}
+
 {% endblock %}
