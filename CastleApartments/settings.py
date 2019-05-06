@@ -81,12 +81,11 @@ WSGI_APPLICATION = 'CastleApartments.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'iguvgbip',
-        'USER': 'iguvgbip',
-        'PASSWORD': 'Sh87wYNJlZwUyE0qWox8KMbW55Wxwwcm',
+        'NAME': 'kqjueikc',
+        'USER': 'kqjueikc',
+        'PASSWORD': '3jBVRq9sgkscco7PoBpSJtPVtkuqh3nj',
         'HOST': 'balarama.db.elephantsql.com',
         'PORT': '5432'
-
     }
 }
 

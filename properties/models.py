@@ -22,6 +22,7 @@ class Properties(models.Model):
     price = models.FloatField()
     yearBuilt = models.IntegerField()
     details = models.ForeignKey(PropertiesDetails, on_delete=models.CASCADE)
+    address = models.ForeignKey(PropertiesAddress, on_delete=models.CASCADE)
     description = models.CharField(max_length=999, blank=True)
     status = models.CharField(max_length=255)
     agent = models.ForeignKey(Agents, on_delete=models.CASCADE)
