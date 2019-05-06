@@ -2,6 +2,7 @@
 
 # Virtual Environment
 venv/
+.idea/
 
 ### OSX ###
 .DS_Store
