@@ -1,5 +1,8 @@
 # Created by https://www.gitignore.io
 
+# Virtual Environment
+venv/
+
 ### OSX ###
 .DS_Store
 .AppleDouble
@@ -28,6 +31,7 @@ Temporary Items
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*.cpython-37.pyc
 
 # C extensions
 *.so
