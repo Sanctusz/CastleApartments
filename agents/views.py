@@ -1,5 +1,10 @@
 from django.shortcuts import render
+from agents.models import Agents
 
-# Create your views here.
+
+
 def index(request):
-    return render(request, 'agents/index.html')
+    context = {
+        'agents': Agents.objects.all()
+    }
+    return render(request, 'agents/index.html', context)
