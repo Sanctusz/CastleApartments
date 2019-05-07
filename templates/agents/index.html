@@ -3,14 +3,11 @@
 {%  block content %}
 
 <h3>The catalogue</h3>
-
-{%  for agents in agents %}
-    <div>
-    <img src="{{ agents.image }}" width="200px">
-    {{ agents.description }}
-    {{ agents.email }}
+    <div class="grid_container" style="display: grid; grid-template-columns: auto auto auto auto;padding: 25px;">
+{%  for agent in agents %}
+    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); transition: 0.3s; width: 200px;">
+        {% include 'agents/single_agent.html' with agents=agents %}
     </div>
 {%  endfor %}
-
+</div>
 {% endblock %}
-

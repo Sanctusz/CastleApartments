@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{%  block content %}
+    <h1>{{ agent.name }}</h1>
+        <img src="{{ agent.image }}" width='200px'>
+    <p>{{ agent.description }}</p>
+    <p>{{ agent.email }}</p>
+{% endblock %}
