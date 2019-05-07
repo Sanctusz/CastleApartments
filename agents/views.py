@@ -12,6 +12,5 @@ def index(request):
 
 def get_agent_by_id(request, id):
     return render(request, 'agents/agents_details.html', {
-        'agents': get_object_or_404(Agents, pk=id),
-
+        'agent': get_object_or_404(Agents, pk=id),
     })
