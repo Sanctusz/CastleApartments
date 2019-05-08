@@ -85,10 +85,13 @@
         </div>
       </div>
     </div>
-{% block content %}
 
-{% endblock %}
-    <footer class="site-footer">
+
+    {% block super %}
+       {% include 'agents/single_agent.html' with agents=agents %}
+    {% endblock %}
+
+  <footer class="site-footer">
       <div class="container">
         <div class="row">
           <div class="col-lg-4">
