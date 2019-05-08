@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 
-{%  block content %}
-
-    <h1>{{ property.adress }}</h1>
-    <img src="{{ property.propertiesimages_set.first.link}}" width='200px'>
-    <p>{{ property.description }}</p>
-    <p>{{ property.price }}ISK</p>
-{% endblock %}
+{% block content %}
+	<h1>{{ property.adress }}</h1>
+	<img src="{{ property.propertiesimages_set.first.link }}" width='200px'>
+	<p>{{ property.description }}</p>
+	<p>{{ property.price }}ISK</p>
+{% endblock %}python manage.py
