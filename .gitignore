@@ -95,3 +95,5 @@ db.sqlite3
 .idea/workspace.xml
 *.xml
 .idea/workspace.xml
+CastleApartments/__pycache__/__init__.cpython-37.pyc
+CastleApartments/__pycache__/settings.cpython-37.pyc

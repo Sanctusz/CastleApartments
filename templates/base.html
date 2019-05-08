@@ -18,10 +18,7 @@
     <link rel="stylesheet" href="{% static 'css/animate.css' %}">
     <link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css' %}">
     <link rel="stylesheet" href="{% static 'css/fl-bigmug-line.css' %}">
-
-
     <link rel="stylesheet" href="{% static 'css/aos.css' %}">
-
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
   </head>
@@ -76,6 +73,14 @@
                   <li><a href="{% url 'properties-index' %}">Properties</a></li>
                   <li><a href="{% url 'about' %}">About</a></li>
                   <li><a href="{% url 'contact' %}">Contact</a></li>
+                  {% if user.is_authenticated %}
+                      <li>Hello {{ user.profile.fname }}</li>
+                      <li><a href="{% url 'clients-profile' %}"><img src="{{ user.profile.image }}" height="30px"/>Profile</a></li>
+                      <li><a href="{% url 'clients-logout' %}">Logout</a></li>
+                  {% else %}
+                      <li><a href="{% url 'clients-login' %}">Login</a></li>
+                      <li><a href="{% url 'clients-register' %}">Register</a></li>
+                  {% endif %}
                 </ul>
               </nav>
             </div>
