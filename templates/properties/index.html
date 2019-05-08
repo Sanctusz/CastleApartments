@@ -11,7 +11,7 @@
           <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
             <div class="select-wrap">
               <span class="icon icon-arrow_drop_down"></span>
-              <select name="offer-types" id="offer-types" class="form-control d-block rounded-0">
+              <select name="offer-types" id="property-types" class="form-control d-block rounded-0">
                 <option value="">Property Type</option>
                 <option value="house">House</option>
                 <option value="apartment">Apartment</option>
@@ -21,7 +21,7 @@
           <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
             <div class="select-wrap">
               <span class="icon icon-arrow_drop_down"></span>
-              <select name="offer-types" id="offer-types" class="form-control d-block rounded-0">
+              <select name="offer-types" id="property-status" class="form-control d-block rounded-0">
                 <option value="">Property Status</option>
                 <option value="For Sale">For Sale</option>
                 <option value="For Rent">For Rent</option>
@@ -31,7 +31,7 @@
           <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
             <div class="select-wrap">
               <span class="icon icon-arrow_drop_down"></span>
-              <select name="offer-types" id="offer-types" class="form-control d-block rounded-0">
+              <select name="offer-types" id="property_country" class="form-control d-block rounded-0">
                 <option value="">Location</option>
                 <option value="United States">United States</option>
                 <option value="United Kingdom">United Kingdom</option>
@@ -57,7 +57,7 @@
           <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
             <div class="select-wrap">
               <span class="icon icon-arrow_drop_down"></span>
-              <select name="offer-types" id="offer-types" class="form-control d-block rounded-0">
+              <select name="offer-types" id="property-rooms" class="form-control d-block rounded-0">
                 <option value="">Bedrooms</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -87,7 +87,7 @@
             </div>
           </div>
           <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-            <input type="submit" id="#search-btn" class="btn btn-primary btn-block form-control-same-height rounded-0" value="Search">
+            <input type="submit" id="search-btn" class="btn btn-primary btn-block form-control-same-height rounded-0" value="Search">
           </div>
         </form>
       </div>
@@ -103,7 +103,7 @@
           </div>
         </div>
 
-      <div class="row mb-5">
+      <div id="properties" class="row mb-5">
           {% if properties %}
           {%  for property in properties %}
           <div class="col-md-6 col-lg-4 mb-4">
