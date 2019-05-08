@@ -1,8 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from agents.models import Agents
 
-
-
 def index(request):
     context = {
         'agents': Agents.objects.all()

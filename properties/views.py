@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from properties.models import Properties
+from agents.models import Agents
 
 def search(request):
     template = 'properties/index.html'
@@ -18,7 +19,8 @@ def search(request):
 
 def index(request):
     context = {
-        'properties': Properties.objects.all()
+        'properties': Properties.objects.all(),
+        'agents': Agents.objects.all()
     }
     return render(request, 'properties/index.html', context)
 

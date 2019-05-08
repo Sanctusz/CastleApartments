@@ -1,12 +1,6 @@
 {% extends 'base.html' %}
 
-{%  block content %}
-
-<h3>The catalogue</h3>
-
-{%  for property in properties %}
-    {% include 'properties/single_property.html' with properties=properties %}
-{%  endfor %}
+{% block content %}
     <div class="pt-5">
       <div class="container">
         <form class="row" name="search-form" method="GET" action="{% url 'properties-search' %}">
@@ -150,5 +144,8 @@
       </div>
       </div>
     </div>
+    {% endif %}
+    {% if agents %}
+        {% include "agents/index.html" with objects=agents %}
     {% endif %}
 {% endblock %}
