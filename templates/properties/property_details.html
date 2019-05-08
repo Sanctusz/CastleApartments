@@ -3,9 +3,7 @@
 {%  block content %}
 
     <h1>{{ property.adress }}</h1>
-    {% for propery_image in property.propertyimage_set.all %}
-        <img src="{{ propery_image.image }}" width='200px'>
-    {% endfor %}
+    <img src="{{ property.propertiesimages_set.first.link}}" width='200px'>
     <p>{{ property.description }}</p>
     <p>{{ property.price }}ISK</p>
 {% endblock %}

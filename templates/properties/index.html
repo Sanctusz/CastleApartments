@@ -105,7 +105,7 @@
       <div id="properties" class="row mb-5">
           {%  for property in properties %}
           <div class="col-md-6 col-lg-4 mb-4">
-            <a href="property-details.html" class="prop-entry d-block">
+            <a href="/properties/{{ property.id }}" class="prop-entry d-block">
               <figure>
                 <img src="{{ property.propertiesimages_set.first.link }}" alt="Image" class="img-fluid">
               </figure>
