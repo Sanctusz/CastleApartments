@@ -1,9 +1,24 @@
-#from properties.models import Properties
+{% comment %}<div>
+    <a href="#">
+        <div>
+           {{ property.address }}
+            <img src="{{ property.propertiesimages_set.first.link }}" width="200px"/>
+            {{ property.type }}
+            {{ property.price }}
+        </div>
 
-<div class="well property">
-    <a href="/properties/{{ property.id }}">
-        <img class="property-img" src="{{ properties.propertyimage_set.first.link }}"/>
-        <h4>{{ properties.address }}</h4>
-        <p>{{ properties.description }}</p>
+    </a>
+</div>{% endcomment %}
+
+
+
+<div class="card" style="width: 18rem;">
+
+    <a href="#">
+         <img class="card-img-top" src="{{ property.propertiesimages_set.first.link }}" width="200px" alt="Card image cap">
+        <div class="card-body">
+        <h5 class="card-title">{{ property.address }}</h5>
+        <p class="card-text">{{ property.price }}</p>
+        </div>
     </a>
 </div>

@@ -1,7 +1,8 @@
 from django.http import JsonResponse
+from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from properties.models import Properties
-from django.shortcuts import render, get_object_or_404
+from agents.models import Agents
 
 #def search(request):
     #template = 'properties/index.html'
@@ -19,10 +20,10 @@ from django.shortcuts import render, get_object_or_404
 
 def index(request):
     context = {
-        'properties': Properties.objects.all()
+        'properties': Properties.objects.all(),
+        'agents': Agents.objects.all()
     }
     return render(request, 'properties/index.html', context)
-
 
 def search(request):
     template = 'properties/index.html'

@@ -1,13 +1,11 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block content %}
+{%  block content %}
 
-    <h1>{{ property.address }}</h1>
-    <p>{{ property.desciption }}</p>
-    <p>{{ property.price }}</p>
-
-    {% for property_img in property.propertiesimages_set.all %}
-        <img src="{{ property_img.link }}" class="property-img" />
+    <h1>{{ property.adress }}</h1>
+    {% for propery_image in property.propertyimage_set.all %}
+        <img src="{{ propery_image.image }}" width='200px'>
     {% endfor %}
-
+    <p>{{ property.description }}</p>
+    <p>{{ property.price }}ISK</p>
 {% endblock %}

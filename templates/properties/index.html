@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
-{%  block content %}
-
+{% block content %}
     <div class="pt-5">
       <div class="container">
         <form class="row" name="search-form" method="GET">
@@ -92,9 +91,10 @@
         </form>
       </div>
     </div>
-
+    {% if properties %}
     <div class="site-section site-section-sm bg-light">
       <div class="container">
+
         <div class="row mb-5">
           <div class="col-12">
             <div class="site-section-title">
@@ -102,9 +102,8 @@
             </div>
           </div>
         </div>
-
+        {% if properties %}
       <div id="properties" class="row mb-5">
-          {% if properties %}
           {%  for property in properties %}
           <div class="col-md-6 col-lg-4 mb-4">
             <a href="property-details.html" class="prop-entry d-block">
@@ -140,9 +139,12 @@
               </div>
             </a>
           </div>
-        {%  endfor %}
-        {% endif %}
+        {% endfor %}
       </div>
       </div>
     </div>
+    {% endif %}
+    {% if agents %}
+        {% include "agents/index.html" with objects=agents %}
+    {% endif %}
 {% endblock %}
