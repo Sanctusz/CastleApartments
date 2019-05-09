@@ -6,19 +6,6 @@ from properties.forms.property_form import PropertyCreateForm, PropertyUpdateFor
 from properties.models import Properties, PropertiesImages
 from agents.models import Agents
 
-#def search(request):
-    #template = 'properties/index.html'
-
-    #query = request.GET.get('q')
-    #if query:
-        #results = Properties.objects.filter(Q(address__streetName__icontains=query) | Q(type__icontains=query) | Q(description__icontains=query))
-    #else:
-        #results = Properties.objects.all()
-    #context = {
-        #'properties': results
-    #}
-    #return render(request, template, context)
-
 
 def index(request):
     context = {
@@ -27,7 +14,12 @@ def index(request):
     }
     return render(request, 'properties/index.html', context)
 
+
 def search(request):
+    # if 'search filter' in the url get the value
+    # then filter the objects with the matching ones
+    # then continue, if 'type' in the url...
+
     template = 'properties/index.html'
 
     if 'search_filter' in request.GET:
@@ -42,18 +34,29 @@ def search(request):
             status = request.GET['status']
             properties = properties.filter(status=status)
 
-        if 'yearBuilt' in request.GET:
-            year_built = request.GET['yearBuilt']
-            properties = properties.filter(yearBuilt=year_built)
+        if 'city' in request.GET:
+            city = request.GET['city']
+            properties = properties.filter(address__city__icontains=city)
 
-        if 'location' in request.GET:
-            properties = properties.filter(address__streetName__icontains='location')
+        if 'country' in request.GET:
+            country = request.GET['country']
+            properties = properties.filter(address__country__icontains=country)
 
-        if 'rooms' in request.GET:
-            properties = properties.filter(rooms='rooms')
+        if 'room' in request.GET:
+            room = request.GET['room']
+            properties = properties.filter(room=room)
 
         if 'size' in request.GET:
-            properties = properties.filter(size='size')
+            size = request.GET['size']
+            properties = properties.filter(size=size)
+
+        if 'zipcode' in request.GET:
+            zipcode = request.GET['zipcode']
+            properties = properties.filter(address__zipCode=zipcode)
+
+        if 'price' in request.GET:
+            price = request.GET['price']
+            properties = properties.filter(price__range=[40000,price])
 
 
         properties = [{
