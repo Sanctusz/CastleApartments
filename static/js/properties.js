@@ -2,13 +2,18 @@ $(document).ready(function() {
     $('#search-btn').on( 'click', function(e){
         e.preventDefault();
 
+        // creating variables with the input we receive through id's in index.html
+
         var searchText = $('#search-box').val();
         var type = $('#property-types').val();
         var status = $('#property-status').val();
-        var location = $('#property_country').val();
-        var rooms = $('#property-rooms').val();
-        // var size = $('#amount').val();
+        var country = $('#property_country').val();
+        var city = $('#property_city').val();
+        var room = $('#property-rooms').val();
+        var zipcode = $('#property-zipcode').val();
 
+        // creating url address with chosen search parameters
+        // it will help us for the views
 
         var urlTail = ""
 
@@ -18,23 +23,32 @@ $(document).ready(function() {
         if (status){
             urlTail += '&' + "status" + '=' + status
         }
-        if (location){
-            urlTail += '&' + "location" + '=' + location
+        if (city){
+            urlTail += '&' + "city" + '=' + city
         }
 
-        if (rooms){
-            urlTail += '&' + "rooms" + '=' + rooms
+        if (country){
+            urlTail += '&' + "country" + '=' + country
         }
 
-        // if (size)(
-        //     urlTail += '&' + "size" + '=' + size
-        // )
+        if (room){
+            urlTail += '&' + "room" + '=' + room
+        }
+
+        if (zipcode){
+            urlTail += '&' + "zipcode" + '=' + zipcode
+        }
+
+
+        queryUrl = '/properties/search/?search_filter=' + searchText + urlTail;
+        console.log(queryUrl)
 
         $.ajax({
-            url: '/properties/search/?search_filter=' + searchText + urlTail,
+            url: queryUrl,
             type: 'GET',
             success: function(resp) {
                 console.log(resp)
+                // if success show this html
                 var newHtml = resp.data.map(data => {
                     return ` <div class="col-md-6 col-lg-4 mb-4">
                          <a href="property-details.html" class="prop-entry d-block">
@@ -82,10 +96,3 @@ $(document).ready(function() {
         })
     });
 });
-
-
-// var houseType = $('#property-types').val();
-// var propertyStatus = $('#property-status').val();
-// var location = $('#property_country').val();
-// var rooms = $('#property-rooms').val();
-// var size = $('#amount').val();
