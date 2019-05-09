@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
     $('#search-btn').on( 'click', function(e){
         e.preventDefault();
@@ -11,7 +12,7 @@ $(document).ready(function() {
         var city = $('#property_city').val();
         var room = $('#property-rooms').val();
         var zipcode = $('#property-zipcode').val();
-        var price = $('#amount').val();
+        var price = Math.round($('#amount').val());
 
         console.log('price value',price)
 
