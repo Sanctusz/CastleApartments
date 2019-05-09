@@ -51,6 +51,10 @@ def search(request):
             zipcode = request.GET['zipcode']
             properties = properties.filter(address__zipCode=zipcode)
 
+        if 'price' in request.GET:
+            price = request.GET['price']
+            properties = properties.filter(price=price)
+
 
         properties = [{
             'firstImage': x.propertiesimages_set.first().link,
