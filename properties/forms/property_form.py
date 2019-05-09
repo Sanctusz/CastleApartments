@@ -1,6 +1,6 @@
 from django.forms import ModelForm, widgets
 from django import forms
-from properties.models import Properties
+from properties.models import Properties, PropertiesDetails, PropertiesImages, PropertiesAddress
 
 class PropertyUpdateForm(ModelForm):
     class Meta:
@@ -24,17 +24,15 @@ class PropertyCreateForm(ModelForm):
     image = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = Properties
-        exclude = ['id', 'image', 'details']
+        exclude = ['id', 'image', 'details', 'address', 'status']
         widgets = {
             'type': widgets.TextInput(attrs={'class': 'form-control'}),
             'size': widgets.TextInput(attrs={'class': 'form-control'}),
             'room': widgets.TextInput(attrs={'class': 'form-control'}),
             'price': widgets.TextInput(attrs={'class': 'form-control'}),
             'yearBuilt': widgets.TextInput(attrs={'class': 'form-control'}),
-            'address': widgets.TextInput(attrs={'class': 'form-control'}),
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
-            'status': widgets.Select(attrs={'class': 'form-control'}),
-            'agent': widgets.Select(attrs={'class': 'form-control'}),
+            'agent': widgets.Select(attrs={'class': 'form-control'})
         }
 
 

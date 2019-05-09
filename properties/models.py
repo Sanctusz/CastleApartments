@@ -26,7 +26,7 @@ class Properties(models.Model):
     details = models.ForeignKey(PropertiesDetails, on_delete=models.CASCADE)
     address = models.ForeignKey(PropertiesAddress, on_delete=models.CASCADE)
     description = models.CharField(max_length=999, blank=True)
-    status = models.CharField(max_length=255)
+    status = models.CharField(max_length=255, default='available')
     agent = models.ForeignKey(Agents, on_delete=models.CASCADE)
 
 class PropertiesImages(models.Model):
