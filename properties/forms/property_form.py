@@ -12,7 +12,7 @@ class PropertyUpdateForm(ModelForm):
             'room': widgets.TextInput(attrs={'class': 'form-control'}),
             'price': widgets.TextInput(attrs={'class': 'form-control'}),
             'yearBuilt': widgets.TextInput(attrs={'class': 'form-control'}),
-            'details': widgets.Select(attrs={'class': 'form-control'}),
+            'details': widgets.CheckboxSelectMultiple(attrs={'class': 'form-control'}),
             'address': widgets.TextInput(attrs={'class': 'form-control'}),
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
             'status': widgets.Select(attrs={'class': 'form-control'}),
@@ -21,21 +21,20 @@ class PropertyUpdateForm(ModelForm):
 
 
 class PropertyCreateForm(ModelForm):
-    image = forms.CharField(required=True,widget=forms.TextInput(attrs={ 'class': 'form-control'}))
+    image = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = Properties
-        exclude = ['id', 'image']
+        exclude = ['id', 'image', 'details']
         widgets = {
             'type': widgets.TextInput(attrs={'class': 'form-control'}),
             'size': widgets.TextInput(attrs={'class': 'form-control'}),
             'room': widgets.TextInput(attrs={'class': 'form-control'}),
             'price': widgets.TextInput(attrs={'class': 'form-control'}),
             'yearBuilt': widgets.TextInput(attrs={'class': 'form-control'}),
-            'details': widgets.Select(attrs={'class': 'form-control'}),
             'address': widgets.TextInput(attrs={'class': 'form-control'}),
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
             'status': widgets.Select(attrs={'class': 'form-control'}),
-            'agent': widgets.TextInput(attrs={'class': 'form-control'}),
+            'agent': widgets.Select(attrs={'class': 'form-control'}),
         }
 
 
