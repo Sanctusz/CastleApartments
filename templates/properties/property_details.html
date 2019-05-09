@@ -36,7 +36,7 @@
                     <span class="property-specs-number">{{ property.room }}</span>
                   </li>
                   <li>
-                      <span class="property-specs">m<sup>2</sup></span>
+                    <span class="property-specs">m<sup>2</sup></span>
                     <span class="property-specs-number">{{ property.size }}</span>
                   </li>
                 </ul>
@@ -51,6 +51,12 @@
                   <span class="d-inline-block text-black mb-0 caption-text">Year Built</span>
                   <strong class="d-block">{{ property.yearBuilt }}</strong>
                 </div>
+                  <div class="col-md-6 col-lg-4 text-left border-bottom border-top py-3">
+                    <form method="get">
+                        <span class="d-inline-block text-black mb-0 caption-text">&nbsp;</span>
+                        <strong class="d-block"><input class="btn btn-primary" value="Purchase"/></strong>
+                    </form>
+                  </div>
               </div>
               <h2 class="h4 text-black">More Info</h2>
               <p>{{ property.description }}</p>
