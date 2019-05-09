@@ -10,7 +10,7 @@ class PropertiesDetails(models.Model):
 
 class PropertiesAddress(models.Model):
     streetName = models.CharField(max_length=999)
-    houseNumber = models.FloatField()
+    houseNumber = models.FloatField() #ToDo change from Float to int
     zipCode = models.IntegerField()
     city = models.CharField(max_length=255)
     country = models.CharField(max_length=255)
