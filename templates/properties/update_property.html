@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+    <form class="form-check-input" action="={% url 'update_property' id %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Update" class="btn"/>
+    </form>
+
+{% endblock %}
