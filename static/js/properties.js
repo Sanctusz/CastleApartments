@@ -11,6 +11,9 @@ $(document).ready(function() {
         var city = $('#property_city').val();
         var room = $('#property-rooms').val();
         var zipcode = $('#property-zipcode').val();
+        var price = $('#amount').val();
+
+        console.log('price value',price)
 
         // creating url address with chosen search parameters
         // it will help us for the views
@@ -39,6 +42,9 @@ $(document).ready(function() {
             urlTail += '&' + "zipcode" + '=' + zipcode
         }
 
+        if (price){
+            urlTail += '&' + "price" + '=' + price
+        }
 
         queryUrl = '/properties/search/?search_filter=' + searchText + urlTail;
         console.log(queryUrl)
