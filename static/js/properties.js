@@ -13,6 +13,11 @@ $(document).ready(function() {
         var room = $('#property-rooms').val();
         var zipcode = $('#property-zipcode').val();
         var price = Math.round($('#amount').val());
+        var garden = $('#property_garden');
+        var garage = $('#property_garage');
+        var accessibility = $('#property_accessibility');
+        var pets = $('#property_pets');
+
 
         console.log('price value',price)
 
@@ -45,6 +50,22 @@ $(document).ready(function() {
 
         if (price){
             urlTail += '&' + "price" + '=' + price
+        }
+
+        if (garden.is(":checked")){
+            urlTail += '&' + "garden" + '=' + "True"
+        }
+
+        if (garage.is(":checked")){
+            urlTail += '&' + "garage" + '=' + "True"
+        }
+
+        if (accessibility.is(":checked")){
+            urlTail += '&' + "accessibility" + '=' + "True"
+        }
+
+        if (pets.is(":checked")){
+            urlTail += '&' + "pets" + '=' + "True"
         }
 
         queryUrl = '/properties/search/?search_filter=' + searchText + urlTail;
