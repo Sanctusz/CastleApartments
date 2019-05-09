@@ -53,7 +53,7 @@ def search(request):
 
         if 'price' in request.GET:
             price = request.GET['price']
-            properties = properties.filter(price=price)
+            properties = properties.filter(price__range=[40000,price])
 
 
         properties = [{
