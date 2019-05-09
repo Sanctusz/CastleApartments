@@ -1,7 +1,9 @@
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
-from properties.models import Properties
+
+from properties.forms.property_form import PropertyCreateForm, PropertyUpdateForm
+from properties.models import Properties, PropertiesImages
 from agents.models import Agents
 
 #def search(request):
@@ -78,4 +80,30 @@ def search(request):
 def get_property_by_id(request, id):
     return render(request, 'properties/property_details.html',{
         'property':get_object_or_404(Properties, pk=id)
+    })
+def create_property(request):
+    if request.method == 'POST':
+        form = PropertyCreateForm(data=request.POST)
+        if form.is_valid():
+            property.form.save()
+            property_image = PropertiesImages(image=request.POST['image'], propeerty=property)
+            property_image.save()
+            return redirect('property-index')
+    else:
+        form = PropertyCreateForm()
+    return render(request, 'properties/create_property.html',{
+        'form': form
+    })
+def update_property(request,id):
+    instance = get_object_or_404(Properties, pk=id)
+    if request.method == 'POST':
+        form = PropertyUpdateForm(data=request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('property-details', id=id)
+    else:
+        form = PropertyUpdateForm(instance=instance)
+    return render(request,'properties/update_property.html',{
+        'form': form,
+        'id': id
     })
