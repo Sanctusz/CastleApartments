@@ -6,6 +6,7 @@ from properties.forms.property_form import PropertyCreateForm, PropertyUpdateFor
 from properties.models import Properties, PropertiesImages
 from agents.models import Agents
 
+# delete
 
 def index(request):
     context = {
