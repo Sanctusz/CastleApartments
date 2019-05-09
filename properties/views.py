@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from properties.models import Properties
 from agents.models import Agents
 
+# delete
 
 def index(request):
     context = {
