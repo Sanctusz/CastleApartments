@@ -3,7 +3,7 @@
     <form class="form-check-input" action="={% url 'create_property' %}" method="post">
         {% csrf_token %}
         {{ form }}
-        <input type="submit" value="Create" class="btn"/>
+         <input type="submit" value="Create" class="btn btn-primary pull-right" style="clear: both; margin: 10px 0"/>
     </form>
 
 {% endblock %}
