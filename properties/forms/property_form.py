@@ -58,7 +58,7 @@ class PropertyDetailsCreateForm(ModelForm):
 class PropertyAddressCreateForm(ModelForm):
     class Meta:
         model = PropertiesAddress
-        exclude = []
+        exclude = ['id']
         widgets = {
             'streetName': widgets.TextInput(attrs={'class': 'form-control'}),
             'houseNumber': widgets.NumberInput(attrs={'class': 'form-control'}),
