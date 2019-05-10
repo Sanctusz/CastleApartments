@@ -1,5 +1,4 @@
 from django.db import models
-
 from agents.models import Agents
 
 class PropertiesDetails(models.Model):
