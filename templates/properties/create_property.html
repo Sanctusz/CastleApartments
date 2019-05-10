@@ -2,14 +2,30 @@
 {% block content %}
 <div class="site-section">
     <div class="container">
+        {% if user.is_authenticated %}
         <form method="post">
             {% csrf_token %}
             {{ propertyForm }}
-            {{ propertyDetailsForm }}
+            <p>Details:</p>
+            <ul class="list-group">
+            {% for field in propertyDetailsForm %}
+                <li class="list-group-item">
+                    <label for="{{ field.id_for_label }}">{{ field.name|capfirst }}:</label>
+                    <input type="checkbox" name="{{ field.name }}" id="{{ field.auto_id }}"/>
+                </li>
+            {% endfor %}
+            </ul>
             {{ propertyAddressForm }}
-            {{ propertyImagesForm }}
+            {% for field in propertyImagesForm %}
+                <label for="{{ field.id_for_label }}">Main Image {{ field.name|capfirst }}:</label>
+                <input type="text" name="{{ field.name }}" class="form-control" required id="{{ field.auto_id }}">
+            {% endfor %}
+            <br>
             <input type="submit" value="Create" class="btn btn-primary btn-lg"/>
         </form>
+        {% else %}
+            <h1>401 Unauthorized</h1>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
