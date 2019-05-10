@@ -21,10 +21,13 @@
           <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
             <div class="select-wrap">
               <span class="icon icon-arrow_drop_down"></span>
-              <select name="offer-types" id="property-status" class="form-control d-block rounded-0">
-                <option value="">Property Status</option>
-                <option value="available">Available</option>
-                <option value="sold">Sold</option>
+              <select name="offer-types" id="property-zipcode" class="form-control d-block rounded-0">
+                <option value="">Zip Code</option>
+                <option value="101">101</option>
+                <option value="102">102</option>
+                <option value="103">103</option>
+                <option value="700">700</option>
+                <option value="260">260</option>
               </select>
             </div>
           </div>
@@ -67,23 +70,34 @@
               </select>
             </div>
           </div>
-          <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-            <div class="select-wrap">
-              <span class="icon icon-arrow_drop_down"></span>
-              <select name="offer-types" id="property-zipcode" class="form-control d-block rounded-0">
-                <option value="">Zip Code</option>
-                <option value="101">101</option>
-                <option value="102">102</option>
-                <option value="103">103</option>
-                <option value="700">700</option>
-                <option value="260">260</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
             <div class="mb-4">
               <div id="slider-range" class="border-primary"></div>
               <input type="text" name="text"  id="amount" class="form-control border-0 pl-0 bg-white" disabled="" />
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="select-wrap">
+              <span class="icon icon-arrow_drop_down"></span>
+              <button class="btn btn-primary btn-block form-control-same-height rounded-0"  type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Advanced Search
+              </button>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    <div>
+                        <input type="checkbox" name="garage" value="True" id="property_garage"><label for="property_garage">Garage</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="garden" value="True" id="property_garden"><label for="property_garden">Garden</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="accessibility" value="True" id="property_accessibility"><label for="property_accessibility">Elevator</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="pets" value="True" id="property_pets"><label for="property_pets">Pets Allowed</label>
+                    </div>
+                </div>
+            </div>
             </div>
           </div>
           <div class="col-sm-6 col-md-4 col-lg-3 mb-4">

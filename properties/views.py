@@ -57,6 +57,18 @@ def search(request):
             price = request.GET['price']
             properties = properties.filter(price__range=[40000,price])
 
+        if 'garage' in request.GET:
+            properties = properties.filter(details__garage=True)
+
+        if 'garden' in request.GET:
+            properties = properties.filter(details__garden=True)
+
+        if 'accessibility' in request.GET:
+            properties = properties.filter(details__accessibility=True)
+
+        if 'pets' in request.GET:
+            properties = properties.filter(details__pets=True)
+
 
         properties = [{
             'firstImage': x.propertiesimages_set.first().link,
