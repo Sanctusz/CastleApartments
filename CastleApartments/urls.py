@@ -17,12 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
+from properties import views as propview
+from agents import views as agentview
+
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='properties/index.html'), name='index'),
+    path('', propview.index, name='index'),
     path('properties/', include('properties.urls')),
     path('clients/', include('clients.urls')),
     path('agents/', include('agents.urls')),
     path('purchases/', include('purchases.urls')),
     path('admin/', admin.site.urls),
+    path('about/', agentview.about, name='about'),
     path('contact/', TemplateView.as_view(template_name='contact.html'), name='contact')
 ]
