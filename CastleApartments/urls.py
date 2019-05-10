@@ -24,6 +24,5 @@ urlpatterns = [
     path('agents/', include('agents.urls')),
     path('purchases/', include('purchases.urls')),
     path('admin/', admin.site.urls),
-    path('about/', TemplateView.as_view(template_name='about.html'), name='about'),
     path('contact/', TemplateView.as_view(template_name='contact.html'), name='contact')
 ]

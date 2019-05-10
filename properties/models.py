@@ -10,7 +10,7 @@ class PropertiesDetails(models.Model):
 
 class PropertiesAddress(models.Model):
     streetName = models.CharField(max_length=999)
-    houseNumber = models.FloatField()
+    houseNumber = models.FloatField() #ToDo change from Float to int
     zipCode = models.IntegerField()
     city = models.CharField(max_length=255)
     country = models.CharField(max_length=255)
@@ -26,7 +26,7 @@ class Properties(models.Model):
     details = models.ForeignKey(PropertiesDetails, on_delete=models.CASCADE)
     address = models.ForeignKey(PropertiesAddress, on_delete=models.CASCADE)
     description = models.CharField(max_length=999, blank=True)
-    status = models.CharField(max_length=255)
+    status = models.CharField(max_length=255, default='available')
     agent = models.ForeignKey(Agents, on_delete=models.CASCADE)
 
 class PropertiesImages(models.Model):

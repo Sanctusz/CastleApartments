@@ -114,7 +114,7 @@ jQuery(document).ready(function($) {
 	var siteSliderRange = function() {
     $( "#slider-range" ).slider({
 		value: 40000,
-      	min: 0,
+      	min: 40000,
       	max: 40000000,
 		step: 10000,
       slide: function( event, ui ) {

@@ -7,3 +7,5 @@ class Agents(models.Model):
     phone = models.CharField(max_length=255, blank=True)
     description = models.CharField(max_length=999, blank=True)
     image = models.CharField(max_length=999, blank=True)
+    def __str__(self):
+        return '{} - {} - {}'.format(self.name, self.email, self.phone)
