@@ -2,6 +2,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name="purchases-index"),
-
+    path('<int:id>', views.purchase_property, name='purchase')
 ]

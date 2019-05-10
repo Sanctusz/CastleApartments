@@ -8,7 +8,8 @@ from agents.models import Agents
 def index(request):
     context = {
         'properties': Properties.objects.all(),
-        'agents': Agents.objects.all()
+        'agents': Agents.objects.all(),
+        'property_types': homeTypes
     }
     return render(request, 'properties/index.html', context)
 

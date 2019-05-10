@@ -9,7 +9,7 @@ DETAILS_CHOICES = (
     ('accessability', 'Accessability'),
     ('pets', 'Pets Allowed')
 )
-houseTypes = (
+homeTypes = (
     ('house', 'House'),
     ('apartment', 'Apartment'),
     ('castle', 'Castle')
@@ -73,7 +73,7 @@ class PropertyCreateForm(ModelForm):
         model = Properties
         exclude = ['id', 'address', 'details', 'status']
         widgets = {
-            'type': widgets.Select(attrs={'class': 'form-control'}, choices=houseTypes),
+            'type': widgets.Select(attrs={'class': 'form-control'}, choices=homeTypes),
             'size': widgets.TextInput(attrs={'class': 'form-control'}),
             'room': widgets.TextInput(attrs={'class': 'form-control'}),
             'price': widgets.TextInput(attrs={'class': 'form-control'}),
