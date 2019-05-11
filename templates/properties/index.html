@@ -12,9 +12,9 @@
             <div class="select-wrap">
               <span class="icon icon-arrow_drop_down"></span>
               <select name="offer-types" id="property-types" class="form-control d-block rounded-0">
-                <option value="">Property Type</option>
-                <option value="house">House</option>
-                <option value="apartment">Apartment</option>
+                {% for type, name in property_types %}
+                    <option value="{{ type }}">{{ name }}</option>
+                {% endfor %}
               </select>
             </div>
           </div>
