@@ -3,6 +3,19 @@ from django.shortcuts import render, get_object_or_404, redirect
 from properties.forms.property_form import *
 from properties.models import *
 from agents.models import Agents
+from django.http import HttpResponse
+
+def must_be_agent(func):
+    # check if user is in agents group
+    # if not, return a warning message
+    # else, user is permitted
+    # @must_be_agent gives permission to agents
+    def check_and_call(request, *args, **kwargs):
+        user = request.user
+        if not (user.groups.filter(name='agents').exists()):
+            return HttpResponse("You do not have permission to view this page !", status=403)
+        return func(request, *args, **kwargs)
+    return check_and_call
 
 
 def index(request):
@@ -90,10 +103,11 @@ def search(request):
 
 
 def get_property_by_id(request, id):
+    is_agent = request.user.groups.filter(name="agents").exists()
     return render(request, 'properties/property_details.html', {
-        'property': get_object_or_404(Properties, pk=id)
+        'property': get_object_or_404(Properties, pk=id),
+        'is_agent': is_agent
     })
-
 
 def create_property(request):
     if request.method == 'POST':
@@ -125,6 +139,7 @@ def create_property(request):
         return render(request, 'properties/create_property.html', context)
 
 
+@must_be_agent #only agents're allowed to update properties
 def update_property(request, id):
     instance = get_object_or_404(Properties, pk=id)
     if request.method == 'POST':

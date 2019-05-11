@@ -52,10 +52,14 @@
                   <strong class="d-block">{{ property.yearBuilt }}</strong>
                 </div>
                   <div class="col-md-6 col-lg-4 text-left border-bottom border-top py-3">
+                      {% if is_agent %}
+                      <a href="{% url "update_property" property.id %}" class="btn btn-primary btn-lg btn-block" >Edit Property</a>
+                      {% else %}
                     <form method="get">
                         <span class="d-inline-block text-black mb-0 caption-text">&nbsp;</span>
                         <strong class="d-block"><input type="button" class="btn btn-primary btn-lg btn-block" value="Purchase"/></strong>
                     </form>
+                      {% endif %}
                   </div>
               </div>
               <h2 class="h4 text-black">More Info</h2>
