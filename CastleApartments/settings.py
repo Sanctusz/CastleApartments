@@ -40,8 +40,7 @@ INSTALLED_APPS = [
     'clients.apps.ClientsConfig',
     'agents.apps.AgentsConfig',
     'properties.apps.PropertiesConfig',
-    'purchases.apps.PurchasesConfig',
-    'users.apps.UsersConfig'
+    'purchases.apps.PurchasesConfig'
 ]
 
 MIDDLEWARE = [
