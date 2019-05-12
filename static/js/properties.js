@@ -1,10 +1,8 @@
-
 $(document).ready(function() {
     $('#search-btn').on( 'click', function(e){
         e.preventDefault();
 
         // creating variables with the input we receive through id's in index.html
-
         var searchText = $('#search-box').val();
         var type = $('#property-types').val();
         var status = $('#property-status').val();
@@ -79,7 +77,7 @@ $(document).ready(function() {
                 // if success show this html
                 var newHtml = resp.data.map(data => {
                     return ` <div class="col-md-6 col-lg-4 mb-4">
-                         <a href="property-details.html" class="prop-entry d-block">
+                         <a href="/properties/${data.id}" class="prop-entry d-block">
                           <figure>
                             <img src="${data.firstImage}" alt="Image" class="img-fluid">
                           </figure>

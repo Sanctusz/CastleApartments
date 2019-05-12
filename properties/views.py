@@ -82,6 +82,7 @@ def search(request):
             properties = properties.filter(details__pets=True)
 
         properties = [{
+            'id': x.id,
             'firstImage': x.propertiesimages_set.first().link,
             'price': x.price,
             'streetName': x.address.streetName,
