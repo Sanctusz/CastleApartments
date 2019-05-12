@@ -1,21 +1,18 @@
-from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from clients.models import Profile
-from clients.forms.profile_form import ProfileForm
+from clients.forms.profile_form import ProfileForm, RegisterForm
 
-# Create your views here.
-def index(request):
-    return render(request, 'clients/index.html')
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(data=request.POST)
+        form = RegisterForm(data=request.POST)
         if form.is_valid():
             form.save()
             return redirect('clients-login')
     return render(request, 'clients/register.html', {
-        'form': UserCreationForm()
+        'form': RegisterForm()
     })
+
 
 def profile(request):
     profile = Profile.objects.filter(user=request.user).first()

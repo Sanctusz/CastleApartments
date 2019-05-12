@@ -10,7 +10,7 @@
             <ul class="list-group">
             {% for field in propertyDetailsForm %}
                 <li class="list-group-item">
-                    <label for="{{ field.id_for_label }}">{{ field.name|capfirst }}:</label>
+                    <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}:</label>
                     {{ field.as_widget }}
                 </li>
             {% endfor %}

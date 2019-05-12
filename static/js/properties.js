@@ -81,7 +81,7 @@ $(document).ready(function() {
                     return ` <div class="col-md-6 col-lg-4 mb-4">
                          <a href="/properties/${data.id}" class="prop-entry d-block">
                           <figure>
-                            <img src="${data.firstImage}" alt="Image" class="img-fluid">
+                            <img src="${data.firstImage}" alt="${data.altText}" class="img-fluid">
                           </figure>
                           <div class="prop-text">
                             <div class="inner">
@@ -105,7 +105,7 @@ $(document).ready(function() {
                                 </div>
                                 <div class="col">
                                   <span>Status:</span>
-                                  <strong>${ data.status }</strong>
+                                  <strong>${ data.status.toUpperCase() }</strong>
                                 </div>
                               </div>
                             </div>

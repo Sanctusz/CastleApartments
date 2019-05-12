@@ -84,7 +84,9 @@
 							<li><a href="{% url 'about' %}">About</a></li>
 							<li><a href="{% url 'contact' %}">Contact</a></li>
 							{% if user.is_authenticated %}
+                                {% if user.profile.fname %}
 								<li>Hello {{ user.profile.fname }}</li>
+                                {% endif %}
 								<li><a href="{% url 'clients-profile' %}"><img src="{{ user.profile.image }}"
 																			   height="30px"/>Profile</a></li>
 								<li><a href="{% url 'clients-logout' %}">Logout</a></li>
