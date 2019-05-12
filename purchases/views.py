@@ -1,4 +1,4 @@
-import requests
+#import requests
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from properties.views import update_property

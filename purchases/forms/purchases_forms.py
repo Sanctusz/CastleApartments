@@ -31,7 +31,7 @@ class ProfileForm(ModelForm):
             'zipCode': 'Zip Code'
         }
         model = Profile
-        exclude = ['id', 'image']
+        exclude = ['id', 'user', 'image']
         widgets = {
             'fname': widgets.TextInput(attrs={'class': 'form-control'}),
             'mname': widgets.TextInput(attrs={'class': 'form-control'}),
