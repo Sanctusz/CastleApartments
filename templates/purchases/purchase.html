@@ -12,8 +12,18 @@
         </div>
       </div>
     </div>
-
     <div class="site-section site-section-sm">
+        <ul class="bc">
+            <li class="bc_item"><a href="{% url "property-details" property.id %}">{{ property.address.streetName }} {{ property.address.houseNumber}}</a></li>
+            <li class="bc_item bc_complete"><a href="#">Contact Details</a></li>
+            <li class="bc_item">Confirmation</li>
+        </ul>
+{#        <nav aria-label="breadcrumb">#}
+{#            <ol class="breadcrumb bg-white">#}
+{#                <li class="breadcrumb-item"><a href="{% url "property-details" property.id %}">{{ property.address.streetName }} {{ property.address.houseNumber}}</a></li>#}
+{#                <li class="breadcrumb-item active" aria-current="page">Contact Details</li>#}
+{#            </ol>#}
+{#        </nav>#}
       <div class="container">
         <div class="row">
         {% if user.is_authenticated %}
