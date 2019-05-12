@@ -109,22 +109,21 @@ jQuery(document).ready(function($) {
 			$(this).closest('.input-group').find('.form-control').val(parseInt($(this).closest('.input-group').find('.form-control').val()) + 1);
 		});
 	};
-	// sitePlusMinus();
-
+	sitePlusMinus();
 
 	var siteSliderRange = function() {
     $( "#slider-range" ).slider({
-      range: true,
-      min: 10000,
-      max: 1000000,
-      values: [ 200000, 750000 ],
+		value: 40000,
+      	min: 40000,
+      	max: 40000000,
+		step: 10000,
       slide: function( event, ui ) {
-        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        $( "#amount" ).val(ui.value);
       }
     });
-    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+    $( "#amount" ).val( $( "#slider-range" ).slider( "value") );
 	};
+
 	siteSliderRange();
 
 

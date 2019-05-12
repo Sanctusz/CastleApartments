@@ -3,7 +3,6 @@ $(document).ready(function() {
         e.preventDefault();
 
         // creating variables with the input we receive through id's in index.html
-
         var searchText = $('#search-box').val();
         var type = $('#property-types').val();
         var status = $('#property-status').val();
@@ -11,6 +10,16 @@ $(document).ready(function() {
         var city = $('#property_city').val();
         var room = $('#property-rooms').val();
         var zipcode = $('#property-zipcode').val();
+        var price = Math.round($('#amount').val());
+        var garden = $('#property_garden');
+        var garage = $('#property_garage');
+        var accessibility = $('#property_accessibility');
+        var pets = $('#property_pets');
+
+        // creating url address with chosen search parameters
+        // it will help us for the views
+
+        console.log('price value',price)
 
         // creating url address with chosen search parameters
         // it will help us for the views
@@ -39,6 +48,25 @@ $(document).ready(function() {
             urlTail += '&' + "zipcode" + '=' + zipcode
         }
 
+        if (price){
+            urlTail += '&' + "price" + '=' + price
+        }
+
+        if (garden.is(":checked")){
+            urlTail += '&' + "garden" + '=' + "True"
+        }
+
+        if (garage.is(":checked")){
+            urlTail += '&' + "garage" + '=' + "True"
+        }
+
+        if (accessibility.is(":checked")){
+            urlTail += '&' + "accessibility" + '=' + "True"
+        }
+
+        if (pets.is(":checked")){
+            urlTail += '&' + "pets" + '=' + "True"
+        }
 
         queryUrl = '/properties/search/?search_filter=' + searchText + urlTail;
         console.log(queryUrl)
@@ -51,7 +79,7 @@ $(document).ready(function() {
                 // if success show this html
                 var newHtml = resp.data.map(data => {
                     return ` <div class="col-md-6 col-lg-4 mb-4">
-                         <a href="property-details.html" class="prop-entry d-block">
+                         <a href="/properties/${data.id}" class="prop-entry d-block">
                           <figure>
                             <img src="${data.firstImage}" alt="Image" class="img-fluid">
                           </figure>

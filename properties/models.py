@@ -1,5 +1,4 @@
 from django.db import models
-
 from agents.models import Agents
 
 class PropertiesDetails(models.Model):
@@ -10,7 +9,7 @@ class PropertiesDetails(models.Model):
 
 class PropertiesAddress(models.Model):
     streetName = models.CharField(max_length=999)
-    houseNumber = models.FloatField()
+    houseNumber = models.IntegerField()
     zipCode = models.IntegerField()
     city = models.CharField(max_length=255)
     country = models.CharField(max_length=255)
@@ -23,14 +22,13 @@ class Properties(models.Model):
     room = models.IntegerField()
     price = models.FloatField()
     yearBuilt = models.IntegerField()
-    details = models.ForeignKey(PropertiesDetails, on_delete=models.CASCADE)
-    address = models.ForeignKey(PropertiesAddress, on_delete=models.CASCADE)
     description = models.CharField(max_length=999, blank=True)
-    status = models.CharField(max_length=255)
+    status = models.CharField(max_length=255, default='available')
     agent = models.ForeignKey(Agents, on_delete=models.CASCADE)
+    address = models.ForeignKey(PropertiesAddress, on_delete=models.CASCADE)
+    details = models.ForeignKey(PropertiesDetails, on_delete=models.CASCADE)
 
 class PropertiesImages(models.Model):
     link = models.CharField(max_length=999)
     text = models.CharField(max_length=255, blank=True)
     property = models.ForeignKey(Properties, on_delete=models.CASCADE)
-

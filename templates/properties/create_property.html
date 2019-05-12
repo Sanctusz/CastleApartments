@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="site-section">
+    <div class="container">
+        {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            {{ propertyForm }}
+            <p>Details:</p>
+            <ul class="list-group">
+            {% for field in propertyDetailsForm %}
+                <li class="list-group-item">
+                    <label for="{{ field.id_for_label }}">{{ field.name|capfirst }}:</label>
+                    {{ field.as_widget }}
+                </li>
+            {% endfor %}
+            </ul>
+            {{ propertyAddressForm }}
+            {% for field in propertyImagesForm %}
+                <label for="{{ field.id_for_label }}">Main Image {{ field.name|capfirst }}:</label>
+                {{ field.as_widget }}
+            {% endfor %}
+            <br>
+            <input type="submit" value="Create" class="btn btn-primary btn-lg"/>
+        </form>
+        {% else %}
+            <h1>401 Unauthorized</h1>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
