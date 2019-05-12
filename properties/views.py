@@ -5,6 +5,7 @@ from properties.models import *
 from agents.models import Agents
 from django.http import HttpResponse
 
+
 def must_be_agent(func):
     # check if user is in agents group
     # if not, return a warning message
@@ -16,6 +17,7 @@ def must_be_agent(func):
             return HttpResponse("You do not have permission to view this page !", status=403)
         return func(request, *args, **kwargs)
     return check_and_call
+
 
 def index(request):
     context = {
@@ -110,6 +112,7 @@ def get_property_by_id(request, id):
         'is_agent': is_agent
     })
 
+
 def create_property(request):
     if request.method == 'POST':
         propForm = PropertyCreateForm(data=request.POST)
@@ -140,7 +143,8 @@ def create_property(request):
         return render(request, 'properties/create_property.html', context)
 
 
-@must_be_agent #only agents're allowed to update properties
+# only agents're allowed to update properties
+@must_be_agent
 def update_property(request, id):
     instance = get_object_or_404(Properties, pk=id)
     if request.method == 'POST':

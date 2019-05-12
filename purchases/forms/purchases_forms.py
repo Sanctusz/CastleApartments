@@ -1,7 +1,7 @@
 from django.forms import ModelForm, widgets
-from django import forms
 from purchases.models import *
 from clients.models import Profile
+
 
 class CreditCardForm(ModelForm):
     class Meta:
@@ -43,6 +43,7 @@ class ProfileForm(ModelForm):
             'city': widgets.TextInput(attrs={'class': 'form-control'}),
             'country': widgets.TextInput(attrs={'class': 'form-control'})
         }
+
 
 class PurchaseForm(ModelForm):
     class Meta:
