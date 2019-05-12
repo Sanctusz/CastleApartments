@@ -52,10 +52,14 @@
                   <strong class="d-block">{{ property.yearBuilt }}</strong>
                 </div>
                   <div class="col-md-6 col-lg-4 text-left border-bottom border-top py-3">
+                      {% if is_agent %}
+                      <a href="{% url "update_property" property.id %}" class="btn btn-primary btn-lg btn-block" >Edit Property</a>
+                      {% else %}
                     <form method="get">
                         <span class="d-inline-block text-black mb-0 caption-text">&nbsp;</span>
                         <strong class="d-block"><input type="button" class="btn btn-primary btn-lg btn-block" value="Purchase"/></strong>
                     </form>
+                      {% endif %}
                   </div>
               </div>
               <h2 class="h4 text-black">More Info</h2>
@@ -81,10 +85,9 @@
 
             <div class="bg-white widget border rounded">
 
-              <h3 class="h4 text-black widget-title mb-3">Contact Agent</h3>
-              <h4>Agent Name:</h4>
+              <h4 class="h4 text-black widget-title mb-3">Agent Name:</h4>
               <p>{{ property.agent.name }}</p>
-              <img src="{{ property.agent.image }}" height="200px" />
+              <img src="{{ property.agent.image }}" height="200px" class="img-thumbnail" />
               <form action="" class="form-contact-agent">
                 <div class="form-group">
                   <label for="name">Name</label>

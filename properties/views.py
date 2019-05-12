@@ -1,10 +1,21 @@
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.db.models import Q
-
-from properties.forms.property_form import PropertyCreateForm, PropertyUpdateForm
-from properties.models import Properties, PropertiesImages
+from properties.forms.property_form import *
+from properties.models import *
 from agents.models import Agents
+from django.http import HttpResponse
+
+def must_be_agent(func):
+    # check if user is in agents group
+    # if not, return a warning message
+    # else, user is permitted
+    # @must_be_agent gives permission to agents
+    def check_and_call(request, *args, **kwargs):
+        user = request.user
+        if not (user.groups.filter(name='agents').exists()):
+            return HttpResponse("You do not have permission to view this page !", status=403)
+        return func(request, *args, **kwargs)
+    return check_and_call
 
 def index(request):
     context = {
@@ -55,7 +66,7 @@ def search(request):
 
         if 'price' in request.GET:
             price = request.GET['price']
-            properties = properties.filter(price__range=[40000,price])
+            properties = properties.filter(price__range=[40000, price])
 
         if 'garage' in request.GET:
             properties = properties.filter(details__garage=True)
@@ -68,7 +79,6 @@ def search(request):
 
         if 'pets' in request.GET:
             properties = properties.filter(details__pets=True)
-
 
         properties = [{
             'firstImage': x.propertiesimages_set.first().link,
@@ -92,23 +102,44 @@ def search(request):
 
 
 def get_property_by_id(request, id):
-    return render(request, 'properties/property_details.html',{
-        'property':get_object_or_404(Properties, pk=id)
+    is_agent = request.user.groups.filter(name="agents").exists()
+    return render(request, 'properties/property_details.html', {
+        'property': get_object_or_404(Properties, pk=id),
+        'is_agent': is_agent
     })
+
 def create_property(request):
     if request.method == 'POST':
-        form = PropertyCreateForm(data=request.POST)
-        if form.is_valid():
-            property.form.save()
-            property_image = PropertiesImages(image=request.POST['image'], propeerty=property)
-            property_image.save()
-            return redirect('property-index')
+        propForm = PropertyCreateForm(data=request.POST)
+        propAddressForm = PropertyAddressCreateForm(data=request.POST)
+        propDetailsForm = PropertyDetailsCreateForm(data=request.POST)
+        propImagesForm = PropertyImagesCreateForm(data=request.POST)
+        if (propAddressForm.is_valid()
+                and propDetailsForm.is_valid()):
+            propAddress = propAddressForm.save()
+            propDetails = propDetailsForm.save()
+            prop = propForm.save(commit=False)
+            prop.address = propAddress
+            prop.details = propDetails
+            if (propForm.is_valid()):
+                prop.save()
+                propImages = propImagesForm.save(commit=False)
+                propImages.property = prop
+                if (propImagesForm.is_valid()):
+                    propImages.save()
+                    return redirect('index')
     else:
-        form = PropertyCreateForm()
-    return render(request, 'properties/create_property.html',{
-        'form': form
-    })
-def update_property(request,id):
+        context = {
+            'propertyForm': PropertyCreateForm(),
+            'propertyAddressForm': PropertyAddressCreateForm(),
+            'propertyDetailsForm': PropertyDetailsCreateForm(),
+            'propertyImagesForm': PropertyImagesCreateForm()
+        }
+        return render(request, 'properties/create_property.html', context)
+
+
+@must_be_agent #only agents're allowed to update properties
+def update_property(request, id):
     instance = get_object_or_404(Properties, pk=id)
     if request.method == 'POST':
         form = PropertyUpdateForm(data=request.POST, instance=instance)
@@ -117,7 +148,7 @@ def update_property(request,id):
             return redirect('property-details', id=id)
     else:
         form = PropertyUpdateForm(instance=instance)
-    return render(request,'properties/update_property.html',{
+    return render(request, 'properties/update_property.html', {
         'form': form,
         'id': id
     })
