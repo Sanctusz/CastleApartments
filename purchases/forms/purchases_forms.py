@@ -52,6 +52,7 @@ class PurchaseForm(ModelForm):
         model = Purchases
         exclude = ['id', 'buyer', 'realtyAgent', 'property', 'payment', 'date']
 
+
 class PropertyForm(ModelForm):
     class Meta:
         model = Properties
