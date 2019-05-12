@@ -52,3 +52,11 @@ body {
   background: #F89D13;
   color: white;
 }
+
+.form-header{
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 10px;
+}

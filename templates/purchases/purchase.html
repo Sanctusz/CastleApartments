@@ -18,12 +18,6 @@
             <li class="bc_item bc_complete"><a href="#">Contact Details</a></li>
             <li class="bc_item">Confirmation</li>
         </ul>
-{#        <nav aria-label="breadcrumb">#}
-{#            <ol class="breadcrumb bg-white">#}
-{#                <li class="breadcrumb-item"><a href="{% url "property-details" property.id %}">{{ property.address.streetName }} {{ property.address.houseNumber}}</a></li>#}
-{#                <li class="breadcrumb-item active" aria-current="page">Contact Details</li>#}
-{#            </ol>#}
-{#        </nav>#}
       <div class="container">
         <div class="row">
         {% if user.is_authenticated %}
@@ -31,7 +25,7 @@
             <div class="col-lg-6">
                 <form method="post">
                     {% csrf_token %}
-                    <h1>Contact Information:</h1>
+                    <h1 class="form-header">Contact Information</h1>
                     <ul class="list-group">
                     {% for field in profileForm %}
                         <li class="list-group-item">
@@ -40,7 +34,7 @@
                         </li>
                     {% endfor %}
                     </ul>
-                    <h1>Credit Card Information:</h1>
+                    <h1 class="form-header">Credit Card Information</h1>
                     <ul class="list-group">
                     {% for field in creditCardForm %}
                         <li class="list-group-item">
@@ -50,7 +44,7 @@
                     {% endfor %}
                     </ul>
                     <br>
-                    <input type="submit" value="Purchase" class="btn btn-primary btn-lg"/>
+                    <input type="submit" value="Continue" class="btn btn-primary btn-block form-control-same-height rounded-0"/>
                 </form>
             </div>
             <div class="col-lg-3"></div>
