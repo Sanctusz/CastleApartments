@@ -13,6 +13,7 @@ def register(request):
         'form': RegisterForm()
     })
 
+
 def profile(request):
     profile = Profile.objects.filter(user=request.user).first()
     if request.method == 'POST':

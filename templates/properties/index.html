@@ -124,8 +124,8 @@
 						<div class="col-md-6 col-lg-4 mb-4">
 							<a id="{{ property.id }}" href="/properties/{{ property.id }}" class="prop-entry d-block">
 								<figure>
-									<img src="{{ property.propertiesimages_set.first.link }}" alt="Image"
-										 class="img-fluid">
+									<img src="{{ property.propertiesimages_set.first.link }}" alt="{{ property.propertiesimages_set.first.text }}"
+										 class="img-thumbnail">
 								</figure>
 								<div class="prop-text">
 									<div class="inner">
@@ -149,7 +149,7 @@
 											</div>
 											<div class="col">
 												<span>Status:</span>
-												<strong>{{ property.status }}</strong>
+												<strong>{{ property.status|upper }}</strong>
 											</div>
 										</div>
 									</div>

@@ -7,12 +7,11 @@ from django.contrib.auth.models import User
 class RegisterForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('username', 'password1', 'password2')
-        widgets = {
-            'username': widgets.TextInput(attrs={'class': 'form-control'}),
-            'password1': widgets.PasswordInput(),
-            'password2': widgets.PasswordInput(attrs={'class': 'form-control'})
+        labels = {
+            'username': 'Username',
+            'password1': 'Password'
         }
+        fields = ('username', 'password1', 'password2')
 
 
 class ProfileForm(ModelForm):

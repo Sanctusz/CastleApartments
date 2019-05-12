@@ -86,6 +86,7 @@ def search(request):
         properties = [{
             'id': x.id,
             'firstImage': x.propertiesimages_set.first().link,
+            'altText': x.propertiesimages_set.first().text,
             'price': x.price,
             'streetName': x.address.streetName,
             'houseNumber': x.address.houseNumber,

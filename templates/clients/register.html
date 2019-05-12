@@ -8,8 +8,19 @@
             <div class="col-lg-6">
                 <form method="post">
                     {% csrf_token %}
-                    {{ form }}
-                    <input type="submit" class="btn btn-primary" value="Register">
+                    <ul class="list-group">
+                    <h1>Register</h1>
+                    {% for field in form %}
+                        <li class="list-group-item">
+                            <label for="{{ field.id_for_label }}">{{ field.label|title }}:</label>
+                            <div class="text-warning"><small>{{ field.help_text }}</small></div>
+                            <input class="form-control" name="{{ field.name }}" id="{{ field.id }}" type="{{ field.type }}" required autofocus>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                    <br>
+                    <input type="submit" class="btn btn-primary btn-block" value="Register">
+                    <p>Already have an account, please <a href="/clients/login/">login</a>.</p>
                 </form>
             </div>
             <div class="col-lg-3"></div>
