@@ -4,7 +4,7 @@ from properties.forms.property_form import *
 from properties.models import *
 from agents.models import Agents
 from django.http import HttpResponse
-from clients.views import ad
+from clients.views import add_to_recently_viewed
 
 def must_be_agent(func):
     # check if user is in agents group
@@ -106,7 +106,7 @@ def search(request):
 
 def get_property_by_id(request, id):
     is_agent = request.user.groups.filter(name="agents").exists()
-    addToRecentlyViewed(request, id)
+    add_to_recently_viewed(request, id)
     return render(request, 'properties/property_details.html', {
         'property': get_object_or_404(Properties, pk=id),
         'is_agent': is_agent
