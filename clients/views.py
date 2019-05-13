@@ -18,9 +18,9 @@ def profile(request):
     profile = Profile.objects.filter(user=request.user).first()
     if request.method == 'POST':
         form = ProfileForm(instance=profile, data=request.POST)
+        profile = form.save(commit=False)
+        profile.user = request.user
         if form.is_valid():
-            profile = form.save(commit=False)
-            profile.user = request.user
             profile.save()
             return redirect('clients-profile')
     return render(request, 'clients/profile.html', {
