@@ -28,7 +28,6 @@ def purchase_property(request, id):
             purchase.payment = ccard
             if purchaseForm.is_valid():
                 purchaseForm.save()
-                # CHANGE STATUS
                 propForm = PropertyForm(data=request.POST, instance=property_obj)
                 statuschange = propForm.save(commit=False)
                 statuschange.status = 'sold'
