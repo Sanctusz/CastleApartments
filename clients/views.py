@@ -29,3 +29,8 @@ def profile(request):
     return render(request, 'clients/profile.html', {
         'form': ProfileForm(instance=profile)
     })
+
+def addToRecentlyViewed(request, id):
+    #ToDo Finish!!!!
+    user = request.user
+    if (user.groups.filter(name='clients').exists()):
