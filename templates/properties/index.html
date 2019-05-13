@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
     <div class="pt-5">
       <div class="container">
         <form class="row" name="search-form" method="GET">
@@ -12,8 +11,9 @@
             <div class="select-wrap">
               <span class="icon icon-arrow_drop_down"></span>
               <select name="offer-types" id="property-types" class="form-control d-block rounded-0">
-                {% for type, name in property_types %}
-                    <option value="{{ type }}">{{ name }}</option>
+                <option value="">Property Type</option>
+                {% for type in property_types %}
+                    <option value="{{ type.type }}">{{ type.type|capfirst }}</option>
                 {% endfor %}
               </select>
             </div>
@@ -23,11 +23,9 @@
               <span class="icon icon-arrow_drop_down"></span>
               <select name="offer-types" id="property-zipcode" class="form-control d-block rounded-0">
                 <option value="">Zip Code</option>
-                <option value="101">101</option>
-                <option value="102">102</option>
-                <option value="103">103</option>
-                <option value="700">700</option>
-                <option value="260">260</option>
+                {% for zipcode in property_zipcodes %}
+                    <option value="{{ zipcode.address.zipCode }}">{{ zipcode.address.zipCode }}</option>
+                {% endfor %}
               </select>
             </div>
           </div>
@@ -36,10 +34,9 @@
               <span class="icon icon-arrow_drop_down"></span>
               <select name="offer-types" id="property_country" class="form-control d-block rounded-0">
                 <option value="">Country</option>
-                <option value="skyrim">Skyrim</option>
-                <option value="fallout">FallOut</option>
-                <option value="lifeisstrange">Life's Strange</option>
-                <option value="overwatch">Iceland</option>
+                {% for country in property_countries %}
+                    <option value="{{ country.address.country }}">{{ country.address.country }}</option>
+                {% endfor %}
               </select>
             </div>
           </div>
@@ -48,12 +45,9 @@
               <span class="icon icon-arrow_drop_down"></span>
               <select name="offer-types" id="property_city" class="form-control d-block rounded-0">
                 <option value="">City</option>
-                <option value="whiterun">Whiterun</option>
-                <option value="riften">Riften</option>
-                <option value="windhelm">Windhelm</option>
-                <option value="solitude">Solitude</option>
-                <option value="volt101">Volt101</option>
-                <option value="kingsrow">King's Row</option>
+                {% for city in property_cities %}
+                    <option value="{{ city.address.city }}">{{ city.address.city }}</option>
+                {% endfor %}
               </select>
             </div>
           </div>
@@ -63,10 +57,11 @@
               <select name="offer-types" id="property-rooms" class="form-control d-block rounded-0">
                 <option value="">Rooms</option>
                 <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
+                <option value="3">3 or fewer</option>
+                <option value="5">5 or fewer</option>
+                <option value="7">7 or fewer</option>
+                <option value="10">10 or fewer</option>
+                <option value="">More</option>
               </select>
             </div>
           </div>
@@ -80,7 +75,7 @@
             <div class="select-wrap">
               <span class="icon icon-arrow_drop_down"></span>
               <button class="btn btn-primary btn-block form-control-same-height rounded-0"  type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                Advanced Search
+                Additional Details
               </button>
             <div class="collapse" id="collapseExample">
                 <div class="card card-body">

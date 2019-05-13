@@ -23,7 +23,10 @@ def index(request):
     context = {
         'properties': Properties.objects.all(),
         'agents': Agents.objects.all(),
-        'property_types': homeTypes
+        'property_types': Properties.objects.distinct('type'),
+        'property_zipcodes': Properties.objects.distinct('address__zipCode'),
+        'property_countries': Properties.objects.distinct('address__country'),
+        'property_cities': Properties.objects.distinct('address__city')
     }
     return render(request, 'properties/index.html', context)
 
@@ -56,8 +59,8 @@ def search(request):
             properties = properties.filter(address__country__icontains=country)
 
         if 'room' in request.GET:
-            room = request.GET['room']
-            properties = properties.filter(room=room)
+            rooms = request.GET['room']
+            properties = properties.filter(room__lte=rooms)
 
         if 'size' in request.GET:
             size = request.GET['size']
@@ -69,7 +72,7 @@ def search(request):
 
         if 'price' in request.GET:
             price = request.GET['price']
-            properties = properties.filter(price__range=[40000, price])
+            properties = properties.filter(price__range=[50000, price])
 
         if 'garage' in request.GET:
             properties = properties.filter(details__garage=True)
