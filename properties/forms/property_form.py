@@ -1,7 +1,6 @@
 from django.forms import ModelForm, widgets
 from properties.models import *
 
-
 DETAILS_CHOICES = (
     ('garden', 'Garden'),
     ('garage', 'Garage'),
@@ -29,7 +28,7 @@ class PropertyUpdateForm(ModelForm):
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
             'status': widgets.Select(attrs={'class': 'form-control'}),
             'agent': widgets.TextInput(attrs={'class': 'form-control'}),
-            }
+        }
 
 
 class PropertyImagesCreateForm(ModelForm):

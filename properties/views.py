@@ -16,6 +16,7 @@ def must_be_agent(func):
         if not (user.groups.filter(name='agents').exists()):
             return HttpResponse("You do not have permission to view this page !", status=403)
         return func(request, *args, **kwargs)
+
     return check_and_call
 
 

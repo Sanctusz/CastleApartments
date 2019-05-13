@@ -1,6 +1,11 @@
-.agent-hw {
+.carousel-image {
     height: 250px;
     width: 200px;
-    object-fit: none;
-    object-position: top;
+    object-fit: cover;
+}
+
+.catalogue-image {
+    height: 12rem;
+    width: 100%;
+    object-fit: cover;
 }
