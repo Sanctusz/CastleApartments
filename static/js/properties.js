@@ -81,7 +81,7 @@ $(document).ready(function() {
                     return ` <div class="col-md-6 col-lg-4 mb-4">
                          <a href="/properties/${data.id}" class="prop-entry d-block">
                           <figure>
-                            <img src="${data.firstImage}" alt="${data.altText}" class="img-fluid">
+                            <img src="${data.firstImage}" alt="${data.altText}" class="img-thumbnail catalogue-image">
                           </figure>
                           <div class="prop-text">
                             <div class="inner">
