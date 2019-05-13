@@ -65,9 +65,14 @@
                                     <form method="get">
                                         <span class="d-inline-block text-black mb-0 caption-text">&nbsp;</span>
                                         <strong class="d-block">
+                                            {% if property.status == 'available' %}
                                             <input type="button" class="btn btn-primary btn-lg btn-block"
                                                    value="Purchase"
                                                    onclick="window.location='/purchases/{{ property.id }}';"/>
+                                            {% else %}
+                                                <input type="button" class="btn btn-primary btn-lg btn-block"
+                                                   value="Sold" disabled/>
+                                            {% endif %}
                                         </strong>
                                     </form>
                                 {% endif %}

@@ -13,8 +13,7 @@
                             {% for field in form %}
                                 <li class="list-group-item">
                                     <label for="{{ field.id_for_label }}">{{ field.name|capfirst }}:</label>
-                                    <input class="form-control" name="{{ field.name }}" id="{{ field.id }}"
-                                           type="{{ field.type }}" required autofocus>
+                                    <input class="form-control" name="{{ field.name }}" type="{{ field.type }}" required autofocus>
                                 </li>
                             {% endfor %}
                         </ul>

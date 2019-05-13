@@ -7,10 +7,6 @@ from django.contrib.auth.models import User
 class RegisterForm(UserCreationForm):
     class Meta:
         model = User
-        labels = {
-            'username': 'Username',
-            'password1': 'Password'
-        }
         fields = ('username', 'password1', 'password2')
 
 

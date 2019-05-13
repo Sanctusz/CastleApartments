@@ -1,7 +1,8 @@
 .carousel-image {
-    height: 250px;
-    width: 200px;
+    height: 25rem;
+    width: 75%;
     object-fit: cover;
+    object-position: top;
 }
 
 .catalogue-image {

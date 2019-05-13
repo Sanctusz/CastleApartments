@@ -118,6 +118,7 @@ def get_property_by_id(request, id):
     })
 
 
+@must_be_agent
 def create_property(request):
     if request.method == 'POST':
         propForm = PropertyCreateForm(data=request.POST)
@@ -148,7 +149,6 @@ def create_property(request):
         return render(request, 'properties/create_property.html', context)
 
 
-# only agents're allowed to update properties
 @must_be_agent
 def update_property(request, id):
     instance = get_object_or_404(Properties, pk=id)
