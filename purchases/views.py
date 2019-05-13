@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from properties.forms.property_form import PropertyUpdateForm
 from purchases.forms.purchases_forms import *
 
 
@@ -10,13 +9,16 @@ def purchase_property(request, id):
     if request.method == 'POST':
         property_obj = get_object_or_404(Properties, pk=id)
         agent_obj = get_object_or_404(Agents, pk=property_obj.agent.id)
+
         cinfoForm = ProfileForm(instance=profile, data=request.POST)
-        cinfoForm.save(commit=False)
-        cinfoForm.user = request.user
+        profile = cinfoForm.save(commit=False)
+        profile.user = request.user
+
         ccForm = CreditCardForm(data=request.POST)
         purchaseForm = PurchaseForm(data=request.POST)
 
         if cinfoForm.is_valid() and ccForm.is_valid():
+            profile.save()
             cinfo = cinfoForm.save()
             ccard = ccForm.save()
             purchase = purchaseForm.save(commit=False)
