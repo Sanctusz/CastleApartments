@@ -81,8 +81,10 @@
                                 <span class="icon-menu h3"></span>
                             </a>
                         </div>
-
                         <ul class="site-menu js-clone-nav d-none d-lg-block">
+                            {% if is_agent %}
+                                <li><a href="{% url 'create_property' %}">Add Property</a></li>
+                            {% endif %}
                             <li class="active">
                                 <a href="{% url 'index' %}">Home</a>
                             </li>
@@ -103,7 +105,16 @@
                         </ul>
                     </nav>
                 </div>
+            {% if messages %}
+            <div class="informative">
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}
+                    </li>
+                    {% endfor %}
+                    </ul>
             </div>
+            {% endif %}
         </div>
     </div>
 </div>

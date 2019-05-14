@@ -4,6 +4,7 @@ from properties.forms.property_form import *
 from properties.models import *
 from agents.models import Agents
 from django.http import HttpResponse
+from django.contrib import messages
 
 
 def must_be_agent(func):
@@ -148,7 +149,10 @@ def create_property(request):
                 propImages.property = prop
                 if (propImagesForm.is_valid()):
                     propImages.save()
+                    messages.success(request, 'Property created successfully')
                     return redirect('index')
+                else:
+                    messages.error(request, 'Property cannot be created. Please try again.')
     else:
         context = {
             'propertyForm': PropertyCreateForm(),
@@ -166,7 +170,10 @@ def update_property(request, id):
         form = PropertyUpdateForm(data=request.POST, instance=instance)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Property updated successfully.')
             return redirect('property-details', id=id)
+        else:
+            messages.error(request, 'Property cannot be updated. Please try again.')
     else:
         form = PropertyUpdateForm(instance=instance)
     return render(request, 'properties/update_property.html', {

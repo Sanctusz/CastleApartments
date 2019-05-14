@@ -48,5 +48,35 @@
 }
 
 #cc_step, #confirm_step {
-  display:none;
+  display: none;
+}
+.slider-amount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slider-text {
+  white-space: nowrap;
+}
+
+.checkbox-item{
+  padding-left: 10px;
+}
+
+.messages {
+  list-style-type: none;
+}
+
+.messages > * {
+  padding: 16px;
+  width: 100%;
+}
+
+.messages .error {
+  background: #ff855a;
+}
+
+.messages .success {
+  background: #7FDC9E;
 }

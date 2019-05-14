@@ -9,7 +9,7 @@
                     <form method="post">
                         {% csrf_token %}
                         <ul class="list-group">
-                            <h1>Register</h1>
+                            <h1 class="form-header">Register</h1>
                             <li class="list-group-item">
                                 <label for="{{ form.username.id_for_label }}">{{ form.username.label|title }}:</label>
                                 <div class="text-warning">
