@@ -85,8 +85,8 @@ $(document).ready(function() {
             type: 'GET',
             success: function(resp) {
                 if (!$.trim(resp.data)) {
-                    console.log('im here')
-                    var newHtml = "Sorry no results" }
+                    var newHtml = ['Sorry ',' nothing ',' matches ',' your ',' search']
+                }
                 else {
                 console.log(resp)
                 // if success show this html

@@ -72,6 +72,12 @@
                                disabled=""/>
                     </div>
                 </div>
+                <div class="radio">
+                    <label><input type="radio" name="orderbyname" id="orderbyname" value="True">Order by name </label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="orderbyprice" id="orderbyprice" value="True">Order by price</label>
+                </div>
                 <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                     <div class="select-wrap">
                         <span class="icon icon-arrow_drop_down"></span>
@@ -118,12 +124,6 @@
                     <div class="col-12">
                         <div class="site-section-title">
                             <h3>The catalogue</h3>
-                            <a><i id="orderNumeric" class="fas fa-sort-numeric-down"
-                                  onclick="orderIconClicked('orderNumeric', 'orderAlpha', document)"
-                                  style="float: right;"></i></a>
-                            <a><i id="orderAlpha" class="fas fa-sort-alpha-down"
-                                  onclick="orderIconClicked('orderAlpha','orderNumeric', document)"
-                                  style="float: right;"></i></a> {% comment %}#ToDo Connect css so this style attribute can be removed{% endcomment %}
                         </div>
                     </div>
                 </div>

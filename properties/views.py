@@ -88,10 +88,10 @@ def search(request):
             properties = properties.filter(details__pets=True)
 
         if 'orderbyname' in request.GET:
-            properties = properties.filter(orderbyname=True).order_by('address__properties')
+            properties = properties.order_by('address__streetName')
 
         if 'orderbyprice' in request.GET:
-            properties = properties.filter(orderbyprice=True).order_by('address__properties__price')
+            properties = properties.order_by('price')
 
 
         properties = [{
