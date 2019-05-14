@@ -113,10 +113,10 @@ jQuery(document).ready(function($) {
 
 	var siteSliderRange = function() {
     $( "#slider-range" ).slider({
-		value: 40000,
-      	min: 40000,
-      	max: 40000000,
-		step: 10000,
+		value: 25000000,
+      	min: 50000,
+      	max: 50000000,
+		step: 50000,
       slide: function( event, ui ) {
         $( "#amount" ).val(ui.value);
       }
@@ -164,13 +164,13 @@ jQuery(document).ready(function($) {
 	var siteCarousel = function () {
 		if ( $('.nonloop-block-13').length > 0 ) {
 			$('.nonloop-block-13').owlCarousel({
-		    center: false,
+		    center: true,
 		    items: 1,
 		    loop: true,
 				stagePadding: 0,
 				autoplay: true,
 		    margin: 20,
-		    nav: false,
+		    nav: true,
 		    dots: true,
 				navText: ['<span class="icon-arrow_back">', '<span class="icon-arrow_forward">'],
 		    responsive:{
@@ -187,6 +187,7 @@ jQuery(document).ready(function($) {
 	        1200:{
 	        	margin: 20,
 	        	stagePadding: 0,
+				height: 144,
 	          items: 3
 	        }
 		    }

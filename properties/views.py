@@ -3,13 +3,31 @@ from django.shortcuts import render, get_object_or_404, redirect
 from properties.forms.property_form import *
 from properties.models import *
 from agents.models import Agents
+from django.http import HttpResponse
+
+
+def must_be_agent(func):
+    # check if user is in agents group
+    # if not, return a warning message
+    # else, user is permitted
+    # @must_be_agent gives permission to agents
+    def check_and_call(request, *args, **kwargs):
+        user = request.user
+        if not (user.groups.filter(name='agents').exists()):
+            return HttpResponse("You do not have permission to view this page !", status=403)
+        return func(request, *args, **kwargs)
+
+    return check_and_call
 
 
 def index(request):
     context = {
         'properties': Properties.objects.all(),
         'agents': Agents.objects.all(),
-        'property_types': homeTypes
+        'property_types': Properties.objects.distinct('type'),
+        'property_zipcodes': Properties.objects.distinct('address__zipCode'),
+        'property_countries': Properties.objects.distinct('address__country'),
+        'property_cities': Properties.objects.distinct('address__city')
     }
     return render(request, 'properties/index.html', context)
 
@@ -42,8 +60,8 @@ def search(request):
             properties = properties.filter(address__country__icontains=country)
 
         if 'room' in request.GET:
-            room = request.GET['room']
-            properties = properties.filter(room=room)
+            rooms = request.GET['room']
+            properties = properties.filter(room__lte=rooms)
 
         if 'size' in request.GET:
             size = request.GET['size']
@@ -55,7 +73,7 @@ def search(request):
 
         if 'price' in request.GET:
             price = request.GET['price']
-            properties = properties.filter(price__range=[40000, price])
+            properties = properties.filter(price__range=[50000, price])
 
         if 'garage' in request.GET:
             properties = properties.filter(details__garage=True)
@@ -77,7 +95,9 @@ def search(request):
 
 
         properties = [{
+            'id': x.id,
             'firstImage': x.propertiesimages_set.first().link,
+            'altText': x.propertiesimages_set.first().text,
             'price': x.price,
             'streetName': x.address.streetName,
             'houseNumber': x.address.houseNumber,
@@ -98,14 +118,17 @@ def search(request):
 
 
 def get_property_by_id(request, id):
+    is_agent = request.user.groups.filter(name="agents").exists()
     return render(request, 'properties/property_details.html', {
-        'property': get_object_or_404(Properties, pk=id)
+        'property': get_object_or_404(Properties, pk=id),
+        'is_agent': is_agent
     })
 def order_property_by_name(request):
     template = 'properties/index.html'
     properties_name = {'properties': Properties.objects.all().order_by('address__properties')}
     return render(request,template, properties_name)
 
+@must_be_agent
 def create_property(request):
     if request.method == 'POST':
         propForm = PropertyCreateForm(data=request.POST)
@@ -136,6 +159,7 @@ def create_property(request):
         return render(request, 'properties/create_property.html', context)
 
 
+@must_be_agent
 def update_property(request, id):
     instance = get_object_or_404(Properties, pk=id)
     if request.method == 'POST':

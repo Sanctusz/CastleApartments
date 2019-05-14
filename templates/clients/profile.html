@@ -1,10 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
-	<h2>Image:</h2>
-	<img src="{{ user.profile.image }}"/>
-	<form class="" method="post">
-		{% csrf_token %}
-		{{ form }}
-		<input type="submit" class="btn btn-primary" value="Update"/>
-	</form>
+    <div class="site-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <h2>Image:</h2>
+                    <img src="{{ user.profile.image }}" class="img-thumbnail">
+                </div>
+                <div class="col-lg-9">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form }}
+                        <br>
+                        <input type="submit" value="Update Profile" class="btn btn-primary btn-lg">
+                    </form>
+                </div>
+                <div class="col-lg-3"></div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

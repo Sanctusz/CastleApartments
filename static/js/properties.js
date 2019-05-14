@@ -1,10 +1,8 @@
-
 $(document).ready(function() {
     $('#search-btn').on( 'click', function(e){
         e.preventDefault();
 
         // creating variables with the input we receive through id's in index.html
-
         var searchText = $('#search-box').val();
         var type = $('#property-types').val();
         var status = $('#property-status').val();
@@ -20,6 +18,8 @@ $(document).ready(function() {
         var orderByName = $('#orderbyname');
         var orderByPrice = $('#orderbyprice')
 
+        // creating url address with chosen search parameters
+        // it will help us for the views
 
         console.log('price value',price)
 
@@ -91,11 +91,10 @@ $(document).ready(function() {
                 console.log(resp)
                 // if success show this html
                 var newHtml = resp.data.map(data => {
-                    return `
-                         <div class="col-md-6 col-lg-4 mb-4">
-                         <a href="property-details.html" class="prop-entry d-block">
+                    return ` <div class="col-md-6 col-lg-4 mb-4">
+                         <a href="/properties/${data.id}" class="prop-entry d-block">
                           <figure>
-                            <img src="${data.firstImage}" alt="Image" class="img-fluid">
+                            <img src="${data.firstImage}" alt="${data.altText}" class="img-thumbnail catalogue-image">
                           </figure>
                           <div class="prop-text">
                             <div class="inner">
@@ -119,7 +118,7 @@ $(document).ready(function() {
                                 </div>
                                 <div class="col">
                                   <span>Status:</span>
-                                  <strong>${ data.status }</strong>
+                                  <strong>${ data.status.toUpperCase() }</strong>
                                 </div>
                               </div>
                             </div>
