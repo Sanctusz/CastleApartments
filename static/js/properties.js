@@ -86,13 +86,7 @@ $(document).ready(function() {
             success: function(resp) {
                 if (!$.trim(resp.data)) {
                     console.log('im here')
-                    var newHtml = AddText();
-                    function AddText() {
-                        var ourtext = "Sorry no results for your search"
-                        return `$('<div class=divText>' + ourtext + '</div>').appendTo('#prop-entry d-block');`
-                    }
-
-                )}
+                    var newHtml = "Sorry no results" }
                 else {
                 console.log(resp)
                 // if success show this html
