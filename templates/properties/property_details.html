@@ -66,9 +66,10 @@
                                         <span class="d-inline-block text-black mb-0 caption-text">&nbsp;</span>
                                         <strong class="d-block">
                                             {% if property.status == 'available' %}
-                                            <input type="button" class="btn btn-primary btn-lg btn-block"
-                                                   value="Purchase"
-                                                   onclick="window.location='/purchases/{{ property.id }}';"/>
+                                                <a href="{% url "contact_info" property.id %}" class="btn btn-primary btn-lg btn-block">Purchase</a>
+{#                                            <input type="button" class="btn btn-primary btn-lg btn-block"#}
+{#                                                   value="Purchase"#}
+{#                                                   onclick="window.location='/purchases/{{ property.id }}/contact_info';"/>#}
                                             {% else %}
                                                 <input type="button" class="btn btn-primary btn-lg btn-block"
                                                    value="Sold" disabled/>
