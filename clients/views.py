@@ -37,8 +37,17 @@ def profile(request):
 
 
 def get_recently_viewed(request):
-	the_user = request.user
-	return RecentlyViewed.objects.filter(user=the_user).order_by(datetime)
+	if request.user.is_authenticated:
+		the_user = Profile.objects.filter(user=request.user).first()
+		recently_viewed_obj = RecentlyViewed.objects.filter(user=the_user).order_by('time')
+		recently_viewed_dict = {}
+		for entry in recently_viewed_obj:
+			print("id", entry.id, "user", entry.user, "property", entry.property, "time", entry.time)
+			recently_viewed_dict[entry.property.id] =
+		print("Here's the length of the list", len(recently_viewed_obj.values()))
+		return render(request, 'clients/recently_viewed.html', {
+			'recently_viewed': recently_viewed_dict
+		})
 
 
 def add_to_recently_viewed(request, the_id):
@@ -51,16 +60,23 @@ def add_to_recently_viewed(request, the_id):
 		entry = this_user_recent_list.filter(property=prop)
 		if len(entry) != 0:
 			print("the entry ", entry)
-		elif len(this_user_recent_list) >= 10:
-			oldest = this_user_recent_list[0]
-			RecentlyViewed.objects.filter(id=oldest.id).delete()
-		form = RecentlyViewedForm(data=request.POST)
-		recently_viewed = form.save(commit=False)
-		recently_viewed.user = the_user
-		recently_viewed.property = prop
-		if form.is_valid():
-			recently_viewed.save()
-			print(recently_viewed)
+			the_entry = entry.first()
+			print("entry time, old:", the_entry.time)
+			the_entry.time = datetime.now()
+			the_entry.save()
+			print("the entry time now:", the_entry.time)
+
+		else:
+			if len(this_user_recent_list) >= 10:
+				oldest = this_user_recent_list[0]
+				RecentlyViewed.objects.filter(id=oldest.id).delete()
+			form = RecentlyViewedForm(data=request.POST)
+			recently_viewed = form.save(commit=False)
+			recently_viewed.user = the_user
+			recently_viewed.property = prop
+			if form.is_valid():
+				recently_viewed.save()
+				print(recently_viewed)
 
 			"""if len(this_user_recent_list) == 10:
 				oldest = this_user_recent_list[0]

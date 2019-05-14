@@ -22,3 +22,41 @@
 		</div>
 	</a>
 </div>
+
+{% comment %}
+
+<div class="col-md-6 col-lg-4 mb-4">
+	<a id="{{ property.id }}" href="/properties/{{ property.id }}" class="prop-entry d-block">
+		<figure>
+			<img src="{{ property.propertiesimages_set.first.link }}" alt="Image"
+				 class="img-fluid">
+		</figure>
+		<div class="prop-text">
+			<div class="inner">
+				<span class="price rounded">${{ property.price }}</span>
+				<h3 class="title">{{ property.address.streetName }} {{ property.address.houseNumber }}</h3>
+				<p class="location">{{ property.address.city }}, {{ property.address.country }} {{ property.address.zipCode }}</p>
+			</div>
+			<div class="prop-more-info">
+				<div class="inner d-flex">
+					<div class="col">
+						<span>Area:</span>
+						<strong>{{ property.size }}m<sup>2</sup></strong>
+					</div>
+					<div class="col">
+						<span>Rooms:</span>
+						<strong>{{ property.room }}</strong>
+					</div>
+					<div class="col">
+						<span>Year Built:</span>
+						<strong>{{ property.yearBuilt }}</strong>
+					</div>
+					<div class="col">
+						<span>Status:</span>
+						<strong>{{ property.status }}</strong>
+					</div>
+				</div>
+			</div>
+		</div>
+	</a>
+</div>{% endcomment %}
