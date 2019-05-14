@@ -24,7 +24,7 @@ class Properties(models.Model):
     type = models.CharField(max_length=255)
     size = models.IntegerField()
     room = models.IntegerField()
-    price = models.FloatField()
+    price = models.IntegerField()
     yearBuilt = models.IntegerField()
     description = models.CharField(max_length=999, blank=True)
     status = models.CharField(max_length=255, default='available')
@@ -34,6 +34,6 @@ class Properties(models.Model):
 
 
 class PropertiesImages(models.Model):
+    property = models.ForeignKey(Properties, on_delete=models.CASCADE)
     link = models.CharField(max_length=999)
     text = models.CharField(max_length=255, blank=True)
-    property = models.ForeignKey(Properties, on_delete=models.CASCADE)

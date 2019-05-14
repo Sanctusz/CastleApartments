@@ -138,7 +138,7 @@
                                 </figure>
                                 <div class="prop-text">
                                     <div class="inner">
-                                        <span class="price rounded">${{ property.price }}</span>
+                                        <span class="price rounded">{{ property.price|floatformat }}</span>
                                         <h3 class="title">{{ property.address.streetName }} {{ property.address.houseNumber }}</h3>
                                         <p class="location">{{ property.address.city }}, {{ property.address.country }} {{ property.address.zipCode }}</p>
                                     </div>

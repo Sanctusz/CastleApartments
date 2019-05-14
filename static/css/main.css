@@ -1,3 +1,57 @@
-.red {
-    background-color: red;
+
+.bc {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+  width: 100%;
+  max-width: 100%;
+  height: 120px;
+  counter-reset: breadcrumb;
+  position: relative;
+}
+
+.bc:before {
+  position: absolute;
+  top: 23px;
+  left: 15%;
+  content: '';
+  width: 66%;
+  height: 1px;
+  background: #F89D13;
+}
+
+.bc .bc_item {
+  float: left;
+  padding-top: 60px;
+  width: 33%;
+  text-align: center;
+  position: relative;
+}
+
+.bc .bc_item:after {
+  counter-increment: breadcrumb;
+  content: counter(breadcrumb);
+  position: absolute;
+  top: 0px;
+  left: calc(50% - 23px);
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  border: 3px solid #F89D13;
+  border-radius: 50%;
+  line-height: 40px;
+  background: white;
+}
+
+.bc .bc_complete:after {
+  background: #F89D13;
+  color: white;
+}
+
+.form-header{
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 10px;
 }
