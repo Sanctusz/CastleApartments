@@ -1,5 +1,5 @@
 from django.forms import ModelForm, widgets
-from clients.models import Profile
+from clients.models import Profile, RecentlyViewed
 
 
 class ProfileForm(ModelForm):
@@ -12,3 +12,8 @@ class ProfileForm(ModelForm):
             'mname': widgets.TextInput(attrs={'class': 'form-control'}),
             'lname': widgets.TextInput(attrs={'class': 'form-control'})
         }
+
+class RecentlyViewedForm(ModelForm):
+    class Meta:
+        model = RecentlyViewed
+        exclude = ['user', 'property', 'time']

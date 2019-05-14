@@ -20,4 +20,4 @@ class RecentlyViewed(models.Model):
     #ToDo Create the function that manipulates this. So that everytime a property is clicked we should send it to that function
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     property = models.ForeignKey(Properties, on_delete=models.CASCADE)
-    time = models.DateTimeField()
+    time = models.DateTimeField(auto_now_add=True, blank=True)
