@@ -1,25 +1,20 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from clients.models import Profile, RecentlyViewed
-from clients.forms.profile_form import ProfileForm, RecentlyViewedForm
+from clients.forms.profile_form import ProfileForm, RecentlyViewedForm, RegisterForm
 from properties.models import Properties
 from datetime import datetime
 
 
-# Create your views here.
-def index(request):
-	return render(request, 'clients/index.html')
-
-
 def register(request):
-	if request.method == 'POST':
-		form = UserCreationForm(data=request.POST)
-		if form.is_valid():
-			form.save()
-			return redirect('clients-login')
-	return render(request, 'clients/register.html', {
-		'form': UserCreationForm()
-	})
+    if request.method == 'POST':
+        form = RegisterForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('clients-login')
+    return render(request, 'clients/register.html', {
+        'form': RegisterForm()
+    })
 
 
 def profile(request):

@@ -15,6 +15,8 @@ $(document).ready(function() {
         var garage = $('#property_garage');
         var accessibility = $('#property_accessibility');
         var pets = $('#property_pets');
+        var orderByName = $('#orderbyname');
+        var orderByPrice = $('#orderbyprice')
 
         // creating url address with chosen search parameters
         // it will help us for the views
@@ -67,6 +69,13 @@ $(document).ready(function() {
         if (pets.is(":checked")){
             urlTail += '&' + "pets" + '=' + "True"
         }
+        if (orderByName.is(":checked")) {
+            urlTail += '&' + "orderbyname" + '=' + "True"
+        }
+        if (orderByPrice.is(":checked")){
+            urlTail += '&' + "orderbyprice" + '=' + "True"
+
+        }
 
         queryUrl = '/properties/search/?search_filter=' + searchText + urlTail;
         console.log(queryUrl)
@@ -75,13 +84,17 @@ $(document).ready(function() {
             url: queryUrl,
             type: 'GET',
             success: function(resp) {
+                if (!$.trim(resp.data)) {
+                    var newHtml = ['Sorry ',' nothing ',' matches ',' your ',' search']
+                }
+                else {
                 console.log(resp)
                 // if success show this html
                 var newHtml = resp.data.map(data => {
                     return ` <div class="col-md-6 col-lg-4 mb-4">
                          <a href="/properties/${data.id}" class="prop-entry d-block">
                           <figure>
-                            <img src="${data.firstImage}" alt="Image" class="img-fluid">
+                            <img src="${data.firstImage}" alt="${data.altText}" class="img-thumbnail catalogue-image">
                           </figure>
                           <div class="prop-text">
                             <div class="inner">
@@ -105,22 +118,19 @@ $(document).ready(function() {
                                 </div>
                                 <div class="col">
                                   <span>Status:</span>
-                                  <strong>${ data.status }</strong>
+                                  <strong>${ data.status.toUpperCase() }</strong>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </a>
                       </div>`
-                });
+                })};
                 $('#properties').html(newHtml.join(''));
                 //$('#search-box').val('');
-
             },
             error: function(xhr, status, error){
-                // TODO show toestr
                 console.error(error);
             }
         })
-    });
-});
+    })});

@@ -60,3 +60,12 @@
 		</div>
 	</a>
 </div>{% endcomment %}
+    <a href="#">
+        <img class="card-img-top" src="{{ property.propertiesimages_set.first.link }}" width="200px"
+             alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{ property.address }}</h5>
+            <p class="card-text">{{ property.price }}</p>
+        </div>
+    </a>
+</div>

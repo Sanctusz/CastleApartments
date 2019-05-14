@@ -7,45 +7,60 @@
           <div class="col-md-10">
             <span class="d-inline-block text-white px-3 mb-3 property-offer-type rounded">Purchasing Page for</span>
             <h1 class="mb-2">{{ property.address.streetName }} {{ property.address.houseNumber }}</h1>
-            <p class="mb-5"><strong class="h2 text-success font-weight-bold">{{ property.price }} ISK</strong></p>
+            <p class="mb-5"><strong class="h2 text-success font-weight-bold">{{ property.price|floatformat }} ISK</strong></p>
           </div>
         </div>
       </div>
     </div>
-
     <div class="site-section site-section-sm">
-      <div class="container">
+    {% if user.is_authenticated and property.status == 'available' %}
+        <div class="container">
+        <ul class="bc">
+            <a href="{% url "property-details" property.id %}"><li class="bc_item bc_complete">{{ property.address.streetName }} {{ property.address.houseNumber}}</li></a>
+            <a id="ci_a" href="#"><li class="bc_item bc_complete">Contact Details</li></a>
+            <a id="cc_a"><li class="bc_item" id="cc_li">Credit Card Details</li></a>
+            <a id="confirm_a"><li class="bc_item" id="confirm_li">Confirmation</li></a>
+        </ul>
         <div class="row">
-        {% if user.is_authenticated %}
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
                 <form method="post">
                     {% csrf_token %}
-                    <h1>Contact Information:</h1>
-                    <ul class="list-group">
-                    {% for field in profileForm %}
+                    <div id="ci_step" name="ci">
+                        <h1 class="form-header">Contact Information</h1>
+                        <ul class="list-group">
+                        {% for field in profileForm %}
                         <li class="list-group-item">
                             <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
                             {{ field.as_widget }}
                         </li>
-                    {% endfor %}
-                    </ul>
-                    <h1>Credit Card Information:</h1>
-                    <ul class="list-group">
-                    {% for field in creditCardForm %}
-                        <li class="list-group-item">
-                            <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                            {{ field.as_widget }}
-                        </li>
-                    {% endfor %}
-                    </ul>
+                        {% endfor %}
+                        </ul>
                     <br>
-                    <input type="submit" value="Purchase" class="btn btn-primary btn-lg"/>
+                    <button class="btn btn-primary btn-block form-control-same-height rounded" id="cc_next">Next step</button>
+                    </div>
+                    <div id="cc_step" name="cc">
+                        <h1 class="form-header">Credit Card Information</h1>
+                        <ul class="list-group">
+                        {% for field in creditCardForm %}
+                        <li class="list-group-item">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                            {{ field.as_widget }}
+                        </li>
+                        {% endfor %}
+                        </ul>
+                    <br>
+                    <button class="btn btn-primary btn-block form-control-same-height rounded" id="confirm_next">Next step</button>
+                    </div>
+                    <div id="confirm_step" name="confirm">
+                        {% comment %} NEEDS READONLY REVIEW{% endcomment %}
+                        <input type="submit" value="Confirm Purchase" class="btn btn-primary btn-block form-control-same-height rounded-0"/>
+                    </div>
                 </form>
             </div>
             <div class="col-lg-3"></div>
         {% else %}
-            <h1>401 Unauthorized</h1>
+            <h1>This property is unavailable.</h1>
         {% endif %}
         </div>
       </div>

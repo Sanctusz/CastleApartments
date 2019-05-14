@@ -1,152 +1,176 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
     <div class="pt-5">
-      <div class="container">
-        <form class="row" name="search-form" method="GET">
-          <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
-            <input id="search-box" type="search" class="form-control" placeholder="Search"/>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-            <div class="select-wrap">
-              <span class="icon icon-arrow_drop_down"></span>
-              <select name="offer-types" id="property-types" class="form-control d-block rounded-0">
-                <option value="">Property Type</option>
-                <option value="house">House</option>
-                <option value="apartment">Apartment</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-            <div class="select-wrap">
-              <span class="icon icon-arrow_drop_down"></span>
-              <select name="offer-types" id="property-status" class="form-control d-block rounded-0">
-                <option value="">Property Status</option>
-                <option value="available">Available</option>
-                <option value="sold">Sold</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-            <div class="select-wrap">
-              <span class="icon icon-arrow_drop_down"></span>
-              <select name="offer-types" id="property_country" class="form-control d-block rounded-0">
-                <option value="">Country</option>
-                <option value="skyrim">Skyrim</option>
-                <option value="fallout">FallOut</option>
-                <option value="lifeisstrange">Life's Strange</option>
-                <option value="overwatch">Iceland</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-            <div class="select-wrap">
-              <span class="icon icon-arrow_drop_down"></span>
-              <select name="offer-types" id="property_city" class="form-control d-block rounded-0">
-                <option value="">City</option>
-                <option value="whiterun">Whiterun</option>
-                <option value="riften">Riften</option>
-                <option value="windhelm">Windhelm</option>
-                <option value="solitude">Solitude</option>
-                <option value="volt101">Volt101</option>
-                <option value="kingsrow">King's Row</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-            <div class="select-wrap">
-              <span class="icon icon-arrow_drop_down"></span>
-              <select name="offer-types" id="property-rooms" class="form-control d-block rounded-0">
-                <option value="">Rooms</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-            <div class="select-wrap">
-              <span class="icon icon-arrow_drop_down"></span>
-              <select name="offer-types" id="property-zipcode" class="form-control d-block rounded-0">
-                <option value="">Zip Code</option>
-                <option value="101">101</option>
-                <option value="102">102</option>
-                <option value="103">103</option>
-                <option value="700">700</option>
-                <option value="260">260</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-            <div class="mb-4">
-              <div id="slider-range" class="border-primary"></div>
-              <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white" disabled="" />
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-            <input type="submit" id="search-btn" class="btn btn-primary btn-block form-control-same-height rounded-0" value="Search">
-          </div>
-        </form>
-      </div>
+        <div class="container">
+            <form class="row" name="search-form" method="GET">
+                <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
+                    <input id="search-box" type="search" class="form-control" placeholder="Search"/>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <div class="select-wrap">
+                        <span class="icon icon-arrow_drop_down"></span>
+                        <select name="offer-types" id="property-types" class="form-control d-block rounded-0">
+                            <option value="">Property Type</option>
+                            {% for type in property_types %}
+                                <option value="{{ type.type }}">{{ type.type|capfirst }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <div class="select-wrap">
+                        <span class="icon icon-arrow_drop_down"></span>
+                        <select name="offer-types" id="property-zipcode" class="form-control d-block rounded-0">
+                            <option value="">Zip Code</option>
+                            {% for zipcode in property_zipcodes %}
+                                <option value="{{ zipcode.address.zipCode }}">{{ zipcode.address.zipCode }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <div class="select-wrap">
+                        <span class="icon icon-arrow_drop_down"></span>
+                        <select name="offer-types" id="property_country" class="form-control d-block rounded-0">
+                            <option value="">Country</option>
+                            {% for country in property_countries %}
+                                <option value="{{ country.address.country }}">{{ country.address.country }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <div class="select-wrap">
+                        <span class="icon icon-arrow_drop_down"></span>
+                        <select name="offer-types" id="property_city" class="form-control d-block rounded-0">
+                            <option value="">City</option>
+                            {% for city in property_cities %}
+                                <option value="{{ city.address.city }}">{{ city.address.city }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <div class="select-wrap">
+                        <span class="icon icon-arrow_drop_down"></span>
+                        <select name="offer-types" id="property-rooms" class="form-control d-block rounded-0">
+                            <option value="">Rooms</option>
+                            <option value="1">1</option>
+                            <option value="3">3 or fewer</option>
+                            <option value="5">5 or fewer</option>
+                            <option value="7">7 or fewer</option>
+                            <option value="10">10 or fewer</option>
+                            <option value="">More</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <div class="mb-4">
+                        <div id="slider-range" class="border-primary"></div>
+                        <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white"
+                               disabled=""/>
+                    </div>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="orderbyname" id="orderbyname" value="True">Order by name </label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="orderbyprice" id="orderbyprice" value="True">Order by price</label>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <div class="select-wrap">
+                        <span class="icon icon-arrow_drop_down"></span>
+                        <button class="btn btn-primary btn-block form-control-same-height rounded-0" type="button"
+                                data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+                                aria-controls="collapseExample">
+                            Additional Details
+                        </button>
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                <div>
+                                    <input type="checkbox" name="garage" value="True" id="property_garage"><label
+                                        for="property_garage">Garage</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" name="garden" value="True" id="property_garden"><label
+                                        for="property_garden">Garden</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" name="accessibility" value="True"
+                                           id="property_accessibility"><label
+                                        for="property_accessibility">Elevator</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" name="pets" value="True" id="property_pets"><label
+                                        for="property_pets">Pets Allowed</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <input type="submit" id="search-btn"
+                           class="btn btn-primary btn-block form-control-same-height rounded-0" value="Search">
+                </div>
+            </form>
+        </div>
     </div>
     {% if properties %}
-    <div class="site-section site-section-sm bg-light">
-      <div class="container">
-				<div class="row mb-5">
-					<div class="col-12">
-						<div class="site-section-title">
-							<h3>The catalogue</h3>
-							<a><i id="orderNumeric" class="fas fa-sort-numeric-down" onclick="orderIconClicked('orderNumeric', 'orderAlpha', document)" style="float: right;"></i></a>
-							<a><i id="orderAlpha" class="fas fa-sort-alpha-down" onclick="orderIconClicked('orderAlpha','orderNumeric', document)" style="float: right;"></i></a> {% comment %}#ToDo Connect css so this style attribute can be removed{% endcomment %}
-						</div>
-					</div>
-				</div>
-				<div id="properties" class="row mb-5">
-					{% for property in properties %}
-						<div class="col-md-6 col-lg-4 mb-4">
-							<a id="{{ property.id }}" href="/properties/{{ property.id }}" class="prop-entry d-block">
-								<figure>
-									<img src="{{ property.propertiesimages_set.first.link }}" alt="Image"
-										 class="img-fluid">
-								</figure>
-								<div class="prop-text">
-									<div class="inner">
-										<span class="price rounded">${{ property.price }}</span>
-										<h3 class="title">{{ property.address.streetName }} {{ property.address.houseNumber }}</h3>
-										<p class="location">{{ property.address.city }}, {{ property.address.country }} {{ property.address.zipCode }}</p>
-									</div>
-									<div class="prop-more-info">
-										<div class="inner d-flex">
-											<div class="col">
-												<span>Area:</span>
-												<strong>{{ property.size }}m<sup>2</sup></strong>
-											</div>
-											<div class="col">
-												<span>Rooms:</span>
-												<strong>{{ property.room }}</strong>
-											</div>
-											<div class="col">
-												<span>Year Built:</span>
-												<strong>{{ property.yearBuilt }}</strong>
-											</div>
-											<div class="col">
-												<span>Status:</span>
-												<strong>{{ property.status }}</strong>
-											</div>
-										</div>
-									</div>
-								</div>
-							</a>
-						</div>
-					{% endfor %}
-				</div>
-			</div>
-		</div>
-	{% endif %}
-	{% if agents %}
-		{% include "agents/index.html" with objects=agents %}
-	{% endif %}
+        <div class="site-section site-section-sm bg-light">
+            <div class="container">
+
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <div class="site-section-title">
+                            <h3>The catalogue</h3>
+                        </div>
+                    </div>
+                </div>
+                <div id="properties" class="row mb-5">
+                    {% for property in properties %}
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <a id="{{ property.id }}" href="/properties/{{ property.id }}" class="prop-entry d-block">
+                                <figure>
+                                    <img src="{{ property.propertiesimages_set.first.link }}"
+                                         alt="{{ property.propertiesimages_set.first.text }}"
+                                         class="img-thumbnail catalogue-image">
+                                </figure>
+                                <div class="prop-text">
+                                    <div class="inner">
+                                        <span class="price rounded">{{ property.price|floatformat }}</span>
+                                        <h3 class="title">{{ property.address.streetName }} {{ property.address.houseNumber }}</h3>
+                                        <p class="location">{{ property.address.city }}, {{ property.address.country }} {{ property.address.zipCode }}</p>
+                                    </div>
+                                    <div class="prop-more-info">
+                                        <div class="inner d-flex">
+                                            <div class="col">
+                                                <span>Area:</span>
+                                                <strong>{{ property.size }}m<sup>2</sup></strong>
+                                            </div>
+                                            <div class="col">
+                                                <span>Rooms:</span>
+                                                <strong>{{ property.room }}</strong>
+                                            </div>
+                                            <div class="col">
+                                                <span>Year Built:</span>
+                                                <strong>{{ property.yearBuilt }}</strong>
+                                            </div>
+                                            <div class="col">
+                                                <span>Status:</span>
+                                                <strong>{{ property.status|upper }}</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if agents %}
+        {% include "agents/index.html" with objects=agents %}
+    {% endif %}
 {% endblock %}

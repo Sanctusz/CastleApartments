@@ -1,7 +1,5 @@
 from django.forms import ModelForm, widgets
-from django import forms
 from properties.models import *
-
 
 DETAILS_CHOICES = (
     ('garden', 'Garden'),
@@ -15,8 +13,11 @@ homeTypes = (
     ('castle', 'Castle')
 )
 
+
 class PropertyUpdateForm(ModelForm):
     class Meta:
+        model = Properties
+        exclude = ['id']
         widgets = {
             'type': widgets.TextInput(attrs={'class': 'form-control'}),
             'size': widgets.TextInput(attrs={'class': 'form-control'}),
@@ -27,9 +28,7 @@ class PropertyUpdateForm(ModelForm):
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
             'status': widgets.Select(attrs={'class': 'form-control'}),
             'agent': widgets.TextInput(attrs={'class': 'form-control'}),
-            }
-        model = Properties
-        exclude = ['id']
+        }
 
 
 class PropertyImagesCreateForm(ModelForm):
