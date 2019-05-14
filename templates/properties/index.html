@@ -100,6 +100,24 @@
             </div>
             </div>
           </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="select-wrap">
+              <span class="icon icon-arrow_drop_down"></span>
+              <button class="btn btn-primary btn-block form-control-same-height rounded-0"  type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Order by
+              </button>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    <div>
+                        <input type="checkbox" name="orderbyname" value="True" id="property_garage"><label for="order_by_name">Name</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="orderbyprice" value="True" id="property_garden"><label for="order_by_price">Price</label>
+                    </div>
+                </div>
+            </div>
+            </div>
+          </div>
           <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
             <input type="submit" id="search-btn" class="btn btn-primary btn-block form-control-same-height rounded-0" value="Search">
           </div>
@@ -109,14 +127,6 @@
     {% if properties %}
     <div class="site-section site-section-sm bg-light">
       <div class="container">
-
-				<div class="row mb-5">
-					<div class="col-12">
-						<div class="site-section-title">
-							<h3>The catalogue</h3>
-						</div>
-					</div>
-				</div>
 				<div id="properties" class="row mb-5">
 					{% for property in properties %}
 						<div class="col-md-6 col-lg-4 mb-4">
@@ -158,6 +168,8 @@
 				</div>
 			</div>
 		</div>
+    {% else %}
+        No properties found
 	{% endif %}
 	{% if agents %}
 		{% include "agents/index.html" with objects=agents %}

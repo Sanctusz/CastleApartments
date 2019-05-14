@@ -24,7 +24,6 @@ urlpatterns = [
     path('', propview.index, name='index'),
     path('properties/', include('properties.urls')),
     path('clients/', include('clients.urls')),
-    path('users/',include('users.urls')),
     path('agents/', include('agents.urls')),
     path('purchases/', include('purchases.urls')),
     path('admin/', admin.site.urls),

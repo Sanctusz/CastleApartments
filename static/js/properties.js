@@ -17,6 +17,8 @@ $(document).ready(function() {
         var garage = $('#property_garage');
         var accessibility = $('#property_accessibility');
         var pets = $('#property_pets');
+        var orderByName = $('#orderbyname');
+        var orderByPrice = $('#orderbyprice')
 
 
         console.log('price value',price)
@@ -67,6 +69,13 @@ $(document).ready(function() {
         if (pets.is(":checked")){
             urlTail += '&' + "pets" + '=' + "True"
         }
+        if (orderByName.is(":checked")) {
+            urlTail += '&' + "orderbyname" + '=' + "True"
+        }
+        if (orderByPrice.is(":checked")){
+            urlTail += '&' + "orderbyprice" + '=' + "True"
+
+        }
 
         queryUrl = '/properties/search/?search_filter=' + searchText + urlTail;
         console.log(queryUrl)
@@ -75,10 +84,21 @@ $(document).ready(function() {
             url: queryUrl,
             type: 'GET',
             success: function(resp) {
+                if (!$.trim(resp.data)) {
+                    console.log('im here')
+                    var newHtml = AddText();
+                    function AddText() {
+                        var ourtext = "Sorry no results for your search"
+                        return `$('<div class=divText>' + ourtext + '</div>').appendTo('#prop-entry d-block');`
+                    }
+
+                )}
+                else {
                 console.log(resp)
                 // if success show this html
                 var newHtml = resp.data.map(data => {
-                    return ` <div class="col-md-6 col-lg-4 mb-4">
+                    return `
+                         <div class="col-md-6 col-lg-4 mb-4">
                          <a href="property-details.html" class="prop-entry d-block">
                           <figure>
                             <img src="${data.firstImage}" alt="Image" class="img-fluid">
@@ -112,15 +132,14 @@ $(document).ready(function() {
                           </div>
                         </a>
                       </div>`
-                });
+                })};
                 $('#properties').html(newHtml.join(''));
                 //$('#search-box').val('');
-
             },
             error: function(xhr, status, error){
-                // TODO show toestr
                 console.error(error);
             }
         })
-    });
-});
+    })});
+
+

@@ -69,6 +69,13 @@ def search(request):
         if 'pets' in request.GET:
             properties = properties.filter(details__pets=True)
 
+        if 'orderbyname' in request.GET:
+            properties = properties.filter(orderbyname=True).order_by('address__properties')
+
+        if 'orderbyprice' in request.GET:
+            properties = properties.filter(orderbyprice=True).order_by('address__properties__price')
+
+
         properties = [{
             'firstImage': x.propertiesimages_set.first().link,
             'price': x.price,
@@ -86,7 +93,7 @@ def search(request):
 
         return JsonResponse({'data': properties})
 
-    context = {'properties': Properties.objects.all().order_by('address__streetName')}
+    context = {'properties': Properties.objects.all()}
     return render(request, template, context)
 
 
@@ -94,7 +101,10 @@ def get_property_by_id(request, id):
     return render(request, 'properties/property_details.html', {
         'property': get_object_or_404(Properties, pk=id)
     })
-
+def order_property_by_name(request):
+    template = 'properties/index.html'
+    properties_name = {'properties': Properties.objects.all().order_by('address__properties')}
+    return render(request,template, properties_name)
 
 def create_property(request):
     if request.method == 'POST':
