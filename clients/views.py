@@ -34,14 +34,9 @@ def profile(request):
 def get_recently_viewed(request):
 	if request.user.is_authenticated:
 		the_user = Profile.objects.filter(user=request.user).first()
-		recently_viewed_obj = RecentlyViewed.objects.filter(user=the_user).order_by('time')
-		recently_viewed_dict = {}
-		for entry in recently_viewed_obj:
-			print("id", entry.id, "user", entry.user, "property", entry.property, "time", entry.time)
-			recently_viewed_dict[entry.property.id] =
-		print("Here's the length of the list", len(recently_viewed_obj.values()))
+		recently_viewed_obj = RecentlyViewed.objects.filter(user=the_user).order_by('-time')
 		return render(request, 'clients/recently_viewed.html', {
-			'recently_viewed': recently_viewed_dict
+			'recently_viewed': recently_viewed_obj
 		})
 
 
