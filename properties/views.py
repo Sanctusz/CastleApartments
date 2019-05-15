@@ -94,7 +94,6 @@ def search(request):
         if 'orderbyprice' in request.GET:
             properties = properties.order_by('price')
 
-
         properties = [{
             'id': x.id,
             'firstImage': x.propertiesimages_set.first().link,
@@ -124,10 +123,13 @@ def get_property_by_id(request, id):
         'property': get_object_or_404(Properties, pk=id),
         'is_agent': is_agent
     })
+
+
 def order_property_by_name(request):
     template = 'properties/index.html'
     properties_name = {'properties': Properties.objects.all().order_by('address__properties')}
-    return render(request,template, properties_name)
+    return render(request, template, properties_name)
+
 
 @must_be_agent
 def create_property(request):
@@ -165,18 +167,37 @@ def create_property(request):
 
 @must_be_agent
 def update_property(request, id):
-    instance = get_object_or_404(Properties, pk=id)
+    prop = Properties.objects.filter(pk=id).first()
+    details = prop.details
+    address = prop.address
+    image = PropertiesImages.objects.filter(property=id).first()
     if request.method == 'POST':
-        form = PropertyUpdateForm(data=request.POST, instance=instance)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Property updated successfully.')
+        propForm = PropertyUpdateForm(instance=prop, data=request.POST)
+        propAddressForm = PropertyAddressUpdateForm(instance=address, data=request.POST)
+        propDetailsForm = PropertyDetailsUpdateForm(instance=details, data=request.POST)
+        propMainImageForm = PropertyImagesUpdateForm(instance=image, data=request.POST)
+        if (propAddressForm.is_valid()
+                and propDetailsForm.is_valid()):
+            propAddress = propAddressForm.save()
+            propDetails = propDetailsForm.save()
+            prop = propForm.save(commit=False)
+            prop.address = propAddress
+            prop.details = propDetails
+            if (propForm.is_valid()):
+                prop.save()
+                propImages = propMainImageForm.save(commit=False)
+                propImages.property = prop
+                if (propMainImageForm.is_valid()):
+                    propImages.save()
+                    messages.success(request, 'Property updated successfully.')
             return redirect('property-details', id=id)
         else:
-            messages.error(request, 'Property cannot be updated. Please try again.')
+            return messages.error(request, 'Property cannot be updated. Please try again.')
     else:
-        form = PropertyUpdateForm(instance=instance)
-    return render(request, 'properties/update_property.html', {
-        'form': form,
-        'id': id
-    })
+        context = {
+            'propertyForm': PropertyUpdateForm(instance=prop),
+            'propertyAddressForm': PropertyAddressUpdateForm(instance=address),
+            'propertyDetailsForm': PropertyDetailsUpdateForm(instance=details),
+            'propertyImagesForm': PropertyImagesUpdateForm(instance=image)
+        }
+        return render(request, 'properties/update_property.html', context)

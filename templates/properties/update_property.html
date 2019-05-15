@@ -3,7 +3,7 @@
     <div class="site-section">
         <div class="container">
             {% if user.is_authenticated %}
-                <form method="post">
+                <form method="POST">
                     {% csrf_token %}
                     {{ propertyForm }}
                     <p>Details:</p>
@@ -21,7 +21,7 @@
                         {{ field.as_widget }}
                     {% endfor %}
                     <br>
-                    <input type="submit" value="Create" class="btn btn-primary btn-lg"/>
+                    <input type="submit" value="Update Property" class="btn btn-primary btn-lg"/>
                 </form>
             {% else %}
                 <h1>401 Unauthorized</h1>
