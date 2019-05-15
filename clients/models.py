@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from properties.models import Properties
 
 
 class Profile(models.Model):
@@ -15,3 +16,9 @@ class Profile(models.Model):
     zipCode = models.IntegerField(blank=True, null=True)
     city = models.CharField(max_length=255, blank=True)
     country = models.CharField(max_length=255, blank=True)
+
+class RecentlyViewed(models.Model):
+    #ToDo Create the function that manipulates this. So that everytime a property is clicked we should send it to that function
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    property = models.ForeignKey(Properties, on_delete=models.CASCADE)
+    time = models.DateTimeField(auto_now_add=True, blank=True)

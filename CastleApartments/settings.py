@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'CastleApartments.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'lgoyyppp',
-        'USER': 'lgoyyppp',
-        'PASSWORD': 'CkcPVyTLVPIp4zYWpI1pc6X1M-nJ19w2',
+        'NAME': 'bzsiedpb',
+        'USER': 'bzsiedpb',
+        'PASSWORD': 'bVQrfVrq6CvbZwZLLF56dbCyySmpLLFw',
         'HOST': 'manny.db.elephantsql.com',
         'PORT': '5432'
     }

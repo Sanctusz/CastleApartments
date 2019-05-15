@@ -1,5 +1,5 @@
 from django.forms import ModelForm, widgets
-from clients.models import Profile
+from clients.models import Profile, RecentlyViewed
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -34,3 +34,8 @@ class ProfileForm(ModelForm):
             'city': widgets.TextInput(attrs={'class': 'form-control'}),
             'country': widgets.TextInput(attrs={'class': 'form-control'})
         }
+
+class RecentlyViewedForm(ModelForm):
+    class Meta:
+        model = RecentlyViewed
+        exclude = ['user', 'property', 'time']

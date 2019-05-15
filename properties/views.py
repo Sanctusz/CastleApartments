@@ -4,6 +4,7 @@ from properties.forms.property_form import *
 from properties.models import *
 from agents.models import Agents
 from django.http import HttpResponse
+from clients.views import add_to_recently_viewed
 from django.contrib import messages
 
 
@@ -122,6 +123,8 @@ def search(request):
 
 def get_property_by_id(request, id):
     is_agent = request.user.groups.filter(name="agents").exists()
+    if request.user.is_authenticated:
+        add_to_recently_viewed(request, id)
     return render(request, 'properties/property_details.html', {
         'property': get_object_or_404(Properties, pk=id),
         'is_agent': is_agent
