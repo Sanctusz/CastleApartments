@@ -29,7 +29,7 @@ class ProfileForm(ModelForm):
             'image': widgets.TextInput(attrs={'class': 'form-control'}),
             'SSN': widgets.TextInput(attrs={'class': 'form-control', 'maxlength': 10, 'pattern': '[0-9]{10}'}),
             'streetName': widgets.TextInput(attrs={'class': 'form-control'}),
-            'houseNumber': widgets.NumberInput(attrs={'class': 'form-control'}),
+            'houseNumber': widgets.TextInput(attrs={'class': 'form-control'}),
             'zipCode': widgets.TextInput(attrs={'class': 'form-control'}),
             'city': widgets.TextInput(attrs={'class': 'form-control'}),
             'country': widgets.TextInput(attrs={'class': 'form-control'})

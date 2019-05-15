@@ -26,10 +26,10 @@ class PropertyUpdateForm(ModelForm):
         exclude = ['id', 'address', 'details']
         widgets = {
             'type': widgets.Select(attrs={'class': 'form-control'}, choices=homeTypes),
-            'size': widgets.TextInput(attrs={'class': 'form-control'}),
-            'rooms': widgets.TextInput(attrs={'class': 'form-control'}),
-            'price': widgets.TextInput(attrs={'class': 'form-control'}),
-            'yearBuilt': widgets.TextInput(attrs={'class': 'form-control'}),
+            'size': widgets.NumberInput(attrs={'class': 'form-control'}),
+            'rooms': widgets.NumberInput(attrs={'class': 'form-control'}),
+            'price': widgets.NumberInput(attrs={'class': 'form-control'}),
+            'yearBuilt': widgets.NumberInput(attrs={'class': 'form-control'}),
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
             'status': widgets.Select(attrs={'class': 'form-control'}, choices=availability),
             'agent': widgets.Select(attrs={'class': 'form-control'}),
@@ -65,8 +65,8 @@ class PropertyAddressUpdateForm(ModelForm):
         exclude = ['id']
         widgets = {
             'streetName': widgets.TextInput(attrs={'class': 'form-control'}),
-            'houseNumber': widgets.NumberInput(attrs={'class': 'form-control'}),
-            'zipCode': widgets.NumberInput(attrs={'class': 'form-control'}),
+            'houseNumber': widgets.TextInput(attrs={'class': 'form-control'}),
+            'zipCode': widgets.TextInput(attrs={'class': 'form-control'}),
             'city': widgets.TextInput(attrs={'class': 'form-control'}),
             'country': widgets.TextInput(attrs={'class': 'form-control'}),
         }
@@ -101,8 +101,8 @@ class PropertyAddressCreateForm(ModelForm):
         exclude = ['id']
         widgets = {
             'streetName': widgets.TextInput(attrs={'class': 'form-control'}),
-            'houseNumber': widgets.NumberInput(attrs={'class': 'form-control'}),
-            'zipCode': widgets.NumberInput(attrs={'class': 'form-control'}),
+            'houseNumber': widgets.TextInput(attrs={'class': 'form-control'}),
+            'zipCode': widgets.TextInput(attrs={'class': 'form-control'}),
             'city': widgets.TextInput(attrs={'class': 'form-control'}),
             'country': widgets.TextInput(attrs={'class': 'form-control'}),
         }
@@ -114,10 +114,10 @@ class PropertyCreateForm(ModelForm):
         exclude = ['id', 'address', 'details', 'status']
         widgets = {
             'type': widgets.Select(attrs={'class': 'form-control'}, choices=homeTypes),
-            'size': widgets.TextInput(attrs={'class': 'form-control'}),
-            'rooms': widgets.TextInput(attrs={'class': 'form-control'}),
-            'price': widgets.TextInput(attrs={'class': 'form-control'}),
-            'yearBuilt': widgets.TextInput(attrs={'class': 'form-control'}),
+            'size': widgets.NumberInput(attrs={'class': 'form-control'}),
+            'rooms': widgets.NumberInput(attrs={'class': 'form-control'}),
+            'price': widgets.NumberInput(attrs={'class': 'form-control'}),
+            'yearBuilt': widgets.NumberInput(attrs={'class': 'form-control'}),
             'description': widgets.Textarea(attrs={'class': 'form-control'}),
             'agent': widgets.Select(attrs={'class': 'form-control'})
         }
