@@ -62,19 +62,15 @@
                                     <a href="{% url "update_property" property.id %}"
                                        class="btn btn-primary btn-lg btn-block">Edit Property</a>
                                 {% else %}
-                                    <form method="get">
-                                        <span class="d-inline-block text-black mb-0 caption-text">&nbsp;</span>
-                                        <strong class="d-block">
-                                            {% if property.status == 'available' %}
+                                    <span class="d-inline-block text-black mb-0 caption-text">&nbsp;</span>
+                                    <strong class="d-block">
+                                        {% if property.status == 'available' %}
+                                            <a href="{% url "purchase" property.id %}" class="btn btn-primary btn-lg btn-block">Purchase</a>
+                                        {% else %}
                                             <input type="button" class="btn btn-primary btn-lg btn-block"
-                                                   value="Purchase"
-                                                   onclick="window.location='/purchases/{{ property.id }}';"/>
-                                            {% else %}
-                                                <input type="button" class="btn btn-primary btn-lg btn-block"
-                                                   value="Sold" disabled/>
-                                            {% endif %}
-                                        </strong>
-                                    </form>
+                                               value="Sold" disabled/>
+                                        {% endif %}
+                                    </strong>
                                 {% endif %}
                             </div>
                         </div>
