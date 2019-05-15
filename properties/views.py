@@ -1,10 +1,12 @@
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from properties.forms.property_form import *
+from properties.forms.send_email import ContactForm
 from properties.models import *
 from agents.models import Agents
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
+from django.core.mail import send_mail, BadHeaderError
 
 
 def must_be_agent(func):
@@ -118,12 +120,39 @@ def search(request):
     return render(request, template, context)
 
 
+def emailView(request):
+    if request.method == 'GET':
+        form = ContactForm()
+        return form
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            from_email = form.cleaned_data['from_email']
+            message = form.cleaned_data['message']
+            try:
+                send_mail(subject, message, from_email, ['castle_apartments@hotmail.com'])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return redirect('success')
+
+
+def successView(request):
+    return HttpResponse('Success! Thank you for your message.')
+
+
 def get_property_by_id(request, id):
     is_agent = request.user.groups.filter(name="agents").exists()
+    email = emailView(request)
+    success = successView(request)
+
     return render(request, 'properties/property_details.html', {
         'property': get_object_or_404(Properties, pk=id),
-        'is_agent': is_agent
+        'is_agent': is_agent,
+        'email': email,
+        'success': success
     })
+
 
 @must_be_agent
 def create_property(request):
