@@ -123,10 +123,6 @@ def get_property_by_id(request, id):
         'property': get_object_or_404(Properties, pk=id),
         'is_agent': is_agent
     })
-def order_property_by_name(request):
-    template = 'properties/index.html'
-    properties_name = {'properties': Properties.objects.all().order_by('address__properties')}
-    return render(request,template, properties_name)
 
 @must_be_agent
 def create_property(request):
