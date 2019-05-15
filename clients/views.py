@@ -34,4 +34,3 @@ def profile(request):
     return render(request, 'clients/profile.html', {
         'form': ProfileForm(instance=profile)
     })
-

@@ -10,6 +10,11 @@
                         {% csrf_token %}
                         <ul class="list-group">
                             <h1 class="form-header">Login</h1>
+                            {% if form.errors %}
+                            <p>
+                                Your username and password didn't match. Please try again.
+                            </p>
+                            {% endif %}
                             {% for field in form %}
                                 <li class="list-group-item">
                                     <label for="{{ field.id_for_label }}">{{ field.name|capfirst }}:</label>

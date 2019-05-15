@@ -3,9 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from properties.forms.property_form import *
 from properties.models import *
 from agents.models import Agents
-from django.http import HttpResponse
 from django.contrib import messages
-
 
 def must_be_agent(func):
     # check if user is in agents group
@@ -15,9 +13,9 @@ def must_be_agent(func):
     def check_and_call(request, *args, **kwargs):
         user = request.user
         if not (user.groups.filter(name='agents').exists()):
-            return HttpResponse("You do not have permission to view this page !", status=403)
+            messages.error(request, "Unauthorized 401")
+            return redirect('index')
         return func(request, *args, **kwargs)
-
     return check_and_call
 
 

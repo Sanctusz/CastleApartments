@@ -16,7 +16,7 @@
   content: '';
   width: 75%;
   height: 1px;
-  background: #F89D13;
+  background: #881353;
 }
 
 .bc .bc_item {
@@ -36,14 +36,14 @@
   width: 40px;
   height: 40px;
   text-align: center;
-  border: 3px solid #F89D13;
+  border: 3px solid #881353;
   border-radius: 50%;
   line-height: 40px;
   background: white;
 }
 
 .bc .bc_complete:after {
-  background: #F89D13;
+  background: #881353;
   color: white;
 }
 
@@ -79,4 +79,10 @@
 
 .messages .success {
   background: #7FDC9E;
+}
+
+.radio{
+  display:flex;
+  justify-content: space-between;
+  font-size: 14px;
 }
