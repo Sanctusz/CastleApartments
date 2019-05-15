@@ -11,9 +11,11 @@
                         <ul class="list-group">
                             <h1 class="form-header">Login</h1>
                             {% if form.errors %}
-                            <p>
+                            <ul class="messages mb-3">
+                                <li class="error">
                                 Your username and password didn't match. Please try again.
-                            </p>
+                                </li>
+                            </ul>
                             {% endif %}
 							<li class="list-group-item">
 								<label for="id_username">Username:</label>
