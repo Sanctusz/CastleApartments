@@ -15,20 +15,23 @@ def must_be_agent(func):
     def check_and_call(request, *args, **kwargs):
         user = request.user
         if not (user.groups.filter(name='agents').exists()):
-            return HttpResponse("You do not have permission to view this page !", status=403)
+            messages.error(request, "401 Unauthorized!")
+            return redirect('index')
         return func(request, *args, **kwargs)
 
     return check_and_call
 
 
 def index(request):
+    is_agent = request.user.groups.filter(name="agents").exists()
     context = {
         'properties': Properties.objects.all(),
         'agents': Agents.objects.all(),
         'property_types': Properties.objects.distinct('type'),
         'property_zipcodes': Properties.objects.distinct('address__zipCode'),
         'property_countries': Properties.objects.distinct('address__country'),
-        'property_cities': Properties.objects.distinct('address__city')
+        'property_cities': Properties.objects.distinct('address__city'),
+        'is_agent': is_agent
     }
     return render(request, 'properties/index.html', context)
 
@@ -60,8 +63,8 @@ def search(request):
             country = request.GET['country']
             properties = properties.filter(address__country__icontains=country)
 
-        if 'room' in request.GET:
-            rooms = request.GET['room']
+        if 'rooms' in request.GET:
+            rooms = request.GET['rooms']
             properties = properties.filter(room__lte=rooms)
 
         if 'size' in request.GET:
@@ -105,7 +108,7 @@ def search(request):
             'country': x.address.country,
             'zipCode': x.address.zipCode,
             'size': x.size,
-            'room': x.room,
+            'rooms': x.rooms,
             'yearBuilt': x.yearBuilt,
             'status': x.status,
             'type': x.type
@@ -133,6 +136,7 @@ def order_property_by_name(request):
 
 @must_be_agent
 def create_property(request):
+    is_agent = request.user.groups.filter(name="agents").exists()
     if request.method == 'POST':
         propForm = PropertyCreateForm(data=request.POST)
         propAddressForm = PropertyAddressCreateForm(data=request.POST)
@@ -152,7 +156,7 @@ def create_property(request):
                 if (propImagesForm.is_valid()):
                     propImages.save()
                     messages.success(request, 'Property created successfully')
-                    return redirect('index')
+                    return redirect('property-details', prop.id)
                 else:
                     messages.error(request, 'Property cannot be created. Please try again.')
     else:
@@ -160,13 +164,15 @@ def create_property(request):
             'propertyForm': PropertyCreateForm(),
             'propertyAddressForm': PropertyAddressCreateForm(),
             'propertyDetailsForm': PropertyDetailsCreateForm(),
-            'propertyImagesForm': PropertyImagesCreateForm()
+            'propertyImagesForm': PropertyImagesCreateForm(),
+            'is_agent': is_agent
         }
         return render(request, 'properties/create_property.html', context)
 
 
 @must_be_agent
 def update_property(request, id):
+    is_agent = request.user.groups.filter(name="agents").exists()
     prop = Properties.objects.filter(pk=id).first()
     details = prop.details
     address = prop.address
@@ -190,7 +196,7 @@ def update_property(request, id):
                 if (propMainImageForm.is_valid()):
                     propImages.save()
                     messages.success(request, 'Property updated successfully.')
-            return redirect('property-details', id=id)
+                    return redirect('property-details', id=id)
         else:
             return messages.error(request, 'Property cannot be updated. Please try again.')
     else:
@@ -198,6 +204,7 @@ def update_property(request, id):
             'propertyForm': PropertyUpdateForm(instance=prop),
             'propertyAddressForm': PropertyAddressUpdateForm(instance=address),
             'propertyDetailsForm': PropertyDetailsUpdateForm(instance=details),
-            'propertyImagesForm': PropertyImagesUpdateForm(instance=image)
+            'propertyImagesForm': PropertyImagesUpdateForm(instance=image),
+            'is_agent': is_agent
         }
         return render(request, 'properties/update_property.html', context)

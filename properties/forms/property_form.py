@@ -27,7 +27,7 @@ class PropertyUpdateForm(ModelForm):
         widgets = {
             'type': widgets.Select(attrs={'class': 'form-control'}, choices=homeTypes),
             'size': widgets.TextInput(attrs={'class': 'form-control'}),
-            'room': widgets.TextInput(attrs={'class': 'form-control'}),
+            'rooms': widgets.TextInput(attrs={'class': 'form-control'}),
             'price': widgets.TextInput(attrs={'class': 'form-control'}),
             'yearBuilt': widgets.TextInput(attrs={'class': 'form-control'}),
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
@@ -115,7 +115,7 @@ class PropertyCreateForm(ModelForm):
         widgets = {
             'type': widgets.Select(attrs={'class': 'form-control'}, choices=homeTypes),
             'size': widgets.TextInput(attrs={'class': 'form-control'}),
-            'room': widgets.TextInput(attrs={'class': 'form-control'}),
+            'rooms': widgets.TextInput(attrs={'class': 'form-control'}),
             'price': widgets.TextInput(attrs={'class': 'form-control'}),
             'yearBuilt': widgets.TextInput(attrs={'class': 'form-control'}),
             'description': widgets.Textarea(attrs={'class': 'form-control'}),
