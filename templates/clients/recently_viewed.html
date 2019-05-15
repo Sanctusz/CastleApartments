@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+	<div class="site-section site-section-sm bg-light">
+		<div class="container">
+			<div class="col-12">
+				<div class="site-section-title">
+					<h3>Recently Viewed Properties</h3>
+				</div>
+				<div class="row mb-5">
+					{% for entry in recently_viewed %}
+						<div class="col-md-6 col-lg-4 mb-4">
+							<a id="{{ entry }}" href="/properties/{{ entry.property.id }}" class="prop-entry d-block">
+								<figure>
+									<img src="{{ entry.property.propertiesimages_set.first.link }}" alt="Image"
+										 class="img-fluid">
+								</figure>
+								<div class="prop-text">
+									<div class="inner">
+										<span class="price rounded">${{ entry.property.price }}</span>
+										<h3 class="title">{{ entry.property.address.streetName }} {{ entry.property.address.houseNumber }}</h3>
+										<p class="location">{{ entry.property.address.city }}, {{ entry.property.address.country }} {{ entry.property.address.zipCode }}</p>
+									</div>
+									<div class="prop-more-info">
+										<div class="inner d-flex">
+											<div class="col">
+												<span>Area:</span>
+												<strong>{{ entry.property.size }}m<sup>2</sup></strong>
+											</div>
+											<div class="col">
+												<span>Rooms:</span>
+												<strong>{{ entry.property.room }}</strong>
+											</div>
+											<div class="col">
+												<span>Year Built:</span>
+												<strong>{{ entry.property.yearBuilt }}</strong>
+											</div>
+											<div class="col">
+												<span>Status:</span>
+												<strong>{{ entry.property.status }}</strong>
+											</div>
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,8 +1,5 @@
-from django.shortcuts import render, get_object_or_404, redirect
-
+from django.shortcuts import render, get_object_or_404
 from agents.models import Agents
-from clients.models import Profile
-
 from properties.models import Properties
 
 

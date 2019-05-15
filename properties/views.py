@@ -4,7 +4,8 @@ from properties.forms.property_form import *
 from properties.forms.send_email import ContactForm
 from properties.models import *
 from agents.models import Agents
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
+from clients.views import add_to_recently_viewed
 from django.contrib import messages
 from django.core.mail import send_mail, BadHeaderError
 
@@ -17,20 +18,23 @@ def must_be_agent(func):
     def check_and_call(request, *args, **kwargs):
         user = request.user
         if not (user.groups.filter(name='agents').exists()):
-            return HttpResponse("You do not have permission to view this page !", status=403)
+            messages.error(request, "401 Unauthorized!")
+            return redirect('index')
         return func(request, *args, **kwargs)
 
     return check_and_call
 
 
 def index(request):
+    is_agent = request.user.groups.filter(name="agents").exists()
     context = {
         'properties': Properties.objects.all(),
         'agents': Agents.objects.all(),
         'property_types': Properties.objects.distinct('type'),
         'property_zipcodes': Properties.objects.distinct('address__zipCode'),
         'property_countries': Properties.objects.distinct('address__country'),
-        'property_cities': Properties.objects.distinct('address__city')
+        'property_cities': Properties.objects.distinct('address__city'),
+        'is_agent': is_agent
     }
     return render(request, 'properties/index.html', context)
 
@@ -62,8 +66,8 @@ def search(request):
             country = request.GET['country']
             properties = properties.filter(address__country__icontains=country)
 
-        if 'room' in request.GET:
-            rooms = request.GET['room']
+        if 'rooms' in request.GET:
+            rooms = request.GET['rooms']
             properties = properties.filter(room__lte=rooms)
 
         if 'size' in request.GET:
@@ -96,7 +100,6 @@ def search(request):
         if 'orderbyprice' in request.GET:
             properties = properties.order_by('price')
 
-
         properties = [{
             'id': x.id,
             'firstImage': x.propertiesimages_set.first().link,
@@ -108,7 +111,7 @@ def search(request):
             'country': x.address.country,
             'zipCode': x.address.zipCode,
             'size': x.size,
-            'room': x.room,
+            'rooms': x.rooms,
             'yearBuilt': x.yearBuilt,
             'status': x.status,
             'type': x.type
@@ -145,6 +148,8 @@ def get_property_by_id(request, id):
     email = emailView(request)
     success = successView(request)
 
+    if request.user.is_authenticated:
+        add_to_recently_viewed(request, id)
     return render(request, 'properties/property_details.html', {
         'property': get_object_or_404(Properties, pk=id),
         'is_agent': is_agent,
@@ -153,8 +158,15 @@ def get_property_by_id(request, id):
     })
 
 
+def order_property_by_name(request):
+    template = 'properties/index.html'
+    properties_name = {'properties': Properties.objects.all().order_by('address__properties')}
+    return render(request, template, properties_name)
+
+
 @must_be_agent
 def create_property(request):
+    is_agent = request.user.groups.filter(name="agents").exists()
     if request.method == 'POST':
         propForm = PropertyCreateForm(data=request.POST)
         propAddressForm = PropertyAddressCreateForm(data=request.POST)
@@ -174,7 +186,7 @@ def create_property(request):
                 if (propImagesForm.is_valid()):
                     propImages.save()
                     messages.success(request, 'Property created successfully')
-                    return redirect('index')
+                    return redirect('property-details', prop.id)
                 else:
                     messages.error(request, 'Property cannot be created. Please try again.')
     else:
@@ -182,25 +194,47 @@ def create_property(request):
             'propertyForm': PropertyCreateForm(),
             'propertyAddressForm': PropertyAddressCreateForm(),
             'propertyDetailsForm': PropertyDetailsCreateForm(),
-            'propertyImagesForm': PropertyImagesCreateForm()
+            'propertyImagesForm': PropertyImagesCreateForm(),
+            'is_agent': is_agent
         }
         return render(request, 'properties/create_property.html', context)
 
 
 @must_be_agent
 def update_property(request, id):
-    instance = get_object_or_404(Properties, pk=id)
+    is_agent = request.user.groups.filter(name="agents").exists()
+    prop = Properties.objects.filter(pk=id).first()
+    details = prop.details
+    address = prop.address
+    image = PropertiesImages.objects.filter(property=id).first()
     if request.method == 'POST':
-        form = PropertyUpdateForm(data=request.POST, instance=instance)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Property updated successfully.')
-            return redirect('property-details', id=id)
+        propForm = PropertyUpdateForm(instance=prop, data=request.POST)
+        propAddressForm = PropertyAddressUpdateForm(instance=address, data=request.POST)
+        propDetailsForm = PropertyDetailsUpdateForm(instance=details, data=request.POST)
+        propMainImageForm = PropertyImagesUpdateForm(instance=image, data=request.POST)
+        if (propAddressForm.is_valid()
+                and propDetailsForm.is_valid()):
+            propAddress = propAddressForm.save()
+            propDetails = propDetailsForm.save()
+            prop = propForm.save(commit=False)
+            prop.address = propAddress
+            prop.details = propDetails
+            if (propForm.is_valid()):
+                prop.save()
+                propImages = propMainImageForm.save(commit=False)
+                propImages.property = prop
+                if (propMainImageForm.is_valid()):
+                    propImages.save()
+                    messages.success(request, 'Property updated successfully.')
+                    return redirect('property-details', id=id)
         else:
-            messages.error(request, 'Property cannot be updated. Please try again.')
+            return messages.error(request, 'Property cannot be updated. Please try again.')
     else:
-        form = PropertyUpdateForm(instance=instance)
-    return render(request, 'properties/update_property.html', {
-        'form': form,
-        'id': id
-    })
+        context = {
+            'propertyForm': PropertyUpdateForm(instance=prop),
+            'propertyAddressForm': PropertyAddressUpdateForm(instance=address),
+            'propertyDetailsForm': PropertyDetailsUpdateForm(instance=details),
+            'propertyImagesForm': PropertyImagesUpdateForm(instance=image),
+            'is_agent': is_agent
+        }
+        return render(request, 'properties/update_property.html', context)

@@ -11,8 +11,8 @@ class PropertiesDetails(models.Model):
 
 class PropertiesAddress(models.Model):
     streetName = models.CharField(max_length=999)
-    houseNumber = models.IntegerField()
-    zipCode = models.IntegerField()
+    houseNumber = models.CharField(max_length=255)
+    zipCode = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     country = models.CharField(max_length=255)
 
@@ -23,7 +23,7 @@ class PropertiesAddress(models.Model):
 class Properties(models.Model):
     type = models.CharField(max_length=255)
     size = models.IntegerField()
-    room = models.IntegerField()
+    rooms = models.IntegerField()
     price = models.IntegerField()
     yearBuilt = models.IntegerField()
     description = models.CharField(max_length=999, blank=True)
