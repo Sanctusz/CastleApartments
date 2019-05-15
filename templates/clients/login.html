@@ -10,12 +10,14 @@
                         {% csrf_token %}
                         <ul class="list-group">
                             <h1 class="form-header">Login</h1>
-                            {% for field in form %}
-                                <li class="list-group-item">
-                                    <label for="{{ field.id_for_label }}">{{ field.name|capfirst }}:</label>
-                                    <input class="form-control" name="{{ field.name }}" type="{{ field.type }}" required autofocus>
-                                </li>
-                            {% endfor %}
+							<li class="list-group-item">
+								<label for="id_username">Username:</label>
+								<input class="form-control" name="username" type="text" required autofocus>
+							</li>
+							<li class="list-group-item">
+								<label for="id_password">Password:</label>
+								<input class="form-control" name="password" type="password" required autofocus>
+							</li>
                         </ul>
                         <br>
                         <input type="submit" class="btn btn-primary btn-block" value="Login">
