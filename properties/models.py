@@ -23,7 +23,7 @@ class PropertiesAddress(models.Model):
 class Properties(models.Model):
     type = models.CharField(max_length=255)
     size = models.IntegerField()
-    room = models.IntegerField()
+    rooms = models.IntegerField()
     price = models.IntegerField()
     yearBuilt = models.IntegerField()
     description = models.CharField(max_length=999, blank=True)

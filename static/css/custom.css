@@ -6,7 +6,7 @@
 }
 
 .catalogue-image {
-    height: 12rem;
-    width: 100%;
+    height: 25rem;
+    width: 75%;
     object-fit: cover;
 }
