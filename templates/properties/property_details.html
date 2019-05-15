@@ -9,7 +9,7 @@
                 <div class="col-md-10">
                     <span class="d-inline-block text-white px-3 mb-3 property-offer-type rounded">Property Details of</span>
                     <h1 class="mb-2">{{ property.address.streetName }} {{ property.address.houseNumber }}</h1>
-                    <p class="mb-5"><strong class="h2 text-success font-weight-bold">{{ property.price }} ISK</strong>
+                    <p class="mb-5"><strong class="h2 text-success font-weight-bold">{{ property.price|floatformat }} ISK</strong>
                     </p>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                     <div class="bg-white">
                         <div class="row mb-5">
                             <div class="col-md-6">
-                                <strong class="text-success h1 mb-3">{{ property.price }} ISK</strong>
+                                <strong class="text-success h1 mb-3">{{ property.price|floatformat }} ISK</strong>
                             </div>
                             <div class="col-md-6">
                                 <ul class="property-specs-wrap mb-3 mb-lg-0  float-lg-right">
@@ -62,19 +62,15 @@
                                     <a href="{% url "update_property" property.id %}"
                                        class="btn btn-primary btn-lg btn-block">Edit Property</a>
                                 {% else %}
-                                    <form method="get">
-                                        <span class="d-inline-block text-black mb-0 caption-text">&nbsp;</span>
-                                        <strong class="d-block">
-                                            {% if property.status == 'available' %}
+                                    <span class="d-inline-block text-black mb-0 caption-text">&nbsp;</span>
+                                    <strong class="d-block">
+                                        {% if property.status == 'available' %}
+                                            <a href="{% url "purchase" property.id %}" class="btn btn-primary btn-lg btn-block">Purchase</a>
+                                        {% else %}
                                             <input type="button" class="btn btn-primary btn-lg btn-block"
-                                                   value="Purchase"
-                                                   onclick="window.location='/purchases/{{ property.id }}';"/>
-                                            {% else %}
-                                                <input type="button" class="btn btn-primary btn-lg btn-block"
-                                                   value="Sold" disabled/>
-                                            {% endif %}
-                                        </strong>
-                                    </form>
+                                               value="Sold" disabled/>
+                                        {% endif %}
+                                    </strong>
                                 {% endif %}
                             </div>
                         </div>

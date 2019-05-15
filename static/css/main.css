@@ -1,4 +1,3 @@
-
 .bc {
   margin: 0px;
   padding: 0px;
@@ -13,9 +12,9 @@
 .bc:before {
   position: absolute;
   top: 23px;
-  left: 15%;
+  left: 12.5%;
   content: '';
-  width: 66%;
+  width: 75%;
   height: 1px;
   background: #F89D13;
 }
@@ -23,7 +22,7 @@
 .bc .bc_item {
   float: left;
   padding-top: 60px;
-  width: 33%;
+  width: 25%;
   text-align: center;
   position: relative;
 }
@@ -48,10 +47,36 @@
   color: white;
 }
 
-.form-header{
-  font-size: 20px;
-  font-weight: bold;
-  text-transform: uppercase;
-  text-align: center;
-  padding-top: 10px;
+#cc_step, #confirm_step {
+  display: none;
+}
+.slider-amount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slider-text {
+  white-space: nowrap;
+}
+
+.checkbox-item{
+  padding-left: 10px;
+}
+
+.messages {
+  list-style-type: none;
+}
+
+.messages > * {
+  padding: 16px;
+  width: 100%;
+}
+
+.messages .error {
+  background: #ff855a;
+}
+
+.messages .success {
+  background: #7FDC9E;
 }
