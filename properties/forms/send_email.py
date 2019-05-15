@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import widgets
 
 class ContactForm(forms.Form):
     from_email = forms.EmailField(required=True)

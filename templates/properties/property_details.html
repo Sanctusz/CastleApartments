@@ -102,24 +102,31 @@
                 <div class="col-lg-4 pl-md-5">
 
                     <div class="bg-white widget border rounded">
-
                         <h4 class="h4 text-black widget-title mb-3">Agent Name:</h4>
                         <p>{{ property.agent.name }}</p>
                         <img src="{{ property.agent.image }}" height="200px" class="img-thumbnail"/>
-                        <form action="" class="form-contact-agent">
                             <div class="form-group">
-                                <label for="name">Email</label>
-                                <input type="text" id="name" class="form-control">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <ul class="list-group">
+                                        <h4 class="form-header">Send me a message</h4>
+                                        <li class="list-group-item">
+                                            <label for="id_from_email">Email:</label>
+                                            <input class="form-control" name="from_email" type="text" id="id_from_email" required>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <label for="id_subject">Subject:</label>
+                                            <input class="form-control" name="subject" type="text" id="id_subject" required>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <label for="id_message">Message:</label>
+                                            <textarea class="form-control" name="message" cols="40" rows="10" id="id_message" required></textarea>
+                                        </li>
+                                    </ul>
+                                    <br>
+                                    <input type="submit" id="send" class="btn btn-primary" value="Send Message">
+                                </form>
                             </div>
-                            <form method="post">
-                                {% csrf_token %}
-                                {{ email }}
-                                <br>
-                            <div class="form-actions">
-                                <input type="submit" id="send" class="btn btn-primary" value="Send Message">
-                            </div>
-                            </form>
-                        </form>
                     </div>
 
                     <div class="bg-white widget border rounded">
