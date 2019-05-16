@@ -88,13 +88,13 @@
                             <li><a href="{% url 'about' %}">About</a></li>
                             <li><a href="{% url 'contact' %}">Contact</a></li>
                             {% if user.is_authenticated %}
-								<li><a href="{% url 'clients-recently-viewed' %}">History</a></li>
                                 {% if user.profile.fname %}
                                     <li>Hello {{ user.profile.fname }}</li>
                                 {% endif %}
                                 {% if is_agent %}
                                     <li><a href="{% url 'create-property' %}">Add Property</a></li>
                                 {% else %}
+                                    <li><a href="{% url 'clients-recently-viewed' %}">History</a></li>
                                     <li>
                                         <a href="{% url 'clients-profile' %}">
                                             <img src="{{ user.profile.image }}"
