@@ -42,9 +42,14 @@ def get_recently_viewed(request):
 	if request.user.is_authenticated:
 		the_user = Profile.objects.filter(user=request.user).first()
 		recently_viewed_obj = RecentlyViewed.objects.filter(user=the_user).order_by('-time')
-		return render(request, 'clients/recently_viewed.html', {
-			'recently_viewed': recently_viewed_obj
-		})
+		if len(recently_viewed_obj) > 0:
+			return render(request, 'clients/recently_viewed.html', {
+				'recently_viewed': recently_viewed_obj
+			})
+		else:
+			return render(request, 'clients/recently_viewed.html',{
+				'message': 'No previous history to show'
+			})
 
 def add_to_recently_viewed(request, the_id):
 	if request.user.is_authenticated:

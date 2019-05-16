@@ -44,6 +44,11 @@
 							</a>
 						</div>
 					{% endfor %}
+				{% if message %}
+					<div class="messages">
+						<p>{{ message }}</p>
+					</div>
+				{% endif %}
 				</div>
 			</div>
 		</div>
