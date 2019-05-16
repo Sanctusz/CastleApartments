@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from purchases.forms.purchases_forms import *
+from django.contrib import messages
 
 
 @login_required()
@@ -32,6 +33,7 @@ def purchase_property(request, id):
                 statuschange = propForm.save(commit=False)
                 statuschange.status = 'sold'
                 statuschange.save()
+                messages.success(request, 'Property Purchase Complete, Thank you for your purchase.')
                 return redirect('index')
     context = {
         'property': get_object_or_404(Properties, pk=id),

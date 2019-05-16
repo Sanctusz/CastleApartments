@@ -10,6 +10,29 @@ class RegisterForm(UserCreationForm):
         fields = ('username', 'password1', 'password2')
 
 
+class fnameRegisterForm(ModelForm):
+    class Meta:
+        labels = {'fname': 'First Name'}
+        help_texts = {'fname': 'Please enter your first name.'}
+        model = Profile
+        exclude = [
+            'id',
+            'user',
+            'mname',
+            'lname',
+            'streetName',
+            'houseNumber',
+            'zipCode',
+            'country',
+            'city',
+            'image',
+            'SSN'
+        ]
+        widgets = {
+            'fname': widgets.TextInput(attrs={'class': 'form-control'})
+        }
+
+
 class ProfileForm(ModelForm):
     class Meta:
         labels = {
