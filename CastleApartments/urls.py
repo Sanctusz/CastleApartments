@@ -31,6 +31,5 @@ urlpatterns = [
     path('purchases/', include('purchases.urls')),
     path('admin/', admin.site.urls),
     path('about/', agentview.about, name='about'),
-    path('contact/', agentview.contact, name='contact')
-
+    path('contact/', agentview.contact, name='contact'),
 ]

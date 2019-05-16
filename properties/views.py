@@ -231,3 +231,4 @@ def update_property(request, id):
             'is_agent': is_agent
         }
         return render(request, 'properties/update_property.html', context)
+

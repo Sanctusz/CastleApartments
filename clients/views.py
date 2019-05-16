@@ -85,3 +85,7 @@ def add_to_recently_viewed(request, the_id):
             """if len(this_user_recent_list) == 10:
 				oldest = this_user_recent_list[0]
 				RecentlyViewed.objects.filter(id=oldest.id).delete()"""
+
+
+
+
