@@ -60,19 +60,15 @@
                             </div>
                             <div class="col-md-6 col-lg-4 text-left border-bottom border-top py-3">
                                 {% if is_agent %}
-                                    <a href="{% url "update_property" property.id %}"
+                                    <a href="{% url "update-property" property.id %}"
                                        class="btn btn-primary btn-lg btn-block">Edit Property</a>
                                 {% else %}
-                                    <span class="d-inline-block text-black mb-0 caption-text">&nbsp;</span>
-                                    <strong class="d-block">
-                                        {% if property.status == 'available' %}
-                                            <a href="{% url "purchase" property.id %}"
-                                               class="btn btn-primary btn-lg btn-block">Purchase</a>
-                                        {% else %}
-                                            <input type="button" class="btn btn-primary btn-lg btn-block"
-                                                   value="Sold" disabled/>
-                                        {% endif %}
-                                    </strong>
+                                    {% if property.status == 'available' %}
+                                        <a href="{% url "purchase" property.id %}"
+                                           class="btn btn-primary btn-lg btn-block">Purchase</a>
+                                    {% else %}
+                                        <a class="btn btn-primary btn-lg btn-block disabled">Sold</a>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                         </div>
@@ -90,6 +86,10 @@
                                                                                                  class="img-fluid"></a>
                                 </div>
                             {% endfor %}
+                            {% if is_agent %}
+                                <a href="{% url "add-images" property.id %}"
+                                   class="btn btn-primary btn-lg btn-block">Add Images</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

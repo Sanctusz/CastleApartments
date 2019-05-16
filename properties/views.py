@@ -4,7 +4,6 @@ from properties.forms.property_form import *
 from properties.forms.send_email import ContactForm
 from properties.models import *
 from agents.models import Agents
-from django.http import HttpResponse
 from clients.views import add_to_recently_viewed
 from django.contrib import messages
 from django.core.mail import send_mail, BadHeaderError
@@ -141,8 +140,7 @@ def emailView(request):
 def get_property_by_id(request, id):
     is_agent = request.user.groups.filter(name="agents").exists()
     email = emailView(request)
-
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and is_agent is False:
         add_to_recently_viewed(request, id)
     return render(request, 'properties/property_details.html', {
         'property': get_object_or_404(Properties, pk=id),
@@ -221,7 +219,8 @@ def update_property(request, id):
                     messages.success(request, 'Property updated successfully.')
                     return redirect('property-details', id=id)
         else:
-            return messages.error(request, 'Property cannot be updated. Please try again.')
+            messages.error(request, 'Property cannot be updated. Please try again.')
+            return redirect('property-details', id=id)
     else:
         context = {
             'propertyForm': PropertyUpdateForm(instance=prop),
@@ -231,3 +230,28 @@ def update_property(request, id):
             'is_agent': is_agent
         }
         return render(request, 'properties/update_property.html', context)
+
+
+@must_be_agent
+def add_images(request, id):
+    is_agent = request.user.groups.filter(name="agents").exists()
+    prop = Properties.objects.filter(pk=id).first()
+    if request.method == 'POST':
+        propImagesForm = PropertyImagesCreateForm(data=request.POST)
+        propImages = propImagesForm.save(commit=False)
+        propImages.property = prop
+        if (propImagesForm.is_valid()):
+            propImagesForm.save()
+            messages.success(request, 'Property Image was Added Successfully.')
+            return redirect('add-images', id=id)
+        else:
+            messages.error(request, "Couldn't Save the Image")
+            return redirect('add-images', id=id)
+
+    else:
+        context = {
+            'form': PropertyImagesCreateForm(),
+            'property': prop,
+            'is_agent': is_agent
+        }
+        return render(request, 'properties/add_images.html', context)
