@@ -9,7 +9,6 @@ from clients.views import add_to_recently_viewed
 from django.contrib import messages
 from django.core.mail import send_mail, BadHeaderError
 
-
 def must_be_agent(func):
     # check if user is in agents group
     # if not, return a warning message
@@ -21,7 +20,6 @@ def must_be_agent(func):
             messages.error(request, "401 Unauthorized!")
             return redirect('index')
         return func(request, *args, **kwargs)
-
     return check_and_call
 
 
