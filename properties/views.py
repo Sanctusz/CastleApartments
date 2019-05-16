@@ -133,29 +133,23 @@ def emailView(request):
             subject = form.cleaned_data['subject']
             from_email = form.cleaned_data['from_email']
             message = form.cleaned_data['message']
-
             try:
                 send_mail(subject, message, from_email, ['castle_apartments@hotmail.com'])
+                messages.success(request, 'Success, email sent')
             except BadHeaderError:
-                return HttpResponse('Invalid header found.')
-            return successView(request)
-
-def successView(request):
-    return HttpResponse('Success! Thank you for your message.')
+                messages.error(request, "Something went wrong, email wasn't sent")
 
 
 def get_property_by_id(request, id):
     is_agent = request.user.groups.filter(name="agents").exists()
     email = emailView(request)
-    success = successView(request)
 
     if request.user.is_authenticated:
         add_to_recently_viewed(request, id)
     return render(request, 'properties/property_details.html', {
         'property': get_object_or_404(Properties, pk=id),
         'is_agent': is_agent,
-        'email': email,
-        'success': success
+        'email': email
     })
 
 

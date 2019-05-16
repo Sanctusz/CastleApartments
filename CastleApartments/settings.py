@@ -127,6 +127,13 @@ STATICFILES_DIRS = [
 
 LOGIN_URL = '../clients/login/'
 LOGIN_REDIRECT_URL = '../../'
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_PASSWORD = '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'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 
 

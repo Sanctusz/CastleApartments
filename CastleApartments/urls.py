@@ -17,8 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
+
+from CastleApartments import settings
 from properties import views as propview
 from agents import views as agentview
+
 
 urlpatterns = [
     path('', propview.index, name='index'),
@@ -28,5 +31,6 @@ urlpatterns = [
     path('purchases/', include('purchases.urls')),
     path('admin/', admin.site.urls),
     path('about/', agentview.about, name='about'),
-    path('contact/', TemplateView.as_view(template_name='contact.html'), name='contact')
+    path('contact/', agentview.contact, name='contact')
+
 ]
