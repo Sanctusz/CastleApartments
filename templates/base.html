@@ -91,6 +91,7 @@
                             <li><a href="{% url 'about' %}">About</a></li>
                             <li><a href="{% url 'contact' %}">Contact</a></li>
                             {% if user.is_authenticated %}
+								<li><a href="{% url 'clients-recently-viewed' %}">History</a></li>
                                 {% if user.profile.fname %}
                                     <li>Hello {{ user.profile.fname }}</li>
                                 {% endif %}
