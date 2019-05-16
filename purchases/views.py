@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from purchases.forms.purchases_forms import *
 from django.contrib import messages
 
+
 @login_required()
 def purchase_property(request, id):
     profile = Profile.objects.filter(user=request.user).first()
@@ -32,7 +33,7 @@ def purchase_property(request, id):
                 statuschange = propForm.save(commit=False)
                 statuschange.status = 'sold'
                 statuschange.save()
-                messages.success(request, "Thank you for your purchase")
+                messages.success(request, 'Property Purchase Complete, Thank you for your purchase.')
                 return redirect('index')
             else:
                 messages.error(request, "Payment not received. Please try again")
