@@ -48,7 +48,6 @@ def get_recently_viewed(request):
 
 
 def add_to_recently_viewed(request, the_id):
-	# ToDo Finish!!!!
 	if request.user.is_authenticated:
 		the_user = Profile.objects.filter(user=request.user).first()
 		prop = get_object_or_404(Properties, pk=the_id)
