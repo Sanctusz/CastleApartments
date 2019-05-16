@@ -26,34 +26,42 @@ def register(request):
 
 
 def profile(request):
-    profile = Profile.objects.filter(user=request.user).first()
-    if request.method == 'POST':
-        form = ProfileForm(instance=profile, data=request.POST)
-        profile = form.save(commit=False)
-        profile.user = request.user
-        if form.is_valid():
-            profile.save()
-            messages.success(request, 'Profile updated successfully.')
-            return redirect('clients-profile')
-        else:
-            messages.error(request, 'Update failed. Please try again.')
-    return render(request, 'clients/profile.html', {
-        'form': ProfileForm(instance=profile)
-    })
+    is_agent = request.user.groups.filter(name="agents").exists()
+    if request.user.is_authenticated and is_agent is False:
+        profile = Profile.objects.filter(user=request.user).first()
+        if request.method == 'POST':
+            form = ProfileForm(instance=profile, data=request.POST)
+            profile = form.save(commit=False)
+            profile.user = request.user
+            if form.is_valid():
+                profile.save()
+                messages.success(request, 'Profile updated successfully.')
+                return redirect('clients-profile')
+            else:
+                messages.error(request, 'Update failed. Please try again.')
+        return render(request, 'clients/profile.html', {
+            'form': ProfileForm(instance=profile)
+        })
+    else:
+        return render(request, 'clients/profile.html', {
+            'is_agent': is_agent
+        })
 
 
 def get_recently_viewed(request):
-	if request.user.is_authenticated:
-		the_user = Profile.objects.filter(user=request.user).first()
-		recently_viewed_obj = RecentlyViewed.objects.filter(user=the_user).order_by('-time')
-		if len(recently_viewed_obj) > 0:
-			return render(request, 'clients/recently_viewed.html', {
-				'recently_viewed': recently_viewed_obj
-			})
-		else:
-			return render(request, 'clients/recently_viewed.html',{
-				'message': 'No previous history to show'
-			})
+    is_agent = request.user.groups.filter(name="agents").exists()
+    if request.user.is_authenticated and is_agent is False:
+        the_user = Profile.objects.filter(user=request.user).first()
+        recently_viewed_obj = RecentlyViewed.objects.filter(user=the_user).order_by('-time')
+        if len(recently_viewed_obj) > 0:
+            return render(request, 'clients/recently_viewed.html', {
+                'recently_viewed': recently_viewed_obj
+            })
+        else:
+            return render(request, 'clients/recently_viewed.html', {
+                'message': 'No previous history to show'
+            })
+
 
 def add_to_recently_viewed(request, the_id):
     if request.user.is_authenticated:

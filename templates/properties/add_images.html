@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="site-section">
+        <div class="container">
+            {% if is_agent %}
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <label for="{{ field.id_for_label }}">Image {{ field.name|capfirst }}:</label>
+                        {{ field.as_widget }}
+                    {% endfor %}
+                    <br>
+                    <input type="submit" value="Add Image" class="btn btn-primary btn-lg"/>
+                </form>
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <h2 class="h4 text-black mb-3">Property Gallery</h2>
+                    </div>
+                    {% for image in property.propertiesimages_set.all %}
+                        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                            <a href="{{ image.link }}" class="image-popup gal-item"><img src="{{ image.link }}"
+                                                                                         alt="{{ image.text }}"
+                                                                                         class="img-fluid"></a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <h1>401 Unauthorized</h1>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
