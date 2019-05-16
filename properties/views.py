@@ -21,11 +21,18 @@ def must_be_agent(func):
         return func(request, *args, **kwargs)
     return check_and_call
 
+def get_relative_properties(request, is_agent):
+    if is_agent is True:
+        properties = Properties.objects.all()
+    else:
+        properties = Properties.objects.filter(status="available")
+    return properties
 
 def index(request):
     is_agent = request.user.groups.filter(name="agents").exists()
+    properties = get_relative_properties(request, is_agent)
     context = {
-        'properties': Properties.objects.all(),
+        'properties': properties,
         'agents': Agents.objects.all(),
         'property_types': Properties.objects.distinct('type'),
         'property_zipcodes': Properties.objects.distinct('address__zipCode'),
@@ -45,7 +52,7 @@ def search(request):
 
     if 'search_filter' in request.GET:
         search_filter = request.GET['search_filter']
-        properties = Properties.objects.filter(description__icontains=search_filter)
+        properties = Properties.objects.filter(description__icontains=search_filter).filter(status="available")
 
         if 'type' in request.GET:
             house_type = request.GET['type']
