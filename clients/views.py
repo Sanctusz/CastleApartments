@@ -18,7 +18,7 @@ def register(request):
             messages.success(request, 'Profile created successfully')
             return redirect('clients-login')
         else:
-            messages.error(request, 'Registration failed. Please try again')
+            messages.error(request, 'Registration failed. Please try again.')
     return render(request, 'clients/register.html', {
         'form': RegisterForm(),
         'fname': fnameRegisterForm()
@@ -33,10 +33,10 @@ def profile(request):
         profile.user = request.user
         if form.is_valid():
             profile.save()
-            messages.success(request, 'Profile updated successfully')
+            messages.success(request, 'Profile updated successfully.')
             return redirect('clients-profile')
         else:
-            messages.error(request, 'Update failed. Please try again')
+            messages.error(request, 'Update failed. Please try again.')
     return render(request, 'clients/profile.html', {
         'form': ProfileForm(instance=profile)
     })
@@ -49,7 +49,6 @@ def get_recently_viewed(request):
         return render(request, 'clients/recently_viewed.html', {
             'recently_viewed': recently_viewed_obj
         })
-
 
 def add_to_recently_viewed(request, the_id):
     if request.user.is_authenticated:

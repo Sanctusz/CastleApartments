@@ -35,6 +35,8 @@ def purchase_property(request, id):
                 statuschange.save()
                 messages.success(request, 'Property Purchase Complete, Thank you for your purchase.')
                 return redirect('index')
+            else:
+                messages.error(request, "Payment not received. Please try again")
     context = {
         'property': get_object_or_404(Properties, pk=id),
         'profileForm': ProfileForm(instance=profile),
@@ -43,26 +45,3 @@ def purchase_property(request, id):
     }
     return render(request, 'purchases/purchase.html', context)
 
-
-'''
-def profile(request):
-    profile = Profile.objects.filter(user=request.user).first()
-    if request.method == 'POST':
-        form = ProfileForm(instance=profile, data=request.POST)
-        if form.is_valid():
-            profile = form.save(commit=False)
-            profile.user = request.user
-            profile.save()
-            return redirect('clients-profile')
-    return render(request, 'clients/profile.html', {
-        'form': ProfileForm(instance=profile)
-    })
-
-def purchase_property(request, id):
-    # prop = Properties.objects.get(pk=id)
-    if request.method=="PATCH":
-        prop = get_object_or_404(Properties, id=id)
-        if prop.status == 'available':
-            prop.status = "sold"
-            prop.save()
-'''
