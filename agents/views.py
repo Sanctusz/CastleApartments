@@ -2,7 +2,6 @@ from django.shortcuts import render, get_object_or_404
 from agents.models import Agents
 from properties.models import Properties
 from django.contrib import messages
-from django.http import HttpResponse
 from django.core.mail import send_mail, BadHeaderError
 from agents.forms.send_email import ContactForm
 
@@ -15,8 +14,10 @@ def index(request):
 
 
 def about(request):
+    is_agent = request.user.groups.filter(name="agents").exists()
     context = {
-        'agents': Agents.objects.all()
+        'agents': Agents.objects.all(),
+        'is_agent': is_agent
     }
     return render(request, 'about.html', context)
 
@@ -30,6 +31,7 @@ def get_agent_by_id(request, id):
 
 
 def contact(request):
+    is_agent = request.user.groups.filter(name="agents").exists()
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -42,5 +44,6 @@ def contact(request):
             except BadHeaderError:
                 messages.error(request, "Something went wrong, email wasn't sent")
     return render(request, 'contact.html', {
-        'form': ContactForm()
+        'form': ContactForm(),
+        'is_agent': is_agent
     })

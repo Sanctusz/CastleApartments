@@ -250,10 +250,9 @@ def add_images(request, id):
         if (propImagesForm.is_valid()):
             propImagesForm.save()
             messages.success(request, 'Property Image was Added Successfully.')
-            return redirect('add-images', id=id)
         else:
             messages.error(request, "Couldn't Save the Image")
-            return redirect('add-images', id=id)
+        return redirect('add-images', id=id)
 
     else:
         context = {
@@ -262,3 +261,13 @@ def add_images(request, id):
             'is_agent': is_agent
         }
         return render(request, 'properties/add_images.html', context)
+
+
+def remove_image(request, prop_id, image_id):
+    try:
+        image = get_object_or_404(PropertiesImages, pk=image_id)
+        image.delete()
+        messages.success(request, 'Property Image was Removed Successfully.')
+    except:
+        messages.error(request, "Couldn't Remove the Image.")
+    return redirect('add-images', id=prop_id)
