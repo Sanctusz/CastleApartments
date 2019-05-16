@@ -2,23 +2,29 @@
 {% block content %}
 	<div class="site-section site-section-sm bg-light">
 		<div class="container">
-			<div class="col-12">
-				<div class="site-section-title">
-					<h3>Recently Viewed Properties</h3>
+
+			<div class="row mb-5">
+				<div class="col-12">
+					<div class="site-section-title">
+						<h3>Recently Viewed Properties</h3>
+					</div>
 				</div>
-				<div class="row mb-5">
+			</div>
+			<div id="properties" class="row mb-5">
+				{% if recently_viewed %}
 					{% for entry in recently_viewed %}
 						<div class="col-md-6 col-lg-4 mb-4">
 							<a id="{{ entry }}" href="/properties/{{ entry.property.id }}" class="prop-entry d-block">
 								<figure>
-									<img src="{{ entry.property.propertiesimages_set.first.link }}" alt="Image"
-										 class="img-fluid">
+									<img src="{{ entry.property.propertiesimages_set.first.link }}"
+										 alt="{{ entry.property.propertiesimages_set.first.text }}"
+										 class="img-thumbnail catalogue-image">
 								</figure>
 								<div class="prop-text">
 									<div class="inner">
-										<span class="price rounded">${{ entry.property.price }}</span>
+										<span class="price rounded">{{ entry.property.price|floatformat }}</span>
 										<h3 class="title">{{ entry.property.address.streetName }} {{ entry.property.address.houseNumber }}</h3>
-										<p class="location">{{ entry.property.address.city }}, {{ entry.property.address.country }} {{ entry.property.address.zipCode }}</p>
+										<p class="location">{{ entry.property.address.city }}, {{ entry.property.address.country }} {{ property.address.zipCode }}</p>
 									</div>
 									<div class="prop-more-info">
 										<div class="inner d-flex">
@@ -28,7 +34,7 @@
 											</div>
 											<div class="col">
 												<span>Rooms:</span>
-												<strong>{{ entry.property.room }}</strong>
+												<strong>{{ entry.property.rooms }}</strong>
 											</div>
 											<div class="col">
 												<span>Year Built:</span>
@@ -36,7 +42,7 @@
 											</div>
 											<div class="col">
 												<span>Status:</span>
-												<strong>{{ entry.property.status }}</strong>
+												<strong>{{ entry.property.status|upper }}</strong>
 											</div>
 										</div>
 									</div>
@@ -44,12 +50,12 @@
 							</a>
 						</div>
 					{% endfor %}
+				{% endif %}
 				{% if message %}
 					<div class="messages">
 						<p>{{ message }}</p>
 					</div>
 				{% endif %}
-				</div>
 			</div>
 		</div>
 	</div>
