@@ -2,12 +2,36 @@ from django.forms import ModelForm, widgets
 from clients.models import Profile, RecentlyViewed
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django import forms
 
 
 class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'password1', 'password2')
+
+
+class fnameRegisterForm(ModelForm):
+    class Meta:
+        labels = {'fname': 'First Name'}
+        help_texts = {'fname': 'Please enter your first name.'}
+        model = Profile
+        exclude = [
+            'id',
+            'user',
+            'mname',
+            'lname',
+            'streetName',
+            'houseNumber',
+            'zipCode',
+            'country',
+            'city',
+            'image',
+            'SSN'
+        ]
+        widgets = {
+            'fname': widgets.TextInput(attrs={'class': 'form-control'})
+        }
 
 
 class ProfileForm(ModelForm):
@@ -39,3 +63,8 @@ class RecentlyViewedForm(ModelForm):
     class Meta:
         model = RecentlyViewed
         exclude = ['user', 'property', 'time']
+        
+class LoginForm(forms.Form):
+    ''' this form will be used to authenticate users against the database.'''
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)

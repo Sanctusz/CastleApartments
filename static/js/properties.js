@@ -85,7 +85,7 @@ $(document).ready(function() {
             type: 'GET',
             success: function(resp) {
                 if (!$.trim(resp.data)) {
-                    var newHtml = ['Sorry ',' nothing ',' matches ',' your ',' search']
+                    var newHtml = ['Sorry,',' nothing ',' matches ',' your ',' search.']
                 }
                 else {
                 console.log(resp)

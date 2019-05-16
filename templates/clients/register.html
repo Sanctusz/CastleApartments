@@ -34,6 +34,13 @@
                                 <input class="form-control" name="password2" type="password" required
                                        autofocus id="id_password2">
                             </li>
+                            <li class="list-group-item">
+                                <label for="{{ fname.fname.id_for_label }}">{{ fname.fname.label|title }}:</label>
+                                <div class="text-warning">
+                                    <small>{{ fname.fname.help_text }}</small>
+                                </div>
+                                <input class="form-control" name="fname" type="text" required autofocus id="id_fname">
+                            </li>
                         </ul>
                         <br>
                         <input type="submit" class="btn btn-primary btn-block" value="Register">

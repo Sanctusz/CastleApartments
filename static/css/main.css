@@ -16,7 +16,7 @@
   content: '';
   width: 75%;
   height: 1px;
-  background: #F89D13;
+  background: #f89d13;
 }
 
 .bc .bc_item {
@@ -36,14 +36,14 @@
   width: 40px;
   height: 40px;
   text-align: center;
-  border: 3px solid #F89D13;
+  border: 3px solid #f89d13;
   border-radius: 50%;
   line-height: 40px;
   background: white;
 }
 
 .bc .bc_complete:after {
-  background: #F89D13;
+  background: #f89d13;
   color: white;
 }
 
@@ -66,6 +66,7 @@
 
 .messages {
   list-style-type: none;
+  padding: 0;
 }
 
 .messages > * {
@@ -80,4 +81,19 @@
 
 .messages .success {
   background: #7FDC9E;
+}
+
+.radio-buttons{
+  margin-left: 15px;
+  font-size: 15px;
+}
+
+.selection{
+  margin-bottom: -9px;
+}
+
+.form-header{
+  font-size: 20px;
+  margin: 0 auto;
+  padding-bottom: 10px;
 }
