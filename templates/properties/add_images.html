@@ -18,6 +18,7 @@
                     </div>
                     {% for image in property.propertiesimages_set.all %}
                         <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                            <a href="{% url 'remove-image' property.id image.id %}">X</a>
                             <a href="{{ image.link }}" class="image-popup gal-item"><img src="{{ image.link }}"
                                                                                          alt="{{ image.text }}"
                                                                                          class="img-fluid"></a>
