@@ -16,3 +16,9 @@
     border-radius: 15px;
     margin-right: 5px;
 }
+
+.gallery-image {
+    height: 9rem;
+    width: 16rem;
+    object-fit: cover;
+}
