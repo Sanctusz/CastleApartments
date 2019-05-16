@@ -43,7 +43,8 @@ def profile(request):
 
 
 def get_recently_viewed(request):
-	if request.user.is_authenticated:
+	is_agent = request.user.groups.filter(name="agents").exists()
+	if request.user.is_authenticated and is_agent is False:
 		the_user = Profile.objects.filter(user=request.user).first()
 		recently_viewed_obj = RecentlyViewed.objects.filter(user=the_user).order_by('-time')
 		if len(recently_viewed_obj) > 0:
@@ -51,16 +52,20 @@ def get_recently_viewed(request):
 				'recently_viewed': recently_viewed_obj
 			})
 		else:
-			message = {'message': 'No previous history to show'}
+			message = 'No previous history to show'
 	else:
-		message = {'message': 'This feature is only available for logged in users'}
-
-	return render(request, 'clients/recently_viewed.html', message)
+		message = 'This feature is only available for logged in users'
+	context = {
+		'message': message,
+		'is_agent': is_agent
+	}
+	return render(request, 'clients/recently_viewed.html', context)
 
 
 
 def add_to_recently_viewed(request, the_id):
-	if request.user.is_authenticated:
+	is_agent = request.user.groups.filter(name="agents").exists()
+	if request.user.is_authenticated and is_agent is False:
 		the_user = Profile.objects.filter(user=request.user).first()
 		prop = get_object_or_404(Properties, pk=the_id)
 		this_user_recent_list = RecentlyViewed.objects.filter(user=the_user)
