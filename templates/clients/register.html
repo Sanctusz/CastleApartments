@@ -11,31 +11,51 @@
 
                         <ul class="list-group mb-4">
                             <h1 class="form-header">Register</h1>
-
-
-                            {% for field in form %}
-                                <li class="list-group-item">
-                                    <div>
-                                        {{ field.label_tag }}
+                            <li class="list-group-item">
+                                <label for="id_username">{{ form.username.label_tag }}</label>
+                                <input type="text" class="form-control" name="username" id="id_username" required
+                                       autofocus>
+                                <div class="bg-danger">
+                                    {{ form.username.errors }}
+                                </div>
+                                {% if form.username.help_text %}
+                                    <div class="text-warning">
+                                        <small>{{ form.username.help_text|safe }}</small>
                                     </div>
-                                    {{ field }}
-                                    <div class="bg-danger">
-                                        {{ field.errors }}
+                                {% endif %}
+                            </li>
+                            <li class="list-group-item">
+                                <label for="id_password">{{ form.password1.label_tag }}</label>
+                                <input type="password" class="form-control" name="password1" id="id_password" required
+                                       autofocus>
+                                <div class="bg-danger">
+                                    {{ form.password1.errors }}
+                                </div>
+                                {% if form.password1.help_text %}
+                                    <div class="text-warning">
+                                        <small>{{ form.password1.help_text|safe }}</small>
                                     </div>
-                                    {% if field.help_text %}
-                                        <div class="text-warning">
-                                            <small>{{ field.help_text|safe }}</small>
-                                        </div>
-                                    {% endif %}
-                                </li>
-                            {% endfor %}
-
+                                {% endif %}
+                            </li>
+                            <li class="list-group-item">
+                                <label for="id_password">{{ form.password2.label_tag }}</label>
+                                <input type="password" class="form-control" name="password2" id="id_password" required
+                                       autofocus>
+                                <div class="bg-danger">
+                                    {{ form.password2.errors }}
+                                </div>
+                                {% if form.password2.help_text %}
+                                    <div class="text-warning">
+                                        <small>{{ form.password2.help_text|safe }}</small>
+                                    </div>
+                                {% endif %}
+                            </li>
                             {% for field in fname %}
                                 <li class="list-group-item">
                                     <div>
                                         {{ field.label_tag }}
                                     </div>
-                                    {{ field }}
+                                    {{ field.as_widget }}
                                     <div class="bg-danger">
                                         {{ field.errors }}
                                     </div>
