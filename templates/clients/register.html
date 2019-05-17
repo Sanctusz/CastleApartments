@@ -8,39 +8,45 @@
                 <div class="col-lg-6">
                     <form method="post">
                         {% csrf_token %}
+
                         <ul class="list-group">
                             <h1 class="form-header">Register</h1>
-                            <li class="list-group-item">
-                                <label for="{{ form.username.id_for_label }}">{{ form.username.label|title }}:</label>
-                                <div class="text-warning">
-                                    <small>{{ form.username.help_text }}</small>
-                                </div>
-                                <input class="form-control" name="username" maxlength="150" type="text" required
-                                       autofocus id="id_username">
-                            </li>
-                            <li class="list-group-item">
-                                <label for="{{ form.password1.id_for_label }}">{{ form.password1.label|title }}:</label>
-                                <div class="text-warning">
-                                    <small>{{ form.password1.help_text }}</small>
-                                </div>
-                                <input class="form-control" name="password1" type="password" required
-                                       autofocus id="id_password1">
-                            </li>
-                            <li class="list-group-item">
-                                <label for="{{ form.password2.id_for_label }}">{{ form.password2.label|title }}:</label>
-                                <div class="text-warning">
-                                    <small>{{ form.password2.help_text }}</small>
-                                </div>
-                                <input class="form-control" name="password2" type="password" required
-                                       autofocus id="id_password2">
-                            </li>
-                            <li class="list-group-item">
-                                <label for="{{ fname.fname.id_for_label }}">{{ fname.fname.label|title }}:</label>
-                                <div class="text-warning">
-                                    <small>{{ fname.fname.help_text }}</small>
-                                </div>
-                                <input class="form-control" name="fname" type="text" required autofocus id="id_fname">
-                            </li>
+
+
+                            {% for field in form %}
+                                <li class="list-group-item">
+                                    <div>
+                                        {{ field.label_tag }}
+                                    </div>
+                                    {{ field }}
+                                    <div class="bg-danger">
+                                        {{ field.errors }}
+                                    </div>
+                                    {% if field.help_text %}
+                                        <div class="text-warning">
+                                            <small>{{ field.help_text|safe }}</small>
+                                        </div>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+
+                            {% for field in fname %}
+                                <li class="list-group-item">
+                                    <div>
+                                        {{ field.label_tag }}
+                                    </div>
+                                    {{ field }}
+                                    <div class="bg-danger">
+                                        {{ field.errors }}
+                                    </div>
+                                    {% if field.help_text %}
+                                        <div class="text-warning">
+                                            <small>{{ field.help_text|safe }}</small>
+                                        </div>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+
                         </ul>
                         <br>
                         <input type="submit" class="btn btn-primary btn-block" value="Register">

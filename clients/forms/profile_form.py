@@ -2,6 +2,7 @@ from django.forms import ModelForm, widgets
 from clients.models import Profile, RecentlyViewed
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.core.exceptions import NON_FIELD_ERRORS
 from django import forms
 
 
@@ -9,6 +10,11 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'password1', 'password2')
+        widgets = {
+            'username': widgets.TextInput(attrs={'class': 'form-control'}),
+            'password1': widgets.PasswordInput(attrs={'class': 'form-control'}),
+            'password2': widgets.PasswordInput(attrs={'class': 'form-control'})
+        }
 
 
 class fnameRegisterForm(ModelForm):
@@ -64,7 +70,4 @@ class RecentlyViewedForm(ModelForm):
         model = RecentlyViewed
         exclude = ['user', 'property', 'time']
         
-class LoginForm(forms.Form):
-    ''' this form will be used to authenticate users against the database.'''
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+

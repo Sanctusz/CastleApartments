@@ -4,24 +4,34 @@ from clients.forms.profile_form import *
 from properties.models import Properties
 from datetime import datetime
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
 
 
 def register(request):
     if request.method == 'POST':
-        regForm = RegisterForm(data=request.POST)
-        proForm = fnameRegisterForm(data=request.POST)
-        if regForm.is_valid() and proForm.is_valid():
-            user = regForm.save()
-            profile = proForm.save(commit=False)
+        form = RegisterForm(request.POST)
+        fname = fnameRegisterForm(request.POST)
+
+        if form.is_valid() and proForm.is_valid():
+            user = form.save()
+            profile = fname.save(commit=False)
             profile.user = user
             profile.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password')
+            user_name = authenticate(username=username, password=raw_password)
+            login(request, user_name)
             messages.success(request, 'Profile created successfully')
-            return redirect('clients-login')
-        else:
-            messages.error(request, 'Registration failed. Please try again.')
+            return redirect('index')
+
+    else:
+        form = RegisterForm()
+        fname = fnameRegisterForm()
+
     return render(request, 'clients/register.html', {
-        'form': RegisterForm(),
-        'fname': fnameRegisterForm()
+        'form': form,
+        'fname': fname
     })
 
 
@@ -34,6 +44,7 @@ def profile(request):
         if form.is_valid():
             profile.save()
             messages.success(request, 'Profile updated successfully.')
+
             return redirect('clients-profile')
         else:
             messages.error(request, 'Update failed. Please try again.')
