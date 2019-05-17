@@ -16,7 +16,7 @@
   content: '';
   width: 75%;
   height: 1px;
-  background: #f89d13;
+  background: #EA5A9F;
 }
 
 .bc .bc_item {
@@ -36,14 +36,14 @@
   width: 40px;
   height: 40px;
   text-align: center;
-  border: 3px solid #f89d13;
+  border: 3px solid #EA5A9F;
   border-radius: 50%;
   line-height: 40px;
   background: white;
 }
 
 .bc .bc_complete:after {
-  background: #f89d13;
+  background: #EA5A9F;
   color: white;
 }
 
@@ -106,4 +106,8 @@
   background: #ff855a;
   list-style-type: none;
   border-radius: 3px;
+}
+
+.site-section{
+  background-color: #F9F0F0;
 }
