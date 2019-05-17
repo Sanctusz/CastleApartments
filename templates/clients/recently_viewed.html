@@ -1,62 +1,67 @@
 {% extends 'base.html' %}
 {% block content %}
-	<div class="site-section site-section-sm bg-light">
-		<div class="container">
+    <div class="site-section site-section-sm">
+        <div class="container">
 
-			<div class="row mb-5">
-				<div class="col-12">
-					<div class="site-section-title">
-						<h3>Recently Viewed Properties</h3>
-					</div>
-				</div>
-			</div>
-			<div id="properties" class="row mb-5">
-				{% if recently_viewed %}
-					{% for entry in recently_viewed %}
-						<div class="col-md-6 col-lg-4 mb-4">
-							<a id="{{ entry }}" href="/properties/{{ entry.property.id }}" class="prop-entry d-block">
-								<figure>
-									<img src="{{ entry.property.propertiesimages_set.first.link }}"
-										 alt="{{ entry.property.propertiesimages_set.first.text }}"
-										 class="img-thumbnail catalogue-image">
-								</figure>
-								<div class="prop-text">
-									<div class="inner">
-										<span class="price rounded">{{ entry.property.price|floatformat }}</span>
-										<h3 class="title">{{ entry.property.address.streetName }} {{ entry.property.address.houseNumber }}</h3>
-										<p class="location">{{ entry.property.address.city }}, {{ entry.property.address.country }} {{ property.address.zipCode }}</p>
-									</div>
-									<div class="prop-more-info">
-										<div class="inner d-flex">
-											<div class="col">
-												<span>Area:</span>
-												<strong>{{ entry.property.size }}m<sup>2</sup></strong>
-											</div>
-											<div class="col">
-												<span>Rooms:</span>
-												<strong>{{ entry.property.rooms }}</strong>
-											</div>
-											<div class="col">
-												<span>Year Built:</span>
-												<strong>{{ entry.property.yearBuilt }}</strong>
-											</div>
-											<div class="col">
-												<span>Status:</span>
-												<strong>{{ entry.property.status|upper }}</strong>
-											</div>
-										</div>
-									</div>
-								</div>
-							</a>
-						</div>
-					{% endfor %}
-				{% endif %}
-				{% if message %}
-					<div class="messages">
-						<p>{{ message }}</p>
-					</div>
-				{% endif %}
-			</div>
-		</div>
-	</div>
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="site-section-title">
+                        <h3>Recently Viewed Properties</h3>
+                    </div>
+                </div>
+            </div>
+            <div id="properties" class="row mb-5">
+                {% if recently_viewed %}
+                    {% for entry in recently_viewed %}
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <a id="{{ entry }}" href="/properties/{{ entry.property.id }}" class="prop-entry d-block">
+                                <figure>
+                                    {% if entry.property.propertiesimages_set.first.link %}
+                                        <img src="{{ entry.property.propertiesimages_set.first.link }}"
+                                             alt="{{ entry.property.propertiesimages_set.first.text }}"
+                                             class="img-thumbnail catalogue-image">
+                                    {% else %}
+                                        <img src="https://via.placeholder.com/800x450.png?text=No+Image+Found"
+                                             alt="No Image Found" class="img-thumbnail">
+                                    {% endif %}
+                                </figure>
+                                <div class="prop-text">
+                                    <div class="inner">
+                                        <span class="price rounded">{{ entry.property.price|floatformat }}</span>
+                                        <h3 class="title">{{ entry.property.address.streetName }} {{ entry.property.address.houseNumber }}</h3>
+                                        <p class="location">{{ entry.property.address.city }}, {{ entry.property.address.country }} {{ property.address.zipCode }}</p>
+                                    </div>
+                                    <div class="prop-more-info">
+                                        <div class="inner d-flex">
+                                            <div class="col">
+                                                <span>Area:</span>
+                                                <strong>{{ entry.property.size }}m<sup>2</sup></strong>
+                                            </div>
+                                            <div class="col">
+                                                <span>Rooms:</span>
+                                                <strong>{{ entry.property.rooms }}</strong>
+                                            </div>
+                                            <div class="col">
+                                                <span>Year Built:</span>
+                                                <strong>{{ entry.property.yearBuilt }}</strong>
+                                            </div>
+                                            <div class="col">
+                                                <span>Status:</span>
+                                                <strong>{{ entry.property.status|upper }}</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% if message %}
+                    <div class="messages">
+                        <p>{{ message }}</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

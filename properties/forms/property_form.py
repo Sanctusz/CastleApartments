@@ -26,10 +26,10 @@ class PropertyUpdateForm(ModelForm):
         exclude = ['id', 'address', 'details']
         widgets = {
             'type': widgets.Select(attrs={'class': 'form-control'}, choices=homeTypes),
-            'size': widgets.NumberInput(attrs={'class': 'form-control'}),
-            'rooms': widgets.NumberInput(attrs={'class': 'form-control'}),
-            'price': widgets.NumberInput(attrs={'class': 'form-control'}),
-            'yearBuilt': widgets.NumberInput(attrs={'class': 'form-control'}),
+            'size': widgets.NumberInput(attrs={'class': 'form-control', 'min': 1}, ),
+            'rooms': widgets.NumberInput(attrs={'class': 'form-control', 'min': 1}),
+            'price': widgets.NumberInput(attrs={'class': 'form-control', 'min': 50000}),
+            'yearBuilt': widgets.NumberInput(attrs={'class': 'form-control', 'min': 0}),
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
             'status': widgets.Select(attrs={'class': 'form-control'}, choices=availability),
             'agent': widgets.Select(attrs={'class': 'form-control'}),
@@ -114,10 +114,10 @@ class PropertyCreateForm(ModelForm):
         exclude = ['id', 'address', 'details', 'status']
         widgets = {
             'type': widgets.Select(attrs={'class': 'form-control'}, choices=homeTypes),
-            'size': widgets.NumberInput(attrs={'class': 'form-control'}),
-            'rooms': widgets.NumberInput(attrs={'class': 'form-control'}),
-            'price': widgets.NumberInput(attrs={'class': 'form-control'}),
-            'yearBuilt': widgets.NumberInput(attrs={'class': 'form-control'}),
+            'size': widgets.NumberInput(attrs={'class': 'form-control', 'min': 1}, ),
+            'rooms': widgets.NumberInput(attrs={'class': 'form-control', 'min': 1}),
+            'price': widgets.NumberInput(attrs={'class': 'form-control', 'min': 50000}),
+            'yearBuilt': widgets.NumberInput(attrs={'class': 'form-control', 'min': 0}),
             'description': widgets.Textarea(attrs={'class': 'form-control'}),
             'agent': widgets.Select(attrs={'class': 'form-control'})
         }
