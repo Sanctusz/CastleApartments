@@ -8,7 +8,7 @@ $(document).ready(function() {
         var status = $('#property-status').val();
         var country = $('#property_country').val();
         var city = $('#property_city').val();
-        var room = $('#property-rooms').val();
+        var rooms = $('#property-rooms').val();
         var zipcode = $('#property-zipcode').val();
         var price = Math.round($('#amount').val());
         var garden = $('#property_garden');
@@ -42,8 +42,8 @@ $(document).ready(function() {
             urlTail += '&' + "country" + '=' + country
         }
 
-        if (room){
-            urlTail += '&' + "room" + '=' + room
+        if (rooms){
+            urlTail += '&' + "rooms" + '=' + rooms
         }
 
         if (zipcode){
@@ -92,13 +92,13 @@ $(document).ready(function() {
                 // if success show this html
                 var newHtml = resp.data.map(data => {
                     return ` <div class="col-md-6 col-lg-4 mb-4">
-                         <a href="/properties/${data.id}" class="prop-entry d-block">
+                         <a href="/properties/${ data.id }" class="prop-entry d-block">
                           <figure>
-                            <img src="${data.firstImage}" alt="${data.altText}" class="img-thumbnail catalogue-image">
+                            <img src="${ data.firstImage }" alt="${ data.altText }" class="img-thumbnail catalogue-image">
                           </figure>
                           <div class="prop-text">
                             <div class="inner">
-                              <span class="price rounded">${ data.price }</span>
+                              <span class="price rounded">${ data.price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') } ISK</span>
                               <h3 class="title"> ${ data.streetName } ${ data.houseNumber }</h3>
                               <p class="location">${ data.city }, ${ data.country } ${ data.zipCode }</p>
                             </div>
@@ -110,7 +110,7 @@ $(document).ready(function() {
                                 </div>
                                 <div class="col">
                                   <span>Rooms:</span>
-                                  <strong>${ data.room }</strong>
+                                  <strong>${ data.rooms }</strong>
                                 </div>
                                 <div class="col">
                                   <span>Year Built:</span>
