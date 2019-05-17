@@ -18,7 +18,6 @@ def purchase_property(request, id):
 
         ccForm = CreditCardForm(data=request.POST)
         purchaseForm = PurchaseForm(data=request.POST)
-
         if cinfoForm.is_valid() and ccForm.is_valid():
             profile.save()
             cinfo = cinfoForm.save()
@@ -38,12 +37,16 @@ def purchase_property(request, id):
                 return redirect('index')
             else:
                 messages.error(request, "Payment not received. Please try again")
-    context = {
-        'property': get_object_or_404(Properties, pk=id),
-        'profileForm': ProfileForm(instance=profile),
-        'creditCardForm': CreditCardForm(),
-        'purchaseForm': PurchaseForm(),
-        'is_agent': is_agent
-    }
-    return render(request, 'purchases/purchase.html', context)
-
+                return redirect('purchase', id=id)
+        else:
+            messages.error(request, "Purchase Failed, Make sure all the information inputted is correct.")
+            return redirect('purchase', id=id)
+    else:
+        context = {
+            'property': get_object_or_404(Properties, pk=id),
+            'profileForm': ProfileForm(instance=profile),
+            'creditCardForm': CreditCardForm(),
+            'purchaseForm': PurchaseForm(),
+            'is_agent': is_agent
+        }
+        return render(request, 'purchases/purchase.html', context)

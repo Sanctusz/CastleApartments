@@ -1,8 +1,6 @@
-from django.db import models
 from properties.models import *
 from agents.models import *
 from clients.models import *
-from django.utils.timezone import now
 
 
 class CreditCard(models.Model):

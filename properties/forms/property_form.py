@@ -1,13 +1,6 @@
 from django.forms import ModelForm, widgets
 from properties.models import *
 
-DETAILS_CHOICES = (
-    ('garden', 'Garden'),
-    ('garage', 'Garage'),
-    ('accessability', 'Accessability'),
-    ('pets', 'Pets Allowed')
-)
-
 homeTypes = (
     ('house', 'House'),
     ('apartment', 'Apartment'),
