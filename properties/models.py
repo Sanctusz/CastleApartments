@@ -1,5 +1,6 @@
 from django.db import models
 from agents.models import Agents
+from django.core.validators import MinValueValidator
 
 
 class PropertiesDetails(models.Model):
@@ -22,10 +23,10 @@ class PropertiesAddress(models.Model):
 
 class Properties(models.Model):
     type = models.CharField(max_length=255)
-    size = models.IntegerField()
-    rooms = models.IntegerField()
-    price = models.IntegerField()
-    yearBuilt = models.IntegerField()
+    size = models.IntegerField(validators=[MinValueValidator(1)])
+    rooms = models.IntegerField(validators=[MinValueValidator(1)])
+    price = models.IntegerField(validators=[MinValueValidator(50000)])
+    yearBuilt = models.IntegerField(validators=[MinValueValidator(0)])
     description = models.CharField(max_length=999, blank=True)
     status = models.CharField(max_length=255, default='available')
     agent = models.ForeignKey(Agents, on_delete=models.CASCADE)
