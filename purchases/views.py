@@ -6,6 +6,7 @@ from django.contrib import messages
 
 @login_required()
 def purchase_property(request, id):
+    is_agent = request.user.groups.filter(name="agents").exists()
     profile = Profile.objects.filter(user=request.user).first()
     if request.method == 'POST':
         property_obj = get_object_or_404(Properties, pk=id)
@@ -41,7 +42,8 @@ def purchase_property(request, id):
         'property': get_object_or_404(Properties, pk=id),
         'profileForm': ProfileForm(instance=profile),
         'creditCardForm': CreditCardForm(),
-        'purchaseForm': PurchaseForm()
+        'purchaseForm': PurchaseForm(),
+        'is_agent': is_agent
     }
     return render(request, 'purchases/purchase.html', context)
 

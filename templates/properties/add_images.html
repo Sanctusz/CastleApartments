@@ -10,7 +10,11 @@
                         {{ field.as_widget }}
                     {% endfor %}
                     <br>
-                    <input type="submit" value="Add Image" class="btn btn-primary btn-lg"/>
+                    <div class="float-lg-right">
+                        <a id="{{ property.id }}" href="/properties/{{ property.id }}"
+                           class="btn btn-danger btn-lg">Back to Property</a>
+                        <input type="submit" value="Add Image" class="btn btn-primary btn-lg"/>
+                    </div>
                 </form>
                 <div class="row mt-5">
                     <div class="col-12">

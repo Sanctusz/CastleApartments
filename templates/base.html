@@ -82,30 +82,42 @@
                             </a>
                         </div>
                         <ul class="site-menu js-clone-nav d-none d-lg-block">
-                            <li class="active">
+                            <li {% if request.path == '/' %} class="active"{% endif %}>
                                 <a href="{% url 'index' %}">Home</a>
                             </li>
-                            <li><a href="{% url 'about' %}">About</a></li>
-                            <li><a href="{% url 'contact' %}">Contact</a></li>
+                            <li {% if request.path == '/about/' %} class="active"{% endif %}>
+                                <a href="{% url 'about' %}">About</a>
+                            </li>
+                            <li {% if request.path == '/contact/' %} class="active"{% endif %}>
+                                <a href="{% url 'contact' %}">Contact</a>
+                            </li>
                             {% if user.is_authenticated %}
-                                {% if user.profile.fname %}
-                                    <li>Hello {{ user.profile.fname }}</li>
-                                {% endif %}
                                 {% if is_agent %}
-                                    <li><a href="{% url 'create-property' %}">Add Property</a></li>
+                                    <li {% if request.path == '/properties/create_property/' %} class="active"{% endif %}>
+                                        <a href="{% url 'create-property' %}">Add Property</a>
+                                    </li>
                                 {% else %}
-                                    <li><a href="{% url 'clients-recently-viewed' %}">History</a></li>
-                                    <li>
+                                    <li {% if request.path == '/clients/recently_viewed/' %} class="active"{% endif %}>
+                                        <a href="{% url 'clients-recently-viewed' %}">History</a>
+                                    </li>
+                                    <li {% if request.path == '/clients/profile/' %} class="active"{% endif %} >
                                         <a href="{% url 'clients-profile' %}">
                                             <img src="{{ user.profile.image }}"
                                                  class="profile-pic"/>
-                                            Profile
-                                        </a></li>
+                                            {% if user.profile.fname %}
+                                                {{ user.profile.fname }}
+                                            {% endif %}
+                                        </a>
+                                    </li>
                                 {% endif %}
                                 <li><a href="{% url 'clients-logout' %}">Logout</a></li>
                             {% else %}
-                                <li><a href="{% url 'clients-login' %}">Login</a></li>
-                                <li><a href="{% url 'clients-register' %}">Register</a></li>
+                                <li {% if request.path == '/clients/login/' %} class="active"{% endif %} >
+                                    <a href="{% url 'clients-login' %}">Login</a>
+                                </li>
+                                <li {% if request.path == '/clients/register/' %} class="active"{% endif %} >
+                                    <a href="{% url 'clients-register' %}">Register</a>
+                                </li>
                             {% endif %}
                         </ul>
                     </nav>
