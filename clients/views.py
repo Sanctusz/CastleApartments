@@ -4,7 +4,6 @@ from clients.forms.profile_form import *
 from properties.models import Properties
 from datetime import datetime
 from django.contrib import messages
-from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 
 
@@ -13,15 +12,12 @@ def register(request):
         form = RegisterForm(request.POST)
         fname = fnameRegisterForm(request.POST)
 
-        if form.is_valid() and proForm.is_valid():
+        if form.is_valid() and fname.is_valid():
             user = form.save()
             profile = fname.save(commit=False)
             profile.user = user
             profile.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password')
-            user_name = authenticate(username=username, password=raw_password)
-            login(request, user_name)
+            login(request, user)
             messages.success(request, 'Profile created successfully')
             return redirect('index')
 

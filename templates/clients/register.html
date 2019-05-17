@@ -9,7 +9,7 @@
                     <form method="post">
                         {% csrf_token %}
 
-                        <ul class="list-group">
+                        <ul class="list-group mb-4">
                             <h1 class="form-header">Register</h1>
 
 
@@ -48,7 +48,6 @@
                             {% endfor %}
 
                         </ul>
-                        <br>
                         <input type="submit" class="btn btn-primary btn-block" value="Register">
                         <p>Already have an account, please <a href="/clients/login/">login</a>.</p>
                     </form>
