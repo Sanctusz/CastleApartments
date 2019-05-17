@@ -4,7 +4,7 @@ from clients.forms.profile_form import *
 from properties.models import Properties
 from datetime import datetime
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login
 
 
 def register(request):

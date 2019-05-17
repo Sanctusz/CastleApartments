@@ -2,8 +2,6 @@ from django.forms import ModelForm, widgets
 from clients.models import Profile, RecentlyViewed
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.core.exceptions import NON_FIELD_ERRORS
-from django import forms
 
 
 class RegisterForm(UserCreationForm):
