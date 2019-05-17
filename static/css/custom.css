@@ -22,3 +22,9 @@
     width: 16rem;
     object-fit: cover;
 }
+
+.property-images {
+    height: 90rem;
+    width: 160rem;
+    object-fit: cover;
+}

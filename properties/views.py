@@ -72,7 +72,7 @@ def search(request):
 
         if 'rooms' in request.GET:
             rooms = request.GET['rooms']
-            properties = properties.filter(room__lte=rooms)
+            properties = properties.filter(rooms__lte=rooms)
 
         if 'size' in request.GET:
             size = request.GET['size']
