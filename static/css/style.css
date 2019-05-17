@@ -125,7 +125,7 @@ a {
   padding-bottom: 5px !important; }
 
 .form-control:active, .form-control:focus {
-  border-color: #f89d13; }
+  border-color: #EA5A9F; }
 
 .form-control:hover, .form-control:active, .form-control:focus {
   -webkit-box-shadow: none !important;
@@ -166,7 +166,7 @@ a {
   .bg-image.overlay:before {
     background: rgba(0, 0, 0, 0.4); }
   .bg-image.overlay-primary:before {
-    background: rgba(248, 157, 19, 0.9); }
+    background: rgba(234, 90, 159, 1); }
   .bg-image.overlay-info:before {
     background: rgba(83, 205, 226, 0.9); }
   .bg-image.overlay-success:before {
@@ -304,7 +304,7 @@ a {
     margin-left: 0;
     padding-left: 0; }
     .site-navbar .site-navigation .site-menu .active > a {
-      color: #f89d13; }
+      color: #EA5A9F; }
     .site-navbar .site-navigation .site-menu a {
       text-decoration: none !important;
       display: inline-block; }
@@ -317,7 +317,7 @@ a {
         color: rgba(0, 0, 0, 0.6);
         text-decoration: none !important; }
         .site-navbar .site-navigation .site-menu > li > a:hover {
-          color: #f89d13; }
+          color: #EA5A9F; }
       .site-navbar .site-navigation .site-menu > li:last-child {
         padding-right: 0; }
         .site-navbar .site-navigation .site-menu > li:last-child > a {
@@ -352,7 +352,7 @@ a {
         margin-top: 20px;
         margin-left: 0px;
         background: #fff;
-        border-top: 4px solid #f89d13;
+        border-top: 4px solid #EA5A9F;
         -webkit-transition: 0.2s 0s;
         -o-transition: 0.2s 0s;
         transition: 0.2s 0s; }
@@ -390,7 +390,7 @@ a {
             padding: 5px 20px;
             display: block; }
             .site-navbar .site-navigation .site-menu .has-children .dropdown > li > a:hover {
-              color: #f89d13; }
+              color: #EA5A9F; }
           .site-navbar .site-navigation .site-menu .has-children .dropdown > li.has-children > a:before {
             content: "\e315";
             right: 20px; }
@@ -398,9 +398,9 @@ a {
             left: 100%;
             top: 0; }
           .site-navbar .site-navigation .site-menu .has-children .dropdown > li.has-children:hover > a, .site-navbar .site-navigation .site-menu .has-children .dropdown > li.has-children:active > a, .site-navbar .site-navigation .site-menu .has-children .dropdown > li.has-children:focus > a {
-            color: #f89d13; }
+            color: #EA5A9F; }
       .site-navbar .site-navigation .site-menu .has-children:hover > a, .site-navbar .site-navigation .site-menu .has-children:focus > a, .site-navbar .site-navigation .site-menu .has-children:active > a {
-        color: #f89d13; }
+        color: #EA5A9F; }
       .site-navbar .site-navigation .site-menu .has-children:hover, .site-navbar .site-navigation .site-menu .has-children:focus, .site-navbar .site-navigation .site-menu .has-children:active {
         cursor: pointer; }
         .site-navbar .site-navigation .site-menu .has-children:hover > .dropdown, .site-navbar .site-navigation .site-menu .has-children:focus > .dropdown, .site-navbar .site-navigation .site-menu .has-children:active > .dropdown {
@@ -480,12 +480,12 @@ a {
       position: relative;
       color: #212529; }
       .site-mobile-menu .site-nav-wrap a:hover {
-        color: #f89d13; }
+        color: #EA5A9F; }
     .site-mobile-menu .site-nav-wrap li {
       position: relative;
       display: block; }
       .site-mobile-menu .site-nav-wrap li.active > a {
-        color: #f89d13; }
+        color: #EA5A9F; }
     .site-mobile-menu .site-nav-wrap .arrow-collapse {
       position: absolute;
       right: 0px;
@@ -671,7 +671,7 @@ a {
 
 .social-icon:hover {
   color: #eec60a !important;
-  background: #eb9007; }
+  background: #EA5A9F; }
 
 .property-entry {
   -webkit-box-shadow: 0 0 10px -2px rgba(0, 0, 0, 0.1);
@@ -868,7 +868,7 @@ a {
       -o-transition: .3s all ease;
       transition: .3s all ease; }
     .block-13 .owl-dots .owl-dot.active > span {
-      background: #f89d13; }
+      background: #EA5A9F; }
 
 #slider-range {
   height: 8px; }
@@ -877,11 +877,11 @@ a {
     height: 16px;
     border-radius: 50%;
     border: none !important;
-    background: #f89d13; }
+    background: #EA5A9F; }
     #slider-range .ui-slider-handle:focus, #slider-range .ui-slider-handle:active {
       outline: none; }
   #slider-range .ui-slider-range {
-    background-color: #f89d13; }
+    background-color: #EA5A9F; }
 
 .slide-one-item.home-slider .owl-nav {
   position: absolute !important;
@@ -935,7 +935,7 @@ a {
   display: block; }
   .service .icon {
     font-size: 60px;
-    color: #f89d13; }
+    color: #EA5A9F; }
   .service .service-heading {
     color: #000;
     font-size: 1.2rem;
@@ -976,7 +976,7 @@ a {
     border: 1px solid #cccccc; }
   .site-pagination a.active {
     border: 1px solid transparent;
-    background: #f89d13;
+    background: #EA5A9F;
     color: #fff; }
     .site-pagination a.active:hover {
       border: 1px solid transparent;
@@ -1011,9 +1011,9 @@ a {
       -webkit-transition: .3s all ease;
       -o-transition: .3s all ease;
       transition: .3s all ease;
-      background: #f89d13;
+      background: #EA5A9F;
       color: #fff;
-      border: 1px solid #f89d13; }
+      border: 1px solid #EA5A9F; }
     .unit-8 .accordion-item .heading > a[aria-expanded="false"]:before {
       content: "\e313";
       color: #ccc;
@@ -1086,7 +1086,7 @@ a {
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#cc000000',GradientType=0 ); }
     .prop-entry .prop-text .prop-more-info {
       font-size: 12px;
-      background: #f89d13;
+      background: #EA5A9F;
       position: relative;
       z-index: 4;
       padding-top: 5px;
@@ -1100,7 +1100,7 @@ a {
       .prop-entry .prop-text .prop-more-info span {
         display: block; }
     .prop-entry .prop-text .price {
-      background: #f89d13;
+      background: #EA5A9F;
       color: #fff;
       padding: 4px 10px;
       display: inline-block;
@@ -1121,7 +1121,7 @@ a {
   line-height: 0;
   position: relative;
   top: -3px;
-  color: #f89d13; }
+  color: #EA5A9F; }
 
 .feature .text h2 {
   font-size: 18px;
