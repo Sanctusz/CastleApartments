@@ -30,9 +30,8 @@
                                             <img src="{{ property.propertiesimages_set.first.link }}"
                                                  alt="{{ property.propertiesimages_set.first.text }}"
                                                  class="img-thumbnail">
-                                        {% else %}
-                                            <img src="https://via.placeholder.com/800x450.png?text=No+Image+Found"
-                                                 alt="No Image Found" class="img-thumbnail">
+                                            {% else %}
+                                            <img src="https://via.placeholder.com/800x450.png?text=No+Image+Found" alt="No Image Found" class="img-thumbnail">
                                         {% endif %}
                                     </figure>
                                     <div class="prop-text">

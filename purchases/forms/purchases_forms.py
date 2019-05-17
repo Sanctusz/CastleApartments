@@ -1,29 +1,25 @@
-from django import forms
 from django.forms import ModelForm, widgets
 from purchases.models import *
 from clients.models import Profile
 from properties.models import Properties
-from django_countries.widgets import CountrySelectWidget
 
 
 class CreditCardForm(ModelForm):
-    my_default_errors = {
-        'required': 'This field is required',
-        'invalid': 'Enter a valid value'
-    }
-    ccName_help = 'Name of the credit card holder.'
-    ccNumber_help = 'Only digits.'
-    CVC_help = 'Security Code on the back of the credit card, Only digits.'
-    expirationDate_help = 'MM/YY stated on the credit card.'
-
-    ccName = forms.CharField(error_messages=my_default_errors, help_text=ccName_help)
-    ccNumber = forms.CharField(error_messages=my_default_errors, help_text=ccNumber_help)
-    CVC = forms.CharField(error_messages=my_default_errors, help_text=CVC_help)
-    expirationDate = forms.CharField(error_messages=my_default_errors, help_text=expirationDate_help)
-
     class Meta:
+        labels = {
+            'ccName': 'Name on the Credit Card',
+            'ccNumber': 'Credit Card Number',
+            'CVC': 'CVC',
+            'expirationDate': 'Expiration Date'
+        }
         model = CreditCard
         exclude = ['id']
+        widgets = {
+            'ccName': widgets.TextInput(attrs={'class': 'form-control'}),
+            'ccNumber': widgets.TextInput(attrs={'class': 'form-control', 'maxlength': 16, 'pattern': '[0-9]{16}'}),
+            'CVC': widgets.TextInput(attrs={'class': 'form-control', 'maxlength': 3, 'pattern': '[0-9]{3}'}),
+            'expirationDate': widgets.TextInput(attrs={'class': 'form-control', 'maxlength': 5, 'pattern': '[0-9]{5}'})
+        }
 
 
 class ProfileForm(ModelForm):
@@ -47,7 +43,7 @@ class ProfileForm(ModelForm):
             'houseNumber': widgets.TextInput(attrs={'class': 'form-control'}),
             'zipCode': widgets.TextInput(attrs={'class': 'form-control'}),
             'city': widgets.TextInput(attrs={'class': 'form-control'}),
-            'country': CountrySelectWidget(attrs={'class': 'form-control'})
+            'country': widgets.TextInput(attrs={'class': 'form-control'})
         }
 
 

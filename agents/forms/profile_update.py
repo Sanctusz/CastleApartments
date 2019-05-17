@@ -7,8 +7,8 @@ class ProfileFormUpdate(ModelForm):
         model = Profile
         exclude = ['id', 'email']
         widgets = {
-            'name': widgets.TextInput(attrs={'class': 'form-control'}),
-            'phone': widgets.TextInput(attrs={'class': 'form-control'}),
-            'description': widgets.TextInput(attrs={'class': 'form-control'}),
-            'image': widgets.TextInput(attrs={'class': 'form-control'})
+            'name': widgets.TextInput(attrs={ 'class': 'form-control'}),
+            'phone': widgets.TextInput(attrs={ 'class': 'form-control'}),
+            'description': widgets.TextInput(attrs={ 'class': 'form-control'}),
+            'image': widgets.TextInput(attrs={ 'class': 'form-control'})
         }

@@ -47,7 +47,7 @@
                     <div class="select-wrap">
                         <span class="icon icon-arrow_drop_down"></span>
                         <select name="offer-types" id="property_country" class="form-control d-block rounded-0">
-                            <option value="">Game World</option>
+                            <option value="">Country</option>
                             {% for country in property_countries %}
                                 <option value="{{ country.address.country }}">{{ country.address.country }}</option>
                             {% endfor %}
@@ -75,7 +75,7 @@
                             <option value="5">5 or fewer</option>
                             <option value="7">7 or fewer</option>
                             <option value="10">10 or fewer</option>
-                            <option value="">Any</option>
+                            <option value="">More</option>
                         </select>
                     </div>
                 </div>
@@ -147,9 +147,8 @@
                                             <img src="{{ property.propertiesimages_set.first.link }}"
                                                  alt="{{ property.propertiesimages_set.first.text }}"
                                                  class="img-thumbnail catalogue-image">
-                                        {% else %}
-                                            <img src="https://via.placeholder.com/800x450.png?text=No+Image+Found"
-                                                 alt="No Image Found" class="img-thumbnail">
+                                            {% else %}
+                                            <img src="https://via.placeholder.com/800x450.png?text=No+Image+Found" alt="No Image Found" class="img-thumbnail">
                                         {% endif %}
                                     </figure>
                                     <div class="prop-text">

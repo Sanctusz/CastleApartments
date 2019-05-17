@@ -8,7 +8,6 @@ from clients.views import add_to_recently_viewed
 from django.contrib import messages
 from django.core.mail import send_mail, BadHeaderError
 
-
 def must_be_agent(func):
     # check if user is in agents group
     # if not, return a warning message
@@ -20,9 +19,7 @@ def must_be_agent(func):
             messages.error(request, "401 Unauthorized!")
             return redirect('index')
         return func(request, *args, **kwargs)
-
     return check_and_call
-
 
 def get_relative_properties(request, is_agent):
     if is_agent is True:
@@ -30,7 +27,6 @@ def get_relative_properties(request, is_agent):
     else:
         properties = Properties.objects.filter(status="available")
     return properties
-
 
 def index(request):
     is_agent = request.user.groups.filter(name="agents").exists()
