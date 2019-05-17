@@ -52,7 +52,11 @@ def search(request):
 
     if 'search_filter' in request.GET:
         search_filter = request.GET['search_filter']
-        properties = Properties.objects.filter(description__icontains=search_filter).filter(status="available")
+        is_agent = request.user.groups.filter(name='agents').exists()
+        if is_agent is False:
+            properties = Properties.objects.filter(description__icontains=search_filter).filter(status='available')
+        else:
+            properties = Properties.objects.filter(description__icontains=search_filter)
 
         if 'type' in request.GET:
             house_type = request.GET['type']
@@ -72,7 +76,7 @@ def search(request):
 
         if 'rooms' in request.GET:
             rooms = request.GET['rooms']
-            properties = properties.filter(room__lte=rooms)
+            properties = properties.filter(rooms__lte=rooms)
 
         if 'size' in request.GET:
             size = request.GET['size']

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{% block title %}Castle Apartments{% endblock %}</title>
+    <title>Castle Apartments</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -148,7 +148,6 @@
                         <div class="col-md-6 col-lg-6">
                             <ul class="list-unstyled">
                                 <li><a href="{% url 'index' %}">Home</a></li>
-                                <li><a href="{% url 'properties-index' %}">Properties</a></li>
                             </ul>
                         </div>
                         <div class="col-md-6 col-lg-6">
@@ -209,5 +208,6 @@
 <script src="{% static 'js/properties.js' %}"></script>
 <script src="{% static 'js/baseJS.js' %}"></script>
 <script src="{% static 'js/purchases.js' %}"></script>
+<script src="{% static 'js/currency.js' %}"></script>
 </body>
 </html>

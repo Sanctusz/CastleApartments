@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'clients.apps.ClientsConfig',
     'agents.apps.AgentsConfig',
     'properties.apps.PropertiesConfig',
-    'purchases.apps.PurchasesConfig'
+    'purchases.apps.PurchasesConfig',
+    'django.contrib.humanize'
 ]
 
 MIDDLEWARE = [
