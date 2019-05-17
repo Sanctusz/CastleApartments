@@ -2,7 +2,6 @@ from django.forms import ModelForm, widgets
 from clients.models import Profile, RecentlyViewed
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django_countries.widgets import CountrySelectWidget
 
 
 class RegisterForm(UserCreationForm):
@@ -61,11 +60,12 @@ class ProfileForm(ModelForm):
             'houseNumber': widgets.TextInput(attrs={'class': 'form-control'}),
             'zipCode': widgets.TextInput(attrs={'class': 'form-control'}),
             'city': widgets.TextInput(attrs={'class': 'form-control'}),
-            'country': CountrySelectWidget(attrs={'class': 'form-control'})
+            'country': widgets.TextInput(attrs={'class': 'form-control'})
         }
-
 
 class RecentlyViewedForm(ModelForm):
     class Meta:
         model = RecentlyViewed
         exclude = ['user', 'property', 'time']
+        
+
