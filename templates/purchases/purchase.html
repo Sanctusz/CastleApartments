@@ -64,12 +64,59 @@
                         <div id="cc_step">
                             <h1 class="form-header">Credit Card Information</h1>
                             <ul class="list-group">
-                                {% for field in creditCardForm %}
-                                    <li class="list-group-item">
-                                        <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                                        {{ field.as_widget }}
-                                    </li>
-                                {% endfor %}
+                                <li class="list-group-item">
+                                    <label for="id_ccName">Name on the Credit Card:</label>
+                                    <input type="text" name="ccName" required="" id="id_ccName" class="form-control"
+                                           placeholder="John Johnson">
+                                    <div class="bg-danger">
+                                        {{ creditCardForm.ccName.errors }}
+                                    </div>
+                                    {% if creditCardForm.ccName.help_text %}
+                                        <div class="text-warning">
+                                            <small>{{ creditCardForm.ccName.help_text|safe }}</small>
+                                        </div>
+                                    {% endif %}
+                                </li>
+                                <li class="list-group-item">
+                                    <label for="id_ccNumber">Credit Card Number:</label>
+                                    <input type="text" name="ccNumber" required="" id="id_ccNumber"
+                                           class="form-control" pattern="[0-9]{16}" maxlength="16"
+                                           placeholder="0000111122223333">
+                                    <div class="bg-danger">
+                                        {{ creditCardForm.ccNumber.errors }}
+                                    </div>
+                                    {% if creditCardForm.ccNumber.help_text %}
+                                        <div class="text-warning">
+                                            <small>{{ creditCardForm.ccNumber.help_text|safe }}</small>
+                                        </div>
+                                    {% endif %}
+                                </li>
+                                <li class="list-group-item">
+                                    <label for="id_CVC">CVC:</label>
+                                    <input type="text" name="CVC" required="" id="id_CVC" class="form-control"
+                                           pattern="[0-9]{3}" maxlength="3" placeholder="000">
+                                    <div class="bg-danger">
+                                        {{ creditCardForm.CVC.errors }}
+                                    </div>
+                                    {% if creditCardForm.CVC.help_text %}
+                                        <div class="text-warning">
+                                            <small>{{ creditCardForm.CVC.help_text|safe }}</small>
+                                        </div>
+                                    {% endif %}
+                                </li>
+                                <li class="list-group-item">
+                                    <label for="id_expirationDate">Expiration Date:</label>
+                                    <input type="text" name="expirationDate" required="" id="id_expirationDate"
+                                           class="form-control" pattern="\d+/\d+" maxlength="5" placeholder="MM/YY">
+                                    <div class="bg-danger">
+                                        {{ creditCardForm.expirationDate.errors }}
+                                    </div>
+                                    {% if creditCardForm.expirationDate.help_text %}
+                                        <div class="text-warning">
+                                            <small>{{ creditCardForm.expirationDate.help_text|safe }}</small>
+                                        </div>
+                                    {% endif %}
+                                </li>
                             </ul>
                             <br>
                             <button class="btn btn-primary btn-block form-control-same-height rounded"
@@ -157,6 +204,7 @@
                             {% for field in profileForm %}
                                 <li class="list-group-item">
                                     <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                                    {{ field.errors }}
                                     <p class="text-warning" id="{{ field.name }}"></p>
                                 </li>
                             {% endfor %}
@@ -168,6 +216,9 @@
                             {% for field in creditCardForm %}
                                 <li class="list-group-item">
                                     <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                                    <div class="bg-danger">
+                                        {{ field.errors }}
+                                    </div>
                                     <p class="text-warning" id="{{ field.name }}"></p>
                                 </li>
                             {% endfor %}

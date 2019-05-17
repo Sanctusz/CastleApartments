@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '7t5vfn55zp0g3we%)3--v1q2_*ij%4)r(joh%bdmbturjt0@ge'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['testsite.com', 'localhost', '127.0.0.1']
 
@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'agents.apps.AgentsConfig',
     'properties.apps.PropertiesConfig',
     'purchases.apps.PurchasesConfig',
-    'django.contrib.humanize'
+    'django.contrib.humanize',
+    'django_countries',
 ]
 
 MIDDLEWARE = [
@@ -79,9 +80,9 @@ WSGI_APPLICATION = 'CastleApartments.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'kdymjkex',
-        'USER': 'kdymjkex',
-        'PASSWORD': 'q60aXX2M1eZwrutNUQ4C36uQuK9Ugygc',
+        'NAME': 'rpxklvdn',
+        'USER': 'rpxklvdn',
+        'PASSWORD': '0SmQdXFKBXVCWeuzWNevjh930eFP35yS',
         'HOST': 'manny.db.elephantsql.com',
         'PORT': '5432'
     }

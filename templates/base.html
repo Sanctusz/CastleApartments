@@ -94,7 +94,8 @@
                             </li>
                             {% if user.is_authenticated %}
                                 {% if is_agent %}
-                                    <li {% if request.path == '/properties/create_property/' %} class="active"{% endif %}>
+                                    <li {% if request.path == '/properties/create_property/' %}
+                                        class="active"{% endif %}>
                                         <a href="{% url 'create-property' %}">Add Property</a>
                                     </li>
                                 {% else %}
@@ -192,10 +193,7 @@
                 <div class="col-md-12">
                     <p>
                         <script>document.write(new Date().getFullYear());</script>
-                        All rights reserved | This template is made with <i class="icon-heart text-danger"
-                                                                            aria-hidden="true"></i> by <a
-                            href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        All rights reserved
                     </p>
                 </div>
 
