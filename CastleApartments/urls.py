@@ -22,7 +22,6 @@ from CastleApartments import settings
 from properties import views as propview
 from agents import views as agentview
 
-
 urlpatterns = [
     path('', propview.index, name='index'),
     path('properties/', include('properties.urls')),

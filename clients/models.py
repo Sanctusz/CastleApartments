@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from properties.models import Properties
+from django_countries.fields import CountryField
 
 
 class Profile(models.Model):
@@ -15,7 +16,7 @@ class Profile(models.Model):
     houseNumber = models.CharField(max_length=255, blank=True)
     zipCode = models.CharField(max_length=255, blank=True)
     city = models.CharField(max_length=255, blank=True)
-    country = models.CharField(max_length=255, blank=True)
+    country = CountryField(blank=True)
 
 
 class RecentlyViewed(models.Model):
