@@ -121,7 +121,7 @@ jQuery(document).ready(function($) {
         $( "#amount" ).val(ui.value);
       }
     });
-    $( "#amount" ).val( $( "#slider-range" ).slider( "value") );
+    $( "#amount" ).val( $( "#slider-range" ).slider( "value" ) );
 	};
 
 	siteSliderRange();
@@ -144,7 +144,7 @@ jQuery(document).ready(function($) {
 	    },
 	    zoom: {
 	      enabled: true,
-	      duration: 300 // don't foget to change the duration also in CSS
+	      duration: 300 // don't forget to change the duration also in CSS
 	    }
 	  });
 

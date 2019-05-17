@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load humanize %}
 {% block content %}
     <div class="site-blocks-cover overlay"
          style="background-image: url({{ property.propertiesimages_set.first.link }});" data-aos="fade"
@@ -9,7 +9,7 @@
                 <div class="col-md-10">
                     <span class="d-inline-block text-white px-3 mb-3 property-offer-type rounded">Property Details of</span>
                     <h1 class="mb-2">{{ property.address.streetName }} {{ property.address.houseNumber }}</h1>
-                    <p class="mb-5"><strong class="h2 text-success font-weight-bold">{{ property.price|floatformat }}
+                    <p class="mb-5"><strong class="h2 text-success font-weight-bold" id="price1">{{ property.price|intcomma }}
                         ISK</strong>
                     </p>
                 </div>
@@ -26,7 +26,7 @@
                             {% for image in property.propertiesimages_set.all %}
                                 <div>
                                     <img src="{{ image.link }}" alt="{{ image.text }}"
-                                         class="img-fluid">
+                                         class="img-thumbnail property-images">
                                 </div>
                             {% endfor %}
                         </div>
@@ -34,7 +34,15 @@
                     <div class="bg-white">
                         <div class="row mb-5">
                             <div class="col-md-6">
-                                <strong class="text-success h1 mb-3">{{ property.price|floatformat }} ISK</strong>
+                                <strong class="text-success h1 mb-3" id="price2">{{ property.price|intcomma }} ISK</strong>
+                                <select name="offer-types" id="currency" class="form-control rounded">
+                                    <option value="ISK">ISK</option>
+                                    <option value="USD">USD</option>
+                                    <option value="EUR">EUR</option>
+                                    <option value="GBP">GBP</option>
+                                    <option value="JPY">JPY</option>
+                                    <option value="NOK">NOK</option>
+                                </select>
                             </div>
                             <div class="col-md-6">
                                 <ul class="property-specs-wrap mb-3 mb-lg-0  float-lg-right">
@@ -60,19 +68,15 @@
                             </div>
                             <div class="col-md-6 col-lg-4 text-left border-bottom border-top py-3">
                                 {% if is_agent %}
-                                    <a href="{% url "update_property" property.id %}"
+                                    <a href="{% url "update-property" property.id %}"
                                        class="btn btn-primary btn-lg btn-block">Edit Property</a>
                                 {% else %}
-                                    <span class="d-inline-block text-black mb-0 caption-text">&nbsp;</span>
-                                    <strong class="d-block">
-                                        {% if property.status == 'available' %}
-                                            <a href="{% url "purchase" property.id %}"
-                                               class="btn btn-primary btn-lg btn-block">Purchase</a>
-                                        {% else %}
-                                            <input type="button" class="btn btn-primary btn-lg btn-block"
-                                                   value="Sold" disabled/>
-                                        {% endif %}
-                                    </strong>
+                                    {% if property.status == 'available' %}
+                                        <a href="{% url "purchase" property.id %}"
+                                           class="btn btn-primary btn-lg btn-block">Purchase</a>
+                                    {% else %}
+                                        <a class="btn btn-primary btn-lg btn-block disabled">Sold</a>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                         </div>
@@ -87,9 +91,13 @@
                                 <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                                     <a href="{{ image.link }}" class="image-popup gal-item"><img src="{{ image.link }}"
                                                                                                  alt="{{ image.text }}"
-                                                                                                 class="img-fluid"></a>
+                                                                                                 class="img-fluid gallery-image"></a>
                                 </div>
                             {% endfor %}
+                            {% if is_agent %}
+                                <a href="{% url "add-images" property.id %}"
+                                   class="btn btn-primary btn-lg btn-block">Add & Remove Images</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -102,23 +110,21 @@
                         <div class="form-group">
                             <form method="post">
                                 {% csrf_token %}
-                                <ul class="list-group">
-                                    <h4 class="form-header">Send me a message</h4>
-                                    <li class="list-group-item">
-                                        <label for="id_from_email">Email:</label>
-                                        <input class="form-control" name="from_email" type="text" id="id_from_email"
-                                               required>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <label for="id_subject">Subject:</label>
-                                        <input class="form-control" name="subject" type="text" id="id_subject" required>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <label for="id_message">Message:</label>
-                                        <textarea class="form-control" name="message" cols="40" rows="10"
-                                                  id="id_message" required></textarea>
-                                    </li>
-                                </ul>
+                                <h4 class="form-header">Send me a message</h4>
+                                <div class="form-group">
+                                    <label for="id_from_email">Email:</label>
+                                    <input class="form-control" name="from_email" type="text" id="id_from_email"
+                                           required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_subject">Subject:</label>
+                                    <input class="form-control" name="subject" type="text" id="id_subject" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_message">Message:</label>
+                                    <textarea class="form-control" name="message" cols="40" rows="10"
+                                              id="id_message" required></textarea>
+                                </div>
                                 <br>
                                 <input type="submit" id="send" class="btn btn-primary" value="Send Message">
                             </form>

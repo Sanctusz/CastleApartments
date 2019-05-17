@@ -10,3 +10,21 @@
     width: 100%;
     object-fit: cover;
 }
+
+.profile-pic {
+    height: 30px;
+    border-radius: 15px;
+    margin-right: 5px;
+}
+
+.gallery-image {
+    height: 9rem;
+    width: 16rem;
+    object-fit: cover;
+}
+
+.property-images {
+    height: 30rem;
+    width: 16rem;
+    object-fit: cover;
+}

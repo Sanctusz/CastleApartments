@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load humanize %}
 {% block content %}
     <div class="pt-5">
         <div class="container">
@@ -84,7 +84,7 @@
                         <div id="slider-range" class="border-primary"></div>
                         <div class="slider-amount">
                             <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white"
-                               disabled=""/>
+                                   disabled=""/>
                             <div class="slider-text">Max Price</div>
                         </div>
                     </div>
@@ -125,62 +125,96 @@
                            class="btn btn-primary btn-block form-control-same-height rounded" value="Search">
                 </div>
             </form>
-    </div>
-    {% if properties %}
-        <div class="site-section site-section-sm bg-light">
-            <div class="container">
+        </div>
+        {% if properties %}
+            <div class="site-section site-section-sm bg-light">
+                <div class="container">
 
-                <div class="row mb-5">
-                    <div class="col-12">
-                        <div class="site-section-title">
-                            <h3>The catalogue</h3>
+                    <div class="row mb-5">
+                        <div class="col-12">
+                            <div class="site-section-title">
+                                <h3>The catalogue</h3>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div id="properties" class="row mb-5">
-                    {% for property in properties %}
-                        <div class="col-md-6 col-lg-4 mb-4">
-                            <a id="{{ property.id }}" href="/properties/{{ property.id }}" class="prop-entry d-block">
-                                <figure>
-                                    <img src="{{ property.propertiesimages_set.first.link }}"
-                                         alt="{{ property.propertiesimages_set.first.text }}"
-                                         class="img-thumbnail catalogue-image">
-                                </figure>
-                                <div class="prop-text">
-                                    <div class="inner">
-                                        <span class="price rounded">{{ property.price|floatformat }}</span>
-                                        <h3 class="title">{{ property.address.streetName }} {{ property.address.houseNumber }}</h3>
-                                        <p class="location">{{ property.address.city }}, {{ property.address.country }} {{ property.address.zipCode }}</p>
-                                    </div>
-                                    <div class="prop-more-info">
-                                        <div class="inner d-flex">
-                                            <div class="col">
-                                                <span>Area:</span>
-                                                <strong>{{ property.size }}m<sup>2</sup></strong>
-                                            </div>
-                                            <div class="col">
-                                                <span>Rooms:</span>
-                                                <strong>{{ property.rooms }}</strong>
-                                            </div>
-                                            <div class="col">
-                                                <span>Year Built:</span>
-                                                <strong>{{ property.yearBuilt }}</strong>
-                                            </div>
-                                            <div class="col">
-                                                <span>Status:</span>
-                                                <strong>{{ property.status|upper }}</strong>
+                    <div id="properties" class="row mb-5">
+                        {% for property in properties %}
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <a id="{{ property.id }}" href="/properties/{{ property.id }}"
+                                   class="prop-entry d-block">
+                                    <figure>
+                                        <img src="{{ property.propertiesimages_set.first.link }}"
+                                             alt="{{ property.propertiesimages_set.first.text }}"
+                                             class="img-thumbnail catalogue-image">
+                                    </figure>
+                                    <div class="prop-text">
+                                        <div class="inner">
+                                            <span class="price rounded">{{ property.price|intcomma }} ISK</span>
+                                            <h3 class="title">{{ property.address.streetName }} {{ property.address.houseNumber }}</h3>
+                                            <p class="location">{{ property.address.city }}, {{ property.address.country }} {{ property.address.zipCode }}</p>
+                                        </div>
+                                        <div class="prop-more-info">
+                                            <div class="inner d-flex">
+                                                <div class="col">
+                                                    <span>Area:</span>
+                                                    <strong>{{ property.size }}m<sup>2</sup></strong>
+                                                </div>
+                                                <div class="col">
+                                                    <span>Rooms:</span>
+                                                    <strong>{{ property.rooms }}</strong>
+                                                </div>
+                                                <div class="col">
+                                                    <span>Year Built:</span>
+                                                    <strong>{{ property.yearBuilt }}</strong>
+                                                </div>
+                                                <div class="col">
+                                                    <span>Status:</span>
+                                                    <strong>{{ property.status|upper }}</strong>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
-                    {% endfor %}
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
-    {% endif %}
-    {% if agents %}
-        {% include "agents/index.html" with objects=agents %}
-    {% endif %}
+        {% endif %}
+        {% if agents %}
+            <div class="site-section">
+                <div class="container">
+                    <div class="row mb-5 justify-content-center">
+                        <div class="col-md-7">
+                            <div class="site-section-title text-center">
+                                {% if agent %}
+                                    <h2>Other Agents</h2>
+                                {% else %}
+                                    <h2>Our Agents</h2>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row block-13">
+
+                        <div class="nonloop-block-13 owl-carousel">
+                            {% for agent in agents %}
+                                <div class="slide-item">
+                                    <a href="/agents/{{ agent.id }}">
+                                        <div class="team-member text-center">
+                                            <img src="{{ agent.image }}" alt="Image"
+                                                 class="img-thumbnail rounded-circle carousel-image">
+                                            <div class="text p-3">
+                                                <h2 class="mb-2 font-weight-light text-black h4">{{ agent.name }}</h2>
+                                                <span class="d-block mb-3 text-white-opacity-05">Real Estate Agent</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
 {% endblock %}

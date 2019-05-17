@@ -18,7 +18,6 @@
     <div class="site-section site-section-sm">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3"></div>
                 <div class="col-lg-6">
                     <h2>Managed Properties:</h2>
                     <div class="slide-one-item home-slider owl-carousel">
@@ -45,7 +44,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <span>Rooms:</span>
-                                                    <strong>{{ property.room }}</strong>
+                                                    <strong>{{ property.rooms }}</strong>
                                                 </div>
                                                 <div class="col">
                                                     <span>Year Built:</span>
@@ -63,9 +62,6 @@
                         {% endfor %}
                     </div>
                 </div>
-                <div class="col-lg-3"></div>
-            </div>
-            <div class="row">
                 <div class="col-lg-6">
                     <h2>Contact Information:</h2>
                     <ul class="list-group">
@@ -81,32 +77,45 @@
                             <h5 class="text-dark">Phone:</h5>
                             <p class="text-primary">{{ agent.phone }}</p>
                         </li>
-
                     </ul>
-                </div>
-                <div class="col-lg-6">
-                    <h2>Request a call-back:</h2>
-                    <form method="post" class="form-contact-agent">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone</label>
-                            <input type="text" id="phone" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" id="phone" class="btn btn-primary" value="Send Message">
-                        </div>
-                    </form>
                 </div>
             </div>
             {% if agents %}
-                {% include "agents/index.html" with objects=agents %}
+                <div class="site-section">
+                    <div class="container">
+                        <div class="row mb-5 justify-content-center">
+                            <div class="col-md-7">
+                                <div class="site-section-title text-center">
+                                    {% if agent %}
+                                        <h2>Other Agents</h2>
+                                    {% else %}
+                                        <h2>Our Agents</h2>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row block-13">
+
+                            <div class="nonloop-block-13 owl-carousel">
+                                {% for agent in agents %}
+                                    <div class="slide-item">
+                                        <a href="/agents/{{ agent.id }}">
+                                            <div class="team-member text-center">
+                                                <img src="{{ agent.image }}" alt="Image"
+                                                     class="img-thumbnail rounded-circle carousel-image">
+                                                <div class="text p-3">
+                                                    <h2 class="mb-2 font-weight-light text-black h4">{{ agent.name }}</h2>
+                                                    <span class="d-block mb-3 text-white-opacity-05">Real Estate Agent</span>
+
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {% endif %}
         </div>
     </div>

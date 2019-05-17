@@ -4,59 +4,78 @@ from clients.forms.profile_form import *
 from properties.models import Properties
 from datetime import datetime
 from django.contrib import messages
+from django.contrib.auth import login
 
 
 def register(request):
     if request.method == 'POST':
-        regForm = RegisterForm(data=request.POST)
-        proForm = fnameRegisterForm(data=request.POST)
-        if regForm.is_valid() and proForm.is_valid():
-            user = regForm.save()
-            profile = proForm.save(commit=False)
+        form = RegisterForm(request.POST)
+        fname = fnameRegisterForm(request.POST)
+
+        if form.is_valid() and fname.is_valid():
+            user = form.save()
+            profile = fname.save(commit=False)
             profile.user = user
             profile.save()
+            login(request, user)
             messages.success(request, 'Profile created successfully')
-            return redirect('clients-login')
-        else:
-            messages.error(request, 'Registration failed. Please try again.')
+            return redirect('index')
+    else:
+        form = RegisterForm()
+        fname = fnameRegisterForm()
+
     return render(request, 'clients/register.html', {
-        'form': RegisterForm(),
-        'fname': fnameRegisterForm()
+        'form': form,
+        'fname': fname
     })
 
 
 def profile(request):
-    profile = Profile.objects.filter(user=request.user).first()
-    if request.method == 'POST':
-        form = ProfileForm(instance=profile, data=request.POST)
-        profile = form.save(commit=False)
-        profile.user = request.user
-        if form.is_valid():
-            profile.save()
-            messages.success(request, 'Profile updated successfully.')
-            return redirect('clients-profile')
-        else:
-            messages.error(request, 'Update failed. Please try again.')
-    return render(request, 'clients/profile.html', {
-        'form': ProfileForm(instance=profile)
-    })
+    is_agent = request.user.groups.filter(name="agents").exists()
+    if request.user.is_authenticated and is_agent is False:
+        profile = Profile.objects.filter(user=request.user).first()
+        if request.method == 'POST':
+            form = ProfileForm(instance=profile, data=request.POST)
+            profile = form.save(commit=False)
+            profile.user = request.user
+            if form.is_valid():
+                profile.save()
+                messages.success(request, 'Profile updated successfully.')
+                return redirect('clients-profile')
+            else:
+                messages.error(request, 'Update failed. Please try again.')
+        return render(request, 'clients/profile.html', {
+            'form': ProfileForm(instance=profile)
+        })
+    else:
+        return render(request, 'clients/profile.html', {
+            'is_agent': is_agent
+        })
 
 
 def get_recently_viewed(request):
-	if request.user.is_authenticated:
-		the_user = Profile.objects.filter(user=request.user).first()
-		recently_viewed_obj = RecentlyViewed.objects.filter(user=the_user).order_by('-time')
-		if len(recently_viewed_obj) > 0:
-			return render(request, 'clients/recently_viewed.html', {
-				'recently_viewed': recently_viewed_obj
-			})
-		else:
-			return render(request, 'clients/recently_viewed.html',{
-				'message': 'No previous history to show'
-			})
+    is_agent = request.user.groups.filter(name="agents").exists()
+    if request.user.is_authenticated and is_agent is False:
+        the_user = Profile.objects.filter(user=request.user).first()
+        recently_viewed_obj = RecentlyViewed.objects.filter(user=the_user).order_by('-time')
+        if len(recently_viewed_obj) > 0:
+            return render(request, 'clients/recently_viewed.html', {
+                'recently_viewed': recently_viewed_obj
+            })
+        else:
+            message = 'No previous history to show'
+    else:
+        message = 'This feature is only available for logged in users'
+    context = {
+        'message': message,
+        'is_agent': is_agent
+    }
+    return render(request, 'clients/recently_viewed.html', context)
+
 
 def add_to_recently_viewed(request, the_id):
-    if request.user.is_authenticated:
+    is_agent = request.user.groups.filter(name="agents").exists()
+    if request.user.is_authenticated and is_agent is False:
         the_user = Profile.objects.filter(user=request.user).first()
         prop = get_object_or_404(Properties, pk=the_id)
         this_user_recent_list = RecentlyViewed.objects.filter(user=the_user)
@@ -83,9 +102,5 @@ def add_to_recently_viewed(request, the_id):
                 print(recently_viewed)
 
             """if len(this_user_recent_list) == 10:
-				oldest = this_user_recent_list[0]
-				RecentlyViewed.objects.filter(id=oldest.id).delete()"""
-
-
-
-
+                oldest = this_user_recent_list[0]
+                RecentlyViewed.objects.filter(id=oldest.id).delete()"""

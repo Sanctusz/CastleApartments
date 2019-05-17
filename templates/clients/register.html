@@ -8,41 +8,66 @@
                 <div class="col-lg-6">
                     <form method="post">
                         {% csrf_token %}
-                        <ul class="list-group">
+
+                        <ul class="list-group mb-4">
                             <h1 class="form-header">Register</h1>
                             <li class="list-group-item">
-                                <label for="{{ form.username.id_for_label }}">{{ form.username.label|title }}:</label>
-                                <div class="text-warning">
-                                    <small>{{ form.username.help_text }}</small>
+                                <label for="id_username">{{ form.username.label_tag }}</label>
+                                <input type="text" class="form-control" name="username" id="id_username" required
+                                       autofocus>
+                                <div class="bg-danger">
+                                    {{ form.username.errors }}
                                 </div>
-                                <input class="form-control" name="username" maxlength="150" type="text" required
-                                       autofocus id="id_username">
+                                {% if form.username.help_text %}
+                                    <div class="text-warning">
+                                        <small>{{ form.username.help_text|safe }}</small>
+                                    </div>
+                                {% endif %}
                             </li>
                             <li class="list-group-item">
-                                <label for="{{ form.password1.id_for_label }}">{{ form.password1.label|title }}:</label>
-                                <div class="text-warning">
-                                    <small>{{ form.password1.help_text }}</small>
+                                <label for="id_password">{{ form.password1.label_tag }}</label>
+                                <input type="password" class="form-control" name="password1" id="id_password" required
+                                       autofocus>
+                                <div class="bg-danger">
+                                    {{ form.password1.errors }}
                                 </div>
-                                <input class="form-control" name="password1" type="password" required
-                                       autofocus id="id_password1">
+                                {% if form.password1.help_text %}
+                                    <div class="text-warning">
+                                        <small>{{ form.password1.help_text|safe }}</small>
+                                    </div>
+                                {% endif %}
                             </li>
                             <li class="list-group-item">
-                                <label for="{{ form.password2.id_for_label }}">{{ form.password2.label|title }}:</label>
-                                <div class="text-warning">
-                                    <small>{{ form.password2.help_text }}</small>
+                                <label for="id_password">{{ form.password2.label_tag }}</label>
+                                <input type="password" class="form-control" name="password2" id="id_password" required
+                                       autofocus>
+                                <div class="bg-danger">
+                                    {{ form.password2.errors }}
                                 </div>
-                                <input class="form-control" name="password2" type="password" required
-                                       autofocus id="id_password2">
+                                {% if form.password2.help_text %}
+                                    <div class="text-warning">
+                                        <small>{{ form.password2.help_text|safe }}</small>
+                                    </div>
+                                {% endif %}
                             </li>
-                            <li class="list-group-item">
-                                <label for="{{ fname.fname.id_for_label }}">{{ fname.fname.label|title }}:</label>
-                                <div class="text-warning">
-                                    <small>{{ fname.fname.help_text }}</small>
-                                </div>
-                                <input class="form-control" name="fname" type="text" required autofocus id="id_fname">
-                            </li>
+                            {% for field in fname %}
+                                <li class="list-group-item">
+                                    <div>
+                                        {{ field.label_tag }}
+                                    </div>
+                                    {{ field.as_widget }}
+                                    <div class="bg-danger">
+                                        {{ field.errors }}
+                                    </div>
+                                    {% if field.help_text %}
+                                        <div class="text-warning">
+                                            <small>{{ field.help_text|safe }}</small>
+                                        </div>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+
                         </ul>
-                        <br>
                         <input type="submit" class="btn btn-primary btn-block" value="Register">
                         <p>Already have an account, please <a href="/clients/login/">login</a>.</p>
                     </form>

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 {% block title %}Purchase{% endblock %}
 {% block content %}
     <div class="site-blocks-cover overlay"
@@ -9,7 +10,7 @@
                 <div class="col-md-10">
                     <span class="d-inline-block text-white px-3 mb-3 property-offer-type rounded">Purchasing Page for</span>
                     <h1 class="mb-2">{{ property.address.streetName }} {{ property.address.houseNumber }}</h1>
-                    <p class="mb-5"><strong class="h2 text-success font-weight-bold">{{ property.price|floatformat }}
+                    <p class="mb-5"><strong class="h2 text-success font-weight-bold">{{ property.price|intcomma }}
                         ISK</strong></p>
                 </div>
             </div>
@@ -28,7 +29,7 @@
                     <a id="cc_a">
                         <li class="bc_item" id="cc_li">Credit Card Details</li>
                     </a>
-                    <a id="confirm_a">
+                    <a id="confirm_a" disabled>
                         <li class="bc_item" id="confirm_li">Confirmation</li>
                     </a>
                 </ul>
@@ -54,7 +55,7 @@
                                 </button>
                                 <br>
                             </div>
-                            <div id="cc_step" name="cc">
+                            <div id="cc_step">
                                 <h1 class="form-header">Credit Card Information</h1>
                                 <ul class="list-group">
                                     {% for field in creditCardForm %}
@@ -91,7 +92,7 @@
                                 <div class="bg-white">
                                     <div class="row mb-5">
                                         <div class="col-md-6">
-                                            <strong class="text-success h1 mb-3">{{ property.price|floatformat }}
+                                            <strong class="text-success h1 mb-3">{{ property.price|intcomma }}
                                                 ISK</strong>
                                         </div>
                                         <div class="col-md-6">
