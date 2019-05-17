@@ -2,21 +2,31 @@
 {% block content %}
     <div class="site-section">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <h2>Image:</h2>
-                    <img src="{{ user.profile.image }}" class="img-thumbnail">
-                </div>
-                <div class="col-lg-9">
-                    <form method="post">
-                        {% csrf_token %}
-                        {{ form }}
-                        <br>
-                        <input type="submit" value="Update Profile" class="btn btn-primary btn-lg">
-                    </form>
-                </div>
-                <div class="col-lg-3"></div>
-            </div>
+            {% if user.is_authenticated %}
+                {% if is_agent %}
+                    <h1>Stop messing around and get back to work!</h1>
+                {% else %}
+                    <div class="row">
+                        <div class="col-lg-3">
+                            {% if user.profile.image %}
+                                <h2>Image:</h2>
+                                <img src="{{ user.profile.image }}" class="img-thumbnail">
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-9">
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ form }}
+                                <br>
+                                <input type="submit" value="Update Profile" class="btn btn-primary btn-lg">
+                            </form>
+                        </div>
+                        <div class="col-lg-3"></div>
+                    </div>
+                {% endif %}
+            {% else %}
+                <h1>Please login first.</h1>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

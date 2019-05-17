@@ -60,19 +60,15 @@
                             </div>
                             <div class="col-md-6 col-lg-4 text-left border-bottom border-top py-3">
                                 {% if is_agent %}
-                                    <a href="{% url "update_property" property.id %}"
+                                    <a href="{% url "update-property" property.id %}"
                                        class="btn btn-primary btn-lg btn-block">Edit Property</a>
                                 {% else %}
-                                    <span class="d-inline-block text-black mb-0 caption-text">&nbsp;</span>
-                                    <strong class="d-block">
-                                        {% if property.status == 'available' %}
-                                            <a href="{% url "purchase" property.id %}"
-                                               class="btn btn-primary btn-lg btn-block">Purchase</a>
-                                        {% else %}
-                                            <input type="button" class="btn btn-primary btn-lg btn-block"
-                                                   value="Sold" disabled/>
-                                        {% endif %}
-                                    </strong>
+                                    {% if property.status == 'available' %}
+                                        <a href="{% url "purchase" property.id %}"
+                                           class="btn btn-primary btn-lg btn-block">Purchase</a>
+                                    {% else %}
+                                        <a class="btn btn-primary btn-lg btn-block disabled">Sold</a>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                         </div>
@@ -87,9 +83,13 @@
                                 <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                                     <a href="{{ image.link }}" class="image-popup gal-item"><img src="{{ image.link }}"
                                                                                                  alt="{{ image.text }}"
-                                                                                                 class="img-fluid"></a>
+                                                                                                 class="img-fluid gallery-image"></a>
                                 </div>
                             {% endfor %}
+                            {% if is_agent %}
+                                <a href="{% url "add-images" property.id %}"
+                                   class="btn btn-primary btn-lg btn-block">Add & Remove Images</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -102,23 +102,21 @@
                         <div class="form-group">
                             <form method="post">
                                 {% csrf_token %}
-                                <ul class="list-group">
                                     <h4 class="form-header">Send me a message</h4>
-                                    <li class="list-group-item">
+                                    <div class="form-group">
                                         <label for="id_from_email">Email:</label>
                                         <input class="form-control" name="from_email" type="text" id="id_from_email"
                                                required>
-                                    </li>
-                                    <li class="list-group-item">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="id_subject">Subject:</label>
                                         <input class="form-control" name="subject" type="text" id="id_subject" required>
-                                    </li>
-                                    <li class="list-group-item">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="id_message">Message:</label>
                                         <textarea class="form-control" name="message" cols="40" rows="10"
                                                   id="id_message" required></textarea>
-                                    </li>
-                                </ul>
+                                    </div>
                                 <br>
                                 <input type="submit" id="send" class="btn btn-primary" value="Send Message">
                             </form>
