@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'agents.apps.AgentsConfig',
     'properties.apps.PropertiesConfig',
     'purchases.apps.PurchasesConfig',
-    'django.contrib.humanize'
+    'django.contrib.humanize',
+    'django_countries',
 ]
 
 MIDDLEWARE = [
@@ -79,9 +80,9 @@ WSGI_APPLICATION = 'CastleApartments.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'kdymjkex',
-        'USER': 'kdymjkex',
-        'PASSWORD': 'q60aXX2M1eZwrutNUQ4C36uQuK9Ugygc',
+        'NAME': 'rpxklvdn',
+        'USER': 'rpxklvdn',
+        'PASSWORD': '0SmQdXFKBXVCWeuzWNevjh930eFP35yS',
         'HOST': 'manny.db.elephantsql.com',
         'PORT': '5432'
     }

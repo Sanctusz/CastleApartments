@@ -25,160 +25,215 @@
 <div class="site-section site-section-sm" id="top">
     {% if user.is_authenticated and property.status == 'available' %}
         <div class="container">
-            <ul class="bc">
-                <a href="{% url "property-details" property.id %}">
-                    <li class="bc_item bc_complete">{{ property.address.streetName }} {{ property.address.houseNumber }}</li>
-                </a>
-                <a id="ci_a" href="#">
-                    <li class="bc_item bc_complete">Contact Details</li>
-                </a>
-                <a id="cc_a">
-                    <li class="bc_item" id="cc_li">Credit Card Details</li>
-                </a>
-                <a id="confirm_a" disabled>
-                    <li class="bc_item" id="confirm_li">Confirmation</li>
-                </a>
-            </ul>
-            <form method="post">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="col-lg-3"></div>
-                    <div class="col-lg-6">
-                        <div id="ci_step">
+            {% if is_agent %}
+                <h1>Stop messing around and get back to work!</h1>
+            {% else %}
+                <ul class="bc">
+                    <a href="{% url "property-details" property.id %}">
+                        <li class="bc_item bc_complete">{{ property.address.streetName }} {{ property.address.houseNumber }}</li>
+                    </a>
+                    <a id="ci_a" href="#">
+                        <li class="bc_item bc_complete">Contact Details</li>
+                    </a>
+                    <a id="cc_a">
+                        <li class="bc_item" id="cc_li">Credit Card Details</li>
+                    </a>
+                    <a id="confirm_a" disabled>
+                        <li class="bc_item" id="confirm_li">Confirmation</li>
+                    </a>
+                </ul>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-6">
+                            <div id="ci_step">
+                                <h1 class="form-header">Contact Information</h1>
+                                <ul class="list-group">
+                                    {% for field in profileForm %}
+                                        <li class="list-group-item">
+                                            <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                                            {{ field.as_widget }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                <br>
+                                <button class="btn btn-primary btn-block form-control-same-height rounded"
+                                        id="cc_next">Next
+                                    step
+                                </button>
+                                <br>
+                            </div>
+                            <div id="cc_step">
+                                <h1 class="form-header">Credit Card Information</h1>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <label for="id_ccName">Name on the Credit Card:</label>
+                                        <input type="text" name="ccName" required="" id="id_ccName" class="form-control"
+                                               placeholder="John Johnson">
+                                        <div class="bg-danger">
+                                            {{ creditCardForm.ccName.errors }}
+                                        </div>
+                                        {% if creditCardForm.ccName.help_text %}
+                                            <div class="text-warning">
+                                                <small>{{ creditCardForm.ccName.help_text|safe }}</small>
+                                            </div>
+                                        {% endif %}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <label for="id_ccNumber">Credit Card Number:</label>
+                                        <input type="text" name="ccNumber" required="" id="id_ccNumber"
+                                               class="form-control" pattern="[0-9]{16}" maxlength="16"
+                                               placeholder="0000111122223333">
+                                        <div class="bg-danger">
+                                            {{ creditCardForm.ccNumber.errors }}
+                                        </div>
+                                        {% if creditCardForm.ccNumber.help_text %}
+                                            <div class="text-warning">
+                                                <small>{{ creditCardForm.ccNumber.help_text|safe }}</small>
+                                            </div>
+                                        {% endif %}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <label for="id_CVC">CVC:</label>
+                                        <input type="text" name="CVC" required="" id="id_CVC" class="form-control"
+                                               pattern="[0-9]{3}" maxlength="3" placeholder="000">
+                                        <div class="bg-danger">
+                                            {{ creditCardForm.CVC.errors }}
+                                        </div>
+                                        {% if creditCardForm.CVC.help_text %}
+                                            <div class="text-warning">
+                                                <small>{{ creditCardForm.CVC.help_text|safe }}</small>
+                                            </div>
+                                        {% endif %}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <label for="id_expirationDate">Expiration Date:</label>
+                                        <input type="text" name="expirationDate" required="" id="id_expirationDate"
+                                               class="form-control" pattern="\d+/\d+" maxlength="5" placeholder="MM/YY">
+                                        <div class="bg-danger">
+                                            {{ creditCardForm.expirationDate.errors }}
+                                        </div>
+                                        {% if creditCardForm.expirationDate.help_text %}
+                                            <div class="text-warning">
+                                                <small>{{ creditCardForm.expirationDate.help_text|safe }}</small>
+                                            </div>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                                <br>
+                                <button class="btn btn-primary btn-block form-control-same-height rounded"
+                                        id="confirm_next">
+                                    Next Step
+                                </button>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="col-lg-3"></div>
+                    </div>
+                    <div class="row" id="confirm_step">
+                        <div class="col-lg-12">
+                            <h1 class="form-header">Review & Purchase Confirmation</h1>
+                            <div class="site-section site-section-sm">
+                                <div class="mb-5">
+                                    <div class="slide-one-item home-slider owl-carousel">
+                                        {% if property.propertiesimages_set.first.link %}
+                                            {% for image in property.propertiesimages_set.all %}
+                                                <div>
+                                                    <img src="{{ image.link }}" alt="{{ image.text }}"
+                                                         class="img-thumbnail property-images">
+                                                </div>
+                                            {% endfor %}
+                                        {% else %}
+                                            <div>
+                                                <img src="https://via.placeholder.com/800x450.png?text=No+Image+Found"
+                                                     alt="No Image Found"
+                                                     class="img-thumbnail">
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row mb-5">
+                                        <div class="col-md-6">
+                                            <strong class="text-success h1 mb-3">{{ property.price|intcomma }}
+                                                ISK</strong>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <ul class="property-specs-wrap mb-3 mb-lg-0  float-lg-right">
+                                                <li>
+                                                    <span class="property-specs">Rooms</span>
+                                                    <span class="property-specs-number">{{ property.rooms }}</span>
+                                                </li>
+                                                <li>
+                                                    <span class="property-specs">m<sup>2</sup></span>
+                                                    <span class="property-specs-number">{{ property.size }}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5">
+                                        <div class="col-md-6 col-lg-4 text-left border-bottom border-top py-3">
+                                            <span class="d-inline-block text-black mb-0 caption-text">Home Type</span>
+                                            <strong class="d-block">{{ property.type|upper }}</strong>
+                                        </div>
+                                        <div class="col-md-6 col-lg-4 text-left border-bottom border-top py-3">
+                                            <span class="d-inline-block text-black mb-0 caption-text">Year Built</span>
+                                            <strong class="d-block">{{ property.yearBuilt }}</strong>
+                                        </div>
+                                    </div>
+                                    <h2 class="h4 text-black">More Info</h2>
+                                    <p>{{ property.description }}</p>
+
+                                    <div class="row mt-5">
+                                        <div class="col-12">
+                                            <h2 class="h4 text-black mb-3">Property Gallery</h2>
+                                        </div>
+                                        {% for image in property.propertiesimages_set.all %}
+                                            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                                                <a href="{{ image.link }}" class="image-popup gal-item"><img
+                                                        src="{{ image.link }}"
+                                                        alt="{{ image.text }}"
+                                                        class="img-fluid gallery-image"></a>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
                             <h1 class="form-header">Contact Information</h1>
                             <ul class="list-group">
                                 {% for field in profileForm %}
                                     <li class="list-group-item">
                                         <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                                        {{ field.as_widget }}
+                                        {{ field.errors }}
+                                        <p class="text-warning" id="{{ field.name }}"></p>
                                     </li>
                                 {% endfor %}
                             </ul>
-                            <br>
-                            <button class="btn btn-primary btn-block form-control-same-height rounded"
-                                    id="cc_next">Next
-                                step
-                            </button>
-                            <br>
                         </div>
-                        <div id="cc_step">
+                        <div class="col-lg-12">
                             <h1 class="form-header">Credit Card Information</h1>
                             <ul class="list-group">
                                 {% for field in creditCardForm %}
                                     <li class="list-group-item">
                                         <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                                        {{ field.as_widget }}
+                                        <div class="bg-danger">
+                                            {{ field.errors }}
+                                        </div>
+                                        <p class="text-warning" id="{{ field.name }}"></p>
                                     </li>
                                 {% endfor %}
                             </ul>
-                            <br>
-                            <button class="btn btn-primary btn-block form-control-same-height rounded"
-                                    id="confirm_next">
-                                Next Step
-                            </button>
-                            <br>
                         </div>
+                        <br>
+                        <input type="submit" value="Confirm Purchase"
+                               class="btn btn-primary btn-block form-control-same-height rounded"/>
+                        <br>
                     </div>
-                    <div class="col-lg-3"></div>
-                </div>
-                <div class="row" id="confirm_step">
-                    <div class="col-lg-12">
-                        <h1 class="form-header">Review & Purchase Confirmation</h1>
-                        <div class="site-section site-section-sm">
-                            <div class="mb-5">
-                                <div class="slide-one-item home-slider owl-carousel">
-                                    {% if property.propertiesimages_set.first.link %}
-                                        {% for image in property.propertiesimages_set.all %}
-                                            <div>
-                                                <img src="{{ image.link }}" alt="{{ image.text }}"
-                                                     class="img-thumbnail property-images">
-                                            </div>
-                                        {% endfor %}
-                                    {% else %}
-                                        <div>
-                                            <img src="https://via.placeholder.com/800x450.png?text=No+Image+Found"
-                                                 alt="No Image Found"
-                                                 class="img-thumbnail">
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div>
-                                <div class="row mb-5">
-                                    <div class="col-md-6">
-                                        <strong class="text-success h1 mb-3">{{ property.price|intcomma }}
-                                            ISK</strong>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <ul class="property-specs-wrap mb-3 mb-lg-0  float-lg-right">
-                                            <li>
-                                                <span class="property-specs">Rooms</span>
-                                                <span class="property-specs-number">{{ property.rooms }}</span>
-                                            </li>
-                                            <li>
-                                                <span class="property-specs">m<sup>2</sup></span>
-                                                <span class="property-specs-number">{{ property.size }}</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="row mb-5">
-                                    <div class="col-md-6 col-lg-4 text-left border-bottom border-top py-3">
-                                        <span class="d-inline-block text-black mb-0 caption-text">Home Type</span>
-                                        <strong class="d-block">{{ property.type|upper }}</strong>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 text-left border-bottom border-top py-3">
-                                        <span class="d-inline-block text-black mb-0 caption-text">Year Built</span>
-                                        <strong class="d-block">{{ property.yearBuilt }}</strong>
-                                    </div>
-                                </div>
-                                <h2 class="h4 text-black">More Info</h2>
-                                <p>{{ property.description }}</p>
-
-                                <div class="row mt-5">
-                                    <div class="col-12">
-                                        <h2 class="h4 text-black mb-3">Property Gallery</h2>
-                                    </div>
-                                    {% for image in property.propertiesimages_set.all %}
-                                        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                                            <a href="{{ image.link }}" class="image-popup gal-item"><img
-                                                    src="{{ image.link }}"
-                                                    alt="{{ image.text }}"
-                                                    class="img-fluid gallery-image"></a>
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <h1 class="form-header">Contact Information</h1>
-                        <ul class="list-group">
-                            {% for field in profileForm %}
-                                <li class="list-group-item">
-                                    <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                                    <p class="text-warning" id="{{ field.name }}"></p>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <div class="col-lg-12">
-                        <h1 class="form-header">Credit Card Information</h1>
-                        <ul class="list-group">
-                            {% for field in creditCardForm %}
-                                <li class="list-group-item">
-                                    <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                                    <p class="text-warning" id="{{ field.name }}"></p>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <br>
-                    <input type="submit" value="Confirm Purchase"
-                           class="btn btn-primary btn-block form-control-same-height rounded"/>
-                    <br>
-                </div>
-            </form>
+                </form>
+            {% endif %}
         </div>
     {% else %}
         <h1>This property is unavailable.</h1>

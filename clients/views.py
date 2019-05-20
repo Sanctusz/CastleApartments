@@ -23,7 +23,6 @@ def register(request):
     else:
         form = RegisterForm()
         fname = fnameRegisterForm()
-
     return render(request, 'clients/register.html', {
         'form': form,
         'fname': fname
@@ -79,15 +78,11 @@ def add_to_recently_viewed(request, the_id):
         the_user = Profile.objects.filter(user=request.user).first()
         prop = get_object_or_404(Properties, pk=the_id)
         this_user_recent_list = RecentlyViewed.objects.filter(user=the_user)
-        print(len(this_user_recent_list))
         entry = this_user_recent_list.filter(property=prop)
         if len(entry) != 0:
-            print("the entry ", entry)
             the_entry = entry.first()
-            print("entry time, old:", the_entry.time)
             the_entry.time = datetime.now()
             the_entry.save()
-            print("the entry time now:", the_entry.time)
 
         else:
             if len(this_user_recent_list) >= 10:
@@ -99,7 +94,6 @@ def add_to_recently_viewed(request, the_id):
             recently_viewed.property = prop
             if form.is_valid():
                 recently_viewed.save()
-                print(recently_viewed)
 
             """if len(this_user_recent_list) == 10:
                 oldest = this_user_recent_list[0]
